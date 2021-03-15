@@ -18,12 +18,11 @@ defmodule Tasker.Router do
     send_resp(conn, 200, Poison.encode!(result))
   end
 
-  get "/api/task" do
-    # {:ok, body, conn} = read_body(conn)
-    # body = Poison.decode!(body)
-    # {result, _} = Task.insert_changeset(body)
-    result = "Not implemented"
-    send_resp(conn, 200, Poison.encode!(result))
+  get "/api/tasks" do
+    {_, data} = Task.select_all_tasks()
+    conn
+    |> put_resp_header("content-type", "application/json; charset=utf-8")
+	  |> send_resp(200, Poison.encode!(data))
   end
 
   match _ do
