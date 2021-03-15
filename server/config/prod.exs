@@ -3,4 +3,6 @@ use Mix.Config
 config :tasker,
   port: 80
 
-config :logger, :console, level: :error
+config :logger, :console,
+  format: ">>  UTC $time [$level] $levelpad$message\n",
+  level: :error

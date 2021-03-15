@@ -25,7 +25,7 @@ defmodule Tasker.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.5"},
       {:poison, "~> 4.0"},
-      {:ecto_sql, "~> 3.2"},
+      {:ecto_sql, "~> 3.5.4"},
       {:postgrex, "~> 0.15"}
     ]
   end

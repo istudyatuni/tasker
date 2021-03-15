@@ -9,8 +9,8 @@ defmodule Tasker.Router do
   plug(:match)
   plug(:dispatch)
 
-  get "api/:name" do
-  	send_resp(conn, 200, name)
+  get "/api/:name" do
+    send_resp(conn, 200, name)
   end
 
   match _ do
