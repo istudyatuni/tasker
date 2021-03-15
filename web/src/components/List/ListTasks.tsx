@@ -1,45 +1,23 @@
-import React, { useState } from 'react';
+import React, {
+	useEffect,	useState
+} from 'react';
 import {
 	Button,
 	Dimmer,
 	Divider,
 	Header,
 	Icon,
-	Label,
 	List,
 	Message,
-	SemanticCOLORS,
 } from 'semantic-ui-react'
 
 import NotImplemented from 'components/Helpers/NotImplemented'
+import { GetTasks } from 'api/TaskApi'
+
+import ITasksList from 'interfaces/ITasksList'
+import { ITask, ITaskInfo } from 'interfaces/ITask'
 
 import './List.css'
-
-const test_data = [
-	{
-		'name': 'Lab 1',
-		'description': 'Networks',
-		'color': 'red'
-	},
-	{
-		'name': 'Lab 3',
-		'description': 'Visual',
-		'color': 'green'
-	}
-]
-
-interface ITask {
-	name: string;
-	description: string;
-	color: SemanticCOLORS;
-	info: ITaskInfo;
-}
-
-interface ITaskInfo {
-	full_name: string;
-	subject: string;
-	list_items: string[];
-}
 
 type TaskProps = {
 	info: ITaskInfo;
@@ -66,49 +44,78 @@ const Task: React.FC<TaskProps> = ({ info }) => {
 			<Header>{info['full_name']}</Header>
 			<Header sub>{info['subject']}</Header>
 			<List>
-				{info.list_items.map((element, index)=>
+				{info.list_items!==null?
+					info.list_items.map((element, index)=>
 					<List.Item key={index.toString()}>
 						<List.Icon name="arrow right" />
 						<List.Content>{element}</List.Content>
 					</List.Item>
-				)}
+				) : <div></div>}
 			</List>
 			<Divider hidden />
 		</>
 	);
 }
 
+const DefaultTasks: ITask[] = [
+	{
+		name: 'No tasks',
+		description: '',
+		finished: false,
+		info: {
+			full_name: '',
+			subject: '',
+			list_items: [''],
+		}
+	}
+]
+
 const ListTasks: React.FC = () => {
-	const [open, setOpen] = useState(Array(test_data.length).fill(false))
+	const [tasks, setTasks] = useState<ITask[]>(DefaultTasks)
+	const [isNoTasks, setNoTasks] = useState(true)
+	const [open, setOpen] = useState(Array(tasks.length).fill(false))
 	function toggleElement(index: number) {
+		if(isNoTasks) return
+
 		let copy = [...open]
 		copy[index] = !open[index]
 		setOpen([...copy])
 	}
+
+	useEffect(()=>{
+		let new_tasks:ITask[]
+		(async()=>{
+			new_tasks = await GetTasks()
+			setTasks(tasks => new_tasks)
+			setNoTasks(false)
+			setOpen(Array(new_tasks.length).fill(false))
+		})();
+	}, [])
 
 	const [dimmerOpen, setDimmer] = useState(false)
 	function toggleAddDimmer() {setDimmer(!dimmerOpen)}
 
 	return (
 		<>
-			{test_data.map((element, index) =>
+			{tasks.length ?
+			tasks.map((element, index) =>
 				<List.Item key={index.toString()}>
 					<Message
-						color={element.color as SemanticCOLORS}
-						onClick={()=>{toggleElement(index)}}
+						color={element.finished === true?'green':'red'}
 						className='cursor-pointer'
+						onClick={()=>{toggleElement(index)}}
 					>
 						<Message.Header>{element.name}</Message.Header>
 						<p>{element.description}</p>
 					</Message>
 					{open[index] && (<Task info={element.info}/>)}
 				</List.Item>
-			)}
+			) : <p>No items</p>}
 			<List.Item as="a" key="add">
 				<Message info>
 					<Message.Header onClick={toggleAddDimmer}>
 						<Icon name="add" />
-						Add element
+						Add task
 					</Message.Header>
 				</Message>
 				<Dimmer active={dimmerOpen} onClickOutside={toggleAddDimmer} page>
