@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  description: Docs for tasker server API
+  version: 1.0.0
+  title: Tasker
+servers:
+  - url: 'http://localhost:4000/api'
+    description: Local dev server
+tags:
+  - name: task
+    description: Methods for work with tasks in db
+paths:
+  /add_task:
+    post:
+      tags:
+        - task
+      parameters:
+        - in: body
+          name: Task data
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              full_name:
+                type: string
+              subject:
+                type: string
+              description:
+                type: string
+              finished:
+                type: boolean
+              list:
+                type: array
+                items:
+                  - name: string
+      responses:
+        '200':
+          description: Login successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Успешно авторизован
+                  status:
+                    type: boolean
+                    example: true
