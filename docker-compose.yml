@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: postgis/postgis
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    ports:
+    - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - 8080:8080
+    links:
+    - db
+
+volumes:
+  pgdata:
+    external: true
