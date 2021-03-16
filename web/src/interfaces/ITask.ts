@@ -8,5 +8,5 @@ export interface ITask {
 export interface ITaskInfo {
 	full_name: string;
 	subject: string;
-	list_items: string[];
+	other_text: string;
 }

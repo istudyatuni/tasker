@@ -11,7 +11,7 @@ export const SendTask = async (task: ITask):Promise<IResponse> => {
       subject: task.info.subject,
       description: task.description,
       finished: task.finished,
-      list: task.info.list_items
+      other_text: task.info.other_text
     })
 	})
   let resp = await response.json() as IResponse

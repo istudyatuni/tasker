@@ -4,5 +4,5 @@ export default interface ITasksList {
 	subject: string;
 	description: string;
 	finished: boolean;
-	list: string[];
+	other_text: string;
 }

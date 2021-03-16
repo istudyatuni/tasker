@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import {
 	Button,
+	Container,
 	Dimmer,
 	Divider,
 	Header,
@@ -46,15 +47,12 @@ const Task: React.FC<TaskProps> = ({ info }) => {
 			</Dimmer>
 			<Header>{info['full_name']}</Header>
 			<Header sub>{info['subject']}</Header>
-			<List>
-				{info.list_items!==null?
-					info.list_items.map((element, index)=>
-					<List.Item key={index.toString()}>
-						<List.Icon name="arrow right" />
-						<List.Content>{element}</List.Content>
-					</List.Item>
-				) : <div></div>}
-			</List>
+			<Divider />
+			<Container>
+				{info.other_text.split(/\n/).map((e)=>
+					<div>{e}</div>
+				)}
+			</Container>
 			<Divider hidden />
 		</>
 	);
@@ -68,7 +66,7 @@ const DefaultTasks: ITask[] = [
 		info: {
 			full_name: '',
 			subject: '',
-			list_items: [''],
+			other_text: '',
 		}
 	}
 ]

@@ -15,8 +15,13 @@ defmodule Tasker.Router do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
     {result, _result_data} = Task.insert_changeset(body)
+
     if result == :error do
-      send_resp(conn, 400, Poison.encode!(%{"status" => false, "message" => "Name cant't be blank"}))
+      send_resp(
+        conn,
+        400,
+        Poison.encode!(%{"status" => false, "message" => "Name cant't be blank"})
+      )
     else
       send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
     end
@@ -24,9 +29,10 @@ defmodule Tasker.Router do
 
   get "/api/tasks" do
     {_, data} = Task.select_all_tasks()
+
     conn
     |> put_resp_header("content-type", "application/json; charset=utf-8")
-	  |> send_resp(200, Poison.encode!(data))
+    |> send_resp(200, Poison.encode!(data))
   end
 
   get "/api/export" do
@@ -45,8 +51,13 @@ defmodule Tasker.Router do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
     {result, result_data} = Task.insert_many_tasks(body)
+
     if result == :error do
-      send_resp(conn, 400, Poison.encode!(%{"status" => false, "message" => to_string(result_data)}))
+      send_resp(
+        conn,
+        400,
+        Poison.encode!(%{"status" => false, "message" => to_string(result_data)})
+      )
     else
       send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
     end

@@ -10,7 +10,7 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 			info: {
 				full_name: '',
 				subject: '',
-				list_items: [''],
+				other_text: '',
 			}
 		}
 	]
@@ -23,7 +23,7 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 			info: {
 				full_name: e.full_name,
 				subject: e.subject,
-				list_items: e.list,
+				other_text: e.other_text,
 			}
 		}
 	})

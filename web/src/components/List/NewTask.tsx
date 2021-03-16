@@ -6,6 +6,7 @@ import {
 	Icon,
 	Message,
 	Modal,
+	TextArea,
 } from 'semantic-ui-react'
 
 import { SendTask } from 'api/NewTaskApi'
@@ -23,6 +24,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	const [subject, setSubject] = useState('')
 	const [description, setDescription] = useState('')
 	const [finished, setFinished] = useState(false)
+	const [text, setText] = useState('')
 
 	const [submitButton, setSubmitButton] = useState('Submit')
 
@@ -34,7 +36,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 			info: {
 				full_name: full_name,
 				subject: subject,
-				list_items: [],
+				other_text: text,
 			},
 		}
 		let result:IResponse = await SendTask(task_data)
@@ -71,13 +73,21 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 					/>
 				</Form.Field>
 			</Form.Group>
-				<Form.Field>
-					<label>Description</label>
-					<Form.Input
-						placeholder='Лабораторное занятие 01.01.1970'
-						onChange={(event: any, data: any)=>{setDescription(data.value)}}
-					/>
-				</Form.Field>
+			<Form.Field>
+				<label>Description</label>
+				<Form.Input
+					placeholder='Лабораторное занятие 01.01.1970'
+					onChange={(event: any, data: any)=>{setDescription(data.value)}}
+				/>
+			</Form.Field>
+			<Form.Field>
+				<label>Text</label>
+				<TextArea
+					rows={3}
+					placeholder="Например, список названий лекций"
+					onChange={(event: any, data: any)=>{setText(data.value)}}
+				/>
+			</Form.Field>
 			<Form.Field>
 				<Checkbox
 					label='Finished'
