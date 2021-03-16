@@ -15,6 +15,7 @@ import NotImplemented from 'components/Helpers/NotImplemented'
 import NewTask from 'components/List/NewTask'
 
 import { GetTasks } from 'api/TaskApi'
+import { ExportTasks } from 'api/ExportApi'
 
 import { ITask, ITaskInfo } from 'interfaces/ITask'
 
@@ -113,6 +114,7 @@ const ListTasks: React.FC = () => {
 			<List.Item as="a" key="add">
 				<NewTask />
 			</List.Item>
+			<Button content='Export tasks' onClick={ExportTasks} />
 			<Divider hidden />
 		</>
 	);
