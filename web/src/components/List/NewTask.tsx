@@ -11,6 +11,7 @@ import {
 import { SendTask } from 'api/NewTaskApi'
 
 import { ITask } from 'interfaces/ITask'
+import IResponse from 'interfaces/IResponse'
 
 type FormTaskProps = {
 	handleResponse: (arg0: boolean)=>void
@@ -36,13 +37,12 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 				list_items: [],
 			},
 		}
-		let result:boolean = await SendTask(task_data)
-		if(result) {
-			setSubmitButton('Adding')
-			setTimeout(function(){handleResponse(result)}, 1000)
+		let result:IResponse = await SendTask(task_data)
+		setSubmitButton(result.message)
+		if(result.status) {
+			setTimeout(function(){handleResponse(result.status)}, 1000)
 		} else {
-			setSubmitButton('Something wrong')
-			setTimeout(function(){setSubmitButton('Submit')}, 1000)
+			setTimeout(function(){setSubmitButton('Submit')}, 5 * 1000)
 		}
 	}
 

@@ -1,6 +1,7 @@
 import { ITask } from 'interfaces/ITask'
+import IResponse from 'interfaces/IResponse'
 
-export const SendTask = async (task: ITask):Promise<boolean> => {
+export const SendTask = async (task: ITask):Promise<IResponse> => {
 	const response = await fetch('/api/task', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -13,10 +14,10 @@ export const SendTask = async (task: ITask):Promise<boolean> => {
       list: task.info.list_items
     })
 	})
+  let resp = await response.json() as IResponse
 	if(response.ok) {
-		return true
+		return resp
 	} else {
-		console.error(response)
-		return false
+		return resp
 	}
 }
