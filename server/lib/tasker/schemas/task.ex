@@ -49,4 +49,8 @@ defmodule Tasker.Task do
   	result = Enum.map(tasks, fn x -> extract_task(x) end)
   	{:ok, result}
   end
+
+  def insert_many_tasks(data) do
+    IO.inspect(data)
+  end
 end

@@ -41,6 +41,17 @@ defmodule Tasker.Router do
     |> put_resp_header("content-type", "application/json; charset=utf-8")
     |> send_file(200, export_path)
   end
+
+  post "/api/import" do
+    {:ok, body, conn} = read_body(conn)
+    body = Poison.decode!(body)
+    Task.insert_many_tasks(body)
+  end
+
+  post "/api/finished" do
+    #
+  end
+
   match _ do
     send_resp(conn, 404, "not found")
   end
