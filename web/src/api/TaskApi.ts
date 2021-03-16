@@ -1,5 +1,5 @@
 import ITasksList from 'interfaces/ITasksList'
-import { ITask, ITaskInfo } from 'interfaces/ITask'
+import { ITask } from 'interfaces/ITask'
 
 function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	if(tasks===undefined) {

@@ -12,9 +12,10 @@ import {
 } from 'semantic-ui-react'
 
 import NotImplemented from 'components/Helpers/NotImplemented'
+import NewTask from 'components/List/NewTask'
+
 import { GetTasks } from 'api/TaskApi'
 
-import ITasksList from 'interfaces/ITasksList'
 import { ITask, ITaskInfo } from 'interfaces/ITask'
 
 import './List.css'
@@ -74,6 +75,7 @@ const ListTasks: React.FC = () => {
 	const [tasks, setTasks] = useState<ITask[]>(DefaultTasks)
 	const [isNoTasks, setNoTasks] = useState(true)
 	const [open, setOpen] = useState(Array(tasks.length).fill(false))
+
 	function toggleElement(index: number) {
 		if(isNoTasks) return
 
@@ -92,9 +94,6 @@ const ListTasks: React.FC = () => {
 		})();
 	}, [])
 
-	const [dimmerOpen, setDimmer] = useState(false)
-	function toggleAddDimmer() {setDimmer(!dimmerOpen)}
-
 	return (
 		<>
 			{tasks.length ?
@@ -112,15 +111,7 @@ const ListTasks: React.FC = () => {
 				</List.Item>
 			) : <p>No items</p>}
 			<List.Item as="a" key="add">
-				<Message info>
-					<Message.Header onClick={toggleAddDimmer}>
-						<Icon name="add" />
-						Add task
-					</Message.Header>
-				</Message>
-				<Dimmer active={dimmerOpen} onClickOutside={toggleAddDimmer} page>
-					<NotImplemented />
-				</Dimmer>
+				<NewTask />
 			</List.Item>
 		</>
 	);
