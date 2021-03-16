@@ -1,12 +1,11 @@
-import ITasksList from 'interfaces/ITasksList'
-
 export const ImportTasks = async(data: string) => {
-	// fetch('/api/export').then((response) => {
- //    return response.blob().then((b) => {
- //      const a = document.createElement("a");
- //      a.setAttribute("download", 'export.json');
- //      a.href = URL.createObjectURL(b);
- //      a.click();
- //    });
- //  });
+	let response = await fetch('/api/import', {
+		method: 'POST',
+		body: data
+	})
+	if(response.ok) {
+		console.log('sending file')
+	} else {
+		console.log(response)
+	}
 }

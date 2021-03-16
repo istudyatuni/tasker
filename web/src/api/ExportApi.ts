@@ -1,5 +1,3 @@
-import ITasksList from 'interfaces/ITasksList'
-
 export const ExportTasks = async() => {
 	fetch('/api/export').then((response) => {
     return response.blob().then((b) => {

@@ -13,6 +13,7 @@ import {
 
 import NotImplemented from 'components/Helpers/NotImplemented'
 import NewTask from 'components/List/NewTask'
+import ImportFile from 'components/List/ImportFile'
 
 import { GetTasks } from 'api/TaskApi'
 import { ExportTasks } from 'api/ExportApi'
@@ -61,7 +62,7 @@ const Task: React.FC<TaskProps> = ({ info }) => {
 
 const DefaultTasks: ITask[] = [
 	{
-		name: 'No tasks',
+		name: '',
 		description: '',
 		finished: false,
 		info: {
@@ -115,6 +116,7 @@ const ListTasks: React.FC = () => {
 				<NewTask />
 			</List.Item>
 			<Button content='Export tasks' onClick={ExportTasks} />
+			<ImportFile />
 			<Divider hidden />
 		</>
 	);
