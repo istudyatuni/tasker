@@ -32,7 +32,7 @@ function ImportFile() {
 		if(input_files && input_files.files) {
 			file = input_files.files[0]
 			let reader = new FileReader()
-			reader.readAsBinaryString(file)
+			reader.readAsText(file, 'UTF-8')
 
 			reader.onloadend = () => {
 				if(reader.result) {
