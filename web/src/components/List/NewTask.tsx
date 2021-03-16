@@ -12,14 +12,20 @@ import { SendTask } from 'api/NewTaskApi'
 
 import { ITask } from 'interfaces/ITask'
 
-const FormTask: React.FC = () => {
+type FormTaskProps = {
+	handleResponse: (arg0: boolean)=>void
+}
+
+const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	const [name, setName] = useState('')
 	const [full_name, setFullName] = useState('')
 	const [subject, setSubject] = useState('')
 	const [description, setDescription] = useState('')
 	const [finished, setFinished] = useState(false)
 
-	function createTask() {
+	const [submitButton, setSubmitButton] = useState('Submit')
+
+	async function createTask() {
 		let task_data: ITask = {
 			name: name,
 			description: description,
@@ -30,7 +36,14 @@ const FormTask: React.FC = () => {
 				list_items: [],
 			},
 		}
-		SendTask(task_data)
+		let result:boolean = await SendTask(task_data)
+		if(result) {
+			setSubmitButton('Adding')
+			setTimeout(function(){handleResponse(result)}, 1000)
+		} else {
+			setSubmitButton('Something wrong')
+			setTimeout(function(){setSubmitButton('Submit')}, 1000)
+		}
 	}
 
 	return (
@@ -71,13 +84,19 @@ const FormTask: React.FC = () => {
 					onChange={(event: any, data: any)=>{setFinished(data.checked)}}
 				/>
 			</Form.Field>
-			<Button type='submit' floated='right' color='green'>Submit</Button>
+			<Button type='submit' floated='right' color='green'>{submitButton}</Button>
 		</Form>
 	);
 }
 
 const NewTask: React.FC = () => {
 	const [open, setOpen] = useState(false)
+
+	function handleResponse(status: boolean) {
+		if(status) {
+			setOpen(false)
+		}
+	}
 
 	return (
 		<Modal
@@ -95,7 +114,7 @@ const NewTask: React.FC = () => {
 		>
 			<Modal.Header>Create a task</Modal.Header>
 			<Modal.Content scrolling>
-				<FormTask />
+				<FormTask handleResponse={handleResponse} />
 			</Modal.Content>
 		</Modal>
 	);

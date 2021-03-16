@@ -113,6 +113,7 @@ const ListTasks: React.FC = () => {
 			<List.Item as="a" key="add">
 				<NewTask />
 			</List.Item>
+			<Divider hidden />
 		</>
 	);
 }

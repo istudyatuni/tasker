@@ -1,6 +1,6 @@
 import { ITask } from 'interfaces/ITask'
 
-export const SendTask = async (task: ITask) => {
+export const SendTask = async (task: ITask):Promise<boolean> => {
 	const response = await fetch('/api/task', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -14,8 +14,9 @@ export const SendTask = async (task: ITask) => {
     })
 	})
 	if(response.ok) {
-		console.log('ok')
+		return true
 	} else {
-		console.log('failed to create')
+		console.error(response)
+		return false
 	}
 }
