@@ -14,8 +14,7 @@ defmodule Tasker.Router do
   post "/api/task" do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
-    {result, result_data} = Task.insert_changeset(body)
-    IO.inspect(result_data)
+    {result, _result_data} = Task.insert_changeset(body)
     if result == :error do
       send_resp(conn, 400, Poison.encode!(%{"status" => false, "message" => "Name cant't be blank"}))
     else
@@ -45,11 +44,16 @@ defmodule Tasker.Router do
   post "/api/import" do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
-    Task.insert_many_tasks(body)
+    {result, result_data} = Task.insert_many_tasks(body)
+    if result == :error do
+      send_resp(conn, 400, Poison.encode!(%{"status" => false, "message" => to_string(result_data)}))
+    else
+      send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
+    end
   end
 
   post "/api/finished" do
-    #
+    send_resp(conn, 501, "not implemented")
   end
 
   match _ do

@@ -51,6 +51,7 @@ defmodule Tasker.Task do
   end
 
   def insert_many_tasks(data) do
-    IO.inspect(data)
+    result = Enum.map(data, fn x -> insert_changeset(x) end)
+    {:ok, result}
   end
 end
