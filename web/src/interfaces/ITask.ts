@@ -11,3 +11,15 @@ export interface ITaskInfo {
 	subject: string;
 	other_text: string;
 }
+
+export const DefaultITask = {
+	task_id: null,
+	name: '',
+	description: '',
+	finished: false,
+	info: {
+		full_name: '',
+		subject: '',
+		other_text: '',
+	},
+}

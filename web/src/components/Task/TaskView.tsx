@@ -4,27 +4,33 @@ import React, {
 import {
 	Button,
 	Container,
-	Dimmer,
 	Divider,
 	Header,
 	Icon,
+	Modal,
 } from 'semantic-ui-react'
 
 import { FinishTask } from 'api/FinishTaskApi'
+import { UpdateTask } from 'api/UpdateApi'
 
-import NotImplemented from 'components/Helpers/NotImplemented'
+import FormTask from './FormTask'
 
-import { ITaskInfo } from 'interfaces/ITask'
+import { ITask } from 'interfaces/ITask'
 
 type TaskViewProps = {
 	id: string|null;
 	finished: boolean;
-	info: ITaskInfo;
+	element: ITask;
 }
 
-const TaskView: React.FC<TaskViewProps> = ({ id, finished, info }) => {
-	const [dimmerOpen, setDimmer] = useState(false)
-	function toggleDimmer() {setDimmer(!dimmerOpen)}
+const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
+	const [open, setOpen] = useState(false)
+
+	async function handleResponse(status: boolean) {
+		if(status) {
+			setOpen(false)
+		}
+	}
 
 	const finishText = (stat: boolean): string =>
 		stat ? 'Mark unfinished' : 'Finish'
@@ -38,20 +44,28 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, info }) => {
 
 	return (
 		<>
-			<Button
-				icon
-				floated='right'
-				labelPosition='right'
-				onClick={toggleDimmer}
+			<Modal
+				onClose={() => setOpen(false)}
+				onOpen={() => setOpen(true)}
+				open={open}
+				trigger={
+					<Button
+						icon
+						floated='right'
+						labelPosition='right'
+					>
+						Edit
+						<Icon name='pencil' />
+					</Button>
+				}
 			>
-				Edit
-				<Icon name='pencil' />
-			</Button>
-			<Dimmer active={dimmerOpen} onClickOutside={toggleDimmer} page>
-				<NotImplemented />
-			</Dimmer>
-			<Header>{info['full_name']}</Header>
-			<Header sub>{info['subject']}</Header>
+				<Modal.Header>Update a task</Modal.Header>
+				<Modal.Content scrolling>
+					<FormTask handleResponse={handleResponse} apiFunction={UpdateTask} element={element} />
+				</Modal.Content>
+			</Modal>
+			<Header>{element.info.full_name}</Header>
+			<Header sub>{element.info.subject}</Header>
 			<Divider />
 			<Container>
 				<Button
@@ -60,7 +74,7 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, info }) => {
 					content={finishButton}
 					onClick={toggleFinishButton}
 				/>
-				{info.other_text.split(/\n/).map((e)=>
+				{element.info.other_text.split(/\n/).map((e)=>
 					<p style={{marginBottom: '0.4em'}}>{e}</p>
 				)}
 			</Container>

@@ -5,7 +5,11 @@ import {
 	Modal,
 } from 'semantic-ui-react'
 
+import { SendNewTask } from 'api/NewTaskApi'
+
 import FormTask from './FormTask'
+
+import { DefaultITask } from 'interfaces/ITask'
 
 const NewTask: React.FC = () => {
 	const [open, setOpen] = useState(false)
@@ -32,7 +36,7 @@ const NewTask: React.FC = () => {
 		>
 			<Modal.Header>Create a task</Modal.Header>
 			<Modal.Content scrolling>
-				<FormTask handleResponse={handleResponse} />
+				<FormTask handleResponse={handleResponse} apiFunction={SendNewTask} element={DefaultITask} />
 			</Modal.Content>
 		</Modal>
 	);

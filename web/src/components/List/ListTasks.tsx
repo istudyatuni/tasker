@@ -2,7 +2,6 @@ import React, {
 	useEffect,	useState
 } from 'react';
 import {
-	Button,
 	Checkbox,
 	Divider,
 	List,
@@ -73,7 +72,7 @@ const ListTasks: React.FC = () => {
 						<Message.Header>{element.name}</Message.Header>
 						<p>{element.description}</p>
 					</Message>
-					{open[index] && (<TaskView id={element.task_id} finished={element.finished} info={element.info}/>)}
+					{open[index] && (<TaskView id={element.task_id} finished={element.finished} element={element}/>)}
 				</List.Item>
 			) : <p>No tasks</p>}
 		</>

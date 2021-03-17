@@ -9,22 +9,23 @@ import {
 	TextArea,
 } from 'semantic-ui-react'
 
-import { SendTask } from 'api/NewTaskApi'
-
 import { ITask } from 'interfaces/ITask'
 import IResponse from 'interfaces/IResponse'
 
-type FormTaskProps = {
-	handleResponse: (arg0: boolean)=>void
+interface FormTaskProps {
+	handleResponse: (arg0: boolean)=>void;
+	// TYPE OF THIS FIELD IS IMPORTANT
+	apiFunction: (arg0: ITask)=>Promise<IResponse>;
+	element: ITask;
 }
 
-const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
-	const [name, setName] = useState('')
-	const [full_name, setFullName] = useState('')
-	const [subject, setSubject] = useState('')
-	const [description, setDescription] = useState('')
-	const [finished, setFinished] = useState(false)
-	const [text, setText] = useState('')
+const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, element }) => {
+	const [name, setName] = useState(element.name)
+	const [full_name, setFullName] = useState(element.info.full_name)
+	const [subject, setSubject] = useState(element.info.subject)
+	const [description, setDescription] = useState(element.description)
+	const [finished, setFinished] = useState(element.finished)
+	const [text, setText] = useState(element.info.other_text)
 
 	useEffect(()=>{
 		setMessageHidden(messageHidden => true)
@@ -37,7 +38,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 
 	async function handleSubmit() {
 		let task_data: ITask = {
-			task_id: null,
+			task_id: element.task_id,
 			name: name,
 			description: description,
 			finished: finished,
@@ -47,7 +48,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 				other_text: text,
 			},
 		}
-		let result:IResponse = await SendTask(task_data)
+		let result:IResponse = await apiFunction(task_data)
 		setMessageText(result.message)
 		setMessageHidden(false)
 		setMessageColor(result.status?'green':'red')
@@ -59,10 +60,11 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<Form.Group widths='equal'>
-				<Form.Field>
+				<Form.Field required>
 					<label>Name</label>
 					<Form.Input
 						placeholder='JS ans CSS'
+						defaultValue={element.name}
 						onChange={(event: any, data: any)=>{setName(data.value)}}
 					/>
 				</Form.Field>
@@ -70,6 +72,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 					<label>Full Name</label>
 					<Form.Input
 						placeholder='Самостоятельная работа'
+						defaultValue={element.info.full_name}
 						onChange={(event: any, data: any)=>{setFullName(data.value)}}
 					/>
 				</Form.Field>
@@ -77,6 +80,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 					<label>Subject</label>
 					<Form.Input
 						placeholder='Информационные сети'
+						defaultValue={element.info.subject}
 						onChange={(event: any, data: any)=>{setSubject(data.value)}}
 					/>
 				</Form.Field>
@@ -85,6 +89,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 				<label>Description</label>
 				<Form.Input
 					placeholder='Лабораторное занятие 01.01.1970'
+					defaultValue={element.description}
 					onChange={(event: any, data: any)=>{setDescription(data.value)}}
 				/>
 			</Form.Field>
@@ -93,12 +98,14 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 				<TextArea
 					rows={3}
 					placeholder="Например, список названий лекций"
+					defaultValue={element.info.other_text}
 					onChange={(event: any, data: any)=>{setText(data.value)}}
 				/>
 			</Form.Field>
 			<Form.Field>
 				<Checkbox
 					label='Finished'
+					checked={element.finished}
 					onChange={(event: any, data: any)=>{setFinished(data.checked)}}
 				/>
 			</Form.Field>
