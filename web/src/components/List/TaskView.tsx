@@ -18,15 +18,21 @@ import { ITaskInfo } from 'interfaces/ITask'
 
 type TaskViewProps = {
 	id: string|null;
+	finished: boolean;
 	info: ITaskInfo;
 }
 
-const TaskView: React.FC<TaskViewProps> = ({ id, info }) => {
+const TaskView: React.FC<TaskViewProps> = ({ id, finished, info }) => {
 	const [dimmerOpen, setDimmer] = useState(false)
 	function toggleDimmer() {setDimmer(!dimmerOpen)}
 
-	function markFinished() {
-		FinishTask(id as string)
+	const finishText = (stat: boolean): string =>
+		stat ? 'Mark unfinished' : 'Finish'
+	const [finishButton, setFinishButton] = useState(finishText(finished))
+
+	async function toggleFinishButton() {
+		FinishTask(id as string, !finished)
+		setTimeout(function(){window.location.reload()}, 200)
 	}
 
 	return (
@@ -48,9 +54,10 @@ const TaskView: React.FC<TaskViewProps> = ({ id, info }) => {
 			<Divider />
 			<Container>
 				<Button
+					color='teal'
 					floated='right'
-					content='Mark finished'
-					onClick={markFinished}
+					content={finishButton}
+					onClick={toggleFinishButton}
 				/>
 				{info.other_text.split(/\n/).map((e)=>
 					<p style={{marginBottom: '0.4em'}}>{e}</p>

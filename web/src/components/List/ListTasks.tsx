@@ -72,7 +72,7 @@ const ListTasks: React.FC = () => {
 						<Message.Header>{element.name}</Message.Header>
 						<p>{element.description}</p>
 					</Message>
-					{open[index] && (<TaskView id={element.task_id} info={element.info}/>)}
+					{open[index] && (<TaskView id={element.task_id} finished={element.finished} info={element.info}/>)}
 				</List.Item>
 			) : <p>No tasks</p>}
 			<List.Item as="a" key="add">

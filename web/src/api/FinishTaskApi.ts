@@ -1,8 +1,9 @@
-export const FinishTask = async(id: string) => {
+export const FinishTask = async(id: string, status: boolean) => {
 	let response = await fetch('/api/finish', {
 		method: 'PATCH',
 		body: JSON.stringify({
-			task_id: id
+			task_id: id,
+			status: status
 		})
 	})
 }
