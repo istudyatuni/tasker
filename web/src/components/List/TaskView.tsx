@@ -41,7 +41,7 @@ const TaskView: React.FC<TaskViewProps> = ({ info }) => {
 			<Divider />
 			<Container>
 				{info.other_text.split(/\n/).map((e)=>
-					<div>{e}</div>
+					<p style={{marginBottom: '0.4em'}}>{e}</p>
 				)}
 			</Container>
 			<Divider hidden />
