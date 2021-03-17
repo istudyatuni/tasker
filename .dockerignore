@@ -1,0 +1,14 @@
+**/node_modules/
+.git
+.gitignore
+
+**/_build/
+**/deps/
+**/doc/
+task/
+doc/
+
+*.md
+openapi.yaml
+*.sublime-*
+re_migrate.sh

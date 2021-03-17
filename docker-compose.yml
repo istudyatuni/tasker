@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: postgis/postgis
+    restart: always
     environment:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
@@ -17,6 +18,20 @@ services:
     - 8080:8080
     links:
     - db
+
+  # server:
+  #   image: tasker:latest
+  #   build:
+  #     context: .
+  #   depends_on:
+  #     - db
+  #   links:
+  #   - db
+    # environment:
+    # - PGHOST: db
+    # - PGDATABASE: postgres
+    # - PGUSER: postgres
+    # - PGPASSWORD: postgres
 
 volumes:
   pgdata:
