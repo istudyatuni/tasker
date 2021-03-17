@@ -1,4 +1,5 @@
 export default interface ITasksList {
+	task_id: string|null;
 	name: string;
 	full_name: string;
 	subject: string;

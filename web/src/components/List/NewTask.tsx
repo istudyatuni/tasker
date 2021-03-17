@@ -10,7 +10,7 @@ import FormTask from 'components/List/FormTask'
 const NewTask: React.FC = () => {
 	const [open, setOpen] = useState(false)
 
-	function handleResponse(status: boolean) {
+	async function handleResponse(status: boolean) {
 		if(status) {
 			setOpen(false)
 		}

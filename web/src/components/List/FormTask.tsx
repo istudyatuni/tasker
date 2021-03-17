@@ -35,7 +35,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	const [messageHidden, setMessageHidden] = useState(true)
 	const [messageText, setMessageText] = useState('')
 
-	async function createTask() {
+	async function handleSubmit() {
 		let task_data: ITask = {
 			task_id: null,
 			name: name,
@@ -57,7 +57,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	}
 
 	return (
-		<Form onSubmit={createTask}>
+		<Form onSubmit={handleSubmit}>
 			<Form.Group widths='equal'>
 				<Form.Field>
 					<label>Name</label>

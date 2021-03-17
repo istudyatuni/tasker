@@ -14,7 +14,7 @@ import NewTask from 'components/List/NewTask'
 import ImportFile from 'components/List/ImportFile'
 import TaskView from './TaskView'
 
-import { GetTasks } from 'api/TaskApi'
+import { GetTasks } from 'api/GetTasksApi'
 import { ExportTasks } from 'api/ExportApi'
 
 import { ITask } from 'interfaces/ITask'
@@ -72,7 +72,7 @@ const ListTasks: React.FC = () => {
 						<Message.Header>{element.name}</Message.Header>
 						<p>{element.description}</p>
 					</Message>
-					{open[index] && (<TaskView info={element.info}/>)}
+					{open[index] && (<TaskView id={element.task_id} info={element.info}/>)}
 				</List.Item>
 			) : <p>No tasks</p>}
 			<List.Item as="a" key="add">

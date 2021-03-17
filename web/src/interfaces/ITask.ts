@@ -1,4 +1,5 @@
 export interface ITask {
+	task_id: string|null;
 	name: string;
 	description: string;
 	finished: boolean;

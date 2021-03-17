@@ -4,6 +4,7 @@ import { ITask } from 'interfaces/ITask'
 function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	if(tasks===undefined) {
 		return [{
+			task_id: '0',
 			name: 'Not a task',
 			description: '',
 			finished: false,
@@ -17,6 +18,7 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	}
 	let new_tasks:ITask[] = tasks.map(e => {
 		return {
+			task_id: e.task_id,
 			name: e.name,
 			description: e.description,
 			finished: e.finished,
