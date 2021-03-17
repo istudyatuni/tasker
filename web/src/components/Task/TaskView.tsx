@@ -32,7 +32,8 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, info }) => {
 
 	async function toggleFinishButton() {
 		FinishTask(id as string, !finished)
-		setTimeout(function(){window.location.reload()}, 200)
+		setFinishButton(finishText(!finished))
+		setTimeout(function(){window.location.reload()}, 10)
 	}
 
 	return (

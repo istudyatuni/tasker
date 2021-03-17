@@ -11,11 +11,9 @@ import {
 import Cookies from 'js-cookie'
 
 import NewTask from 'components/Task/NewTask'
-import ImportFile from 'components/List/ImportFile'
 import TaskView from 'components/Task/TaskView'
 
 import { GetTasks } from 'api/GetTasksApi'
-import { ExportTasks } from 'api/ExportApi'
 
 import { ITask } from 'interfaces/ITask'
 
@@ -59,6 +57,9 @@ const ListTasks: React.FC = () => {
 				onChange={()=>{setShowFinished(!showFinished)}}
 			/>
 			<Divider hidden />
+			<List.Item as="a" key="add">
+				<NewTask />
+			</List.Item>
 			{tasks.length ?
 			tasks.map((element, index) =>
 				!showFinished && element.finished ?
@@ -75,12 +76,6 @@ const ListTasks: React.FC = () => {
 					{open[index] && (<TaskView id={element.task_id} finished={element.finished} info={element.info}/>)}
 				</List.Item>
 			) : <p>No tasks</p>}
-			<List.Item as="a" key="add">
-				<NewTask />
-			</List.Item>
-			<Button content='Export tasks' onClick={ExportTasks} />
-			<ImportFile />
-			<Divider hidden />
 		</>
 	);
 }
