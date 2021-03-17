@@ -61,7 +61,12 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
 			>
 				<Modal.Header>Update a task</Modal.Header>
 				<Modal.Content scrolling>
-					<FormTask handleResponse={handleResponse} apiFunction={UpdateTask} element={element} />
+					<FormTask
+						handleResponse={handleResponse}
+						apiFunction={UpdateTask}
+						element={element}
+						is_new={false}
+					/>
 				</Modal.Content>
 			</Modal>
 			<Header>{element.info.full_name}</Header>

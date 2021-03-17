@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import {
 	Checkbox,
-	Divider,
 	List,
 	Message,
 } from 'semantic-ui-react'
@@ -55,10 +54,7 @@ const ListTasks: React.FC = () => {
 				label={<label>Show finished</label>}
 				onChange={()=>{setShowFinished(!showFinished)}}
 			/>
-			<Divider hidden />
-			<List.Item as="a" key="add">
-				<NewTask />
-			</List.Item>
+			<NewTask />
 			{tasks.length ?
 			tasks.map((element, index) =>
 				!showFinished && element.finished ?

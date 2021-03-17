@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
-	Icon,
-	Message,
+	Button,
+	Divider,
 	Modal,
 } from 'semantic-ui-react'
 
@@ -21,24 +21,27 @@ const NewTask: React.FC = () => {
 	}
 
 	return (
-		<Modal
-			onClose={() => setOpen(false)}
-			onOpen={() => setOpen(true)}
-			open={open}
-			trigger={
-				<Message info>
-					<Message.Header>
-						<Icon name="add" />
-						Create task
-					</Message.Header>
-				</Message>
-			}
-		>
-			<Modal.Header>Create a task</Modal.Header>
-			<Modal.Content scrolling>
-				<FormTask handleResponse={handleResponse} apiFunction={SendNewTask} element={DefaultITask} />
-			</Modal.Content>
-		</Modal>
+		<>
+			<Divider hidden />
+			<Modal
+				onClose={() => setOpen(false)}
+				onOpen={() => setOpen(true)}
+				open={open}
+				trigger={
+					<Button content='Add' icon='add' floated='right' color='violet' style={{marginTop: '-4.2em'}} />
+				}
+			>
+				<Modal.Header>Create a task</Modal.Header>
+				<Modal.Content scrolling>
+					<FormTask
+						handleResponse={handleResponse}
+						apiFunction={SendNewTask}
+						element={DefaultITask}
+						is_new={true}
+					/>
+				</Modal.Content>
+			</Modal>
+		</>
 	);
 }
 

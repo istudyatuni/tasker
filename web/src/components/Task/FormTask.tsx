@@ -17,9 +17,10 @@ interface FormTaskProps {
 	// TYPE OF THIS FIELD IS IMPORTANT
 	apiFunction: (arg0: ITask)=>Promise<IResponse>;
 	element: ITask;
+	is_new: boolean;
 }
 
-const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, element }) => {
+const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, element, is_new }) => {
 	const [name, setName] = useState(element.name)
 	const [full_name, setFullName] = useState(element.info.full_name)
 	const [subject, setSubject] = useState(element.info.subject)
@@ -102,13 +103,16 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 					onChange={(event: any, data: any)=>{setText(data.value)}}
 				/>
 			</Form.Field>
-			<Form.Field>
-				<Checkbox
-					label='Finished'
-					checked={element.finished}
-					onChange={(event: any, data: any)=>{setFinished(data.checked)}}
-				/>
-			</Form.Field>
+			{is_new ?
+				<Form.Field>
+					<Checkbox
+						label='Finished'
+						checked={element.finished}
+						onChange={(event: any, data: any)=>{setFinished(data.checked)}}
+					/>
+				</Form.Field>
+				: <span></span>
+			}
 			<Message
 				hidden={messageHidden}
 				color={messageColor as SemanticCOLORS}
