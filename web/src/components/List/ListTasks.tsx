@@ -3,10 +3,12 @@ import React, {
 } from 'react';
 import {
 	Button,
+	Checkbox,
 	Divider,
 	List,
 	Message,
 } from 'semantic-ui-react'
+import Cookies from 'js-cookie'
 
 import NewTask from 'components/List/NewTask'
 import ImportFile from 'components/List/ImportFile'
@@ -23,6 +25,12 @@ const ListTasks: React.FC = () => {
 	const [tasks, setTasks] = useState<ITask[]>([])
 	const [isNoTasks, setNoTasks] = useState(true)
 	const [open, setOpen] = useState(Array(tasks.length).fill(false))
+
+	const [showFinished, setShowFinished] = useState((Cookies.get('show-finished') === 'true') || false)
+
+	useEffect(()=>{
+		Cookies.set('show-finished', showFinished.toString())
+	}, [showFinished])
 
 	function toggleElement(index: number) {
 		if(isNoTasks) return
@@ -44,9 +52,18 @@ const ListTasks: React.FC = () => {
 
 	return (
 		<>
+			<Checkbox
+				toggle
+				defaultChecked={showFinished}
+				label={<label>Show finished</label>}
+				onChange={()=>{setShowFinished(!showFinished)}}
+			/>
+			<Divider hidden />
 			{tasks.length ?
 			tasks.map((element, index) =>
-				<List.Item key={index.toString()}>
+				!showFinished && element.finished ?
+				<div></div>
+				: <List.Item key={index.toString()}>
 					<Message
 						color={element.finished === true?'green':'orange'}
 						className='cursor-pointer'

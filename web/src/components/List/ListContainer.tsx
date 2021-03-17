@@ -14,7 +14,7 @@ function ListContainer() {
 			<Container text>
 				<Divider hidden />
 				<Header as='h2'>Tasks</Header>
-				<List className="main-content">
+				<List>
 					<ListTasks />
 				</List>
 			</Container>
