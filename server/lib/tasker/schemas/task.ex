@@ -22,6 +22,15 @@ defmodule Tasker.Task do
     |> Repo.update()
   end
 
+  def update_task_data(params) do
+    params = split_big_text(params)
+
+    Repo.get_by!(Tasker.Task, task_id: params["task_id"])
+    |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
+    |> validate_required([:name])
+    |> Repo.update()
+  end
+
   defp split_big_text(params) do
     other_text = params["other_text"]
     other_text = Regex.replace(~r/\r/, other_text, "")

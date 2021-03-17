@@ -11,10 +11,8 @@ defmodule Tasker.Router do
   plug(:match)
   plug(:dispatch)
 
-  post "/api/task" do
-    {:ok, body, conn} = read_body(conn)
-    body = Poison.decode!(body)
-    {result, result_data} = Task.insert_changeset(body)
+  defp send_repo_action_result(conn, result) do
+    {result, result_data} = result
 
     if result == :error do
       key = result_data.errors |> Enum.at(0)
@@ -28,6 +26,13 @@ defmodule Tasker.Router do
     else
       send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
     end
+  end
+
+  post "/api/task" do
+    {:ok, body, conn} = read_body(conn)
+    body = Poison.decode!(body)
+    result = Task.insert_changeset(body)
+    send_repo_action_result(conn, result)
   end
 
   get "/api/tasks" do
@@ -53,36 +58,22 @@ defmodule Tasker.Router do
   post "/api/import" do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
-    {result, result_data} = Task.insert_many_tasks(body)
-
-    if result == :error do
-      send_resp(
-        conn,
-        400,
-        Poison.encode!(%{"status" => false, "message" => to_string(result_data)})
-      )
-    else
-      send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
-    end
+    result = Task.insert_many_tasks(body)
+    send_repo_action_result(conn, result)
   end
 
   patch "/api/finish" do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
-    {result, result_data} = Task.update_finished(body)
+    result = Task.update_finished(body)
+    send_repo_action_result(conn, result)
+  end
 
-    if result == :error do
-      key = result_data.errors |> Enum.at(0)
-      {key, {info, _}} = key
-
-      send_resp(
-        conn,
-        400,
-        Poison.encode!(%{"status" => false, "message" => "#{key} #{info}"})
-      )
-    else
-      send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
-    end
+  patch "/api/update" do
+    {:ok, body, conn} = read_body(conn)
+    body = Poison.decode!(body)
+    result = Task.update_task_data(body)
+    send_repo_action_result(conn, result)
   end
 
   match _ do
