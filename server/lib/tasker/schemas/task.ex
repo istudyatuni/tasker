@@ -15,14 +15,11 @@ defmodule Tasker.Task do
     field(:other_text, {:array, :string})
   end
 
-  defp set_finished(changeset) do
-    finished = get_field(changeset, :finished)
-
-    if is_nil(finished) do
-      put_change(changeset, :finished, false)
-    else
-      changeset
-    end
+  def update_finished(params) do
+    Repo.get_by!(Tasker.Task, task_id: params["task_id"])
+    |> change(finished: params["status"])
+    |> validate_inclusion(:finished, [true, false])
+    |> Repo.update()
   end
 
   defp split_big_text(params) do
@@ -54,7 +51,6 @@ defmodule Tasker.Task do
     %Tasker.Task{}
     |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
     |> validate_required([:name])
-    |> set_finished()
     |> Repo.insert()
   end
 
@@ -78,6 +74,7 @@ defmodule Tasker.Task do
     result =
       Repo.all(query)
       |> Enum.map(fn x -> extract_task(x) end)
+      |> Enum.sort(&(&1["task_id"] > &2["task_id"]))
 
     {:ok, result}
   end

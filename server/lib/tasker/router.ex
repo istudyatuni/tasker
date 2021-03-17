@@ -66,8 +66,23 @@ defmodule Tasker.Router do
     end
   end
 
-  post "/api/finished" do
-    send_resp(conn, 501, "not implemented")
+  patch "/api/finish" do
+    {:ok, body, conn} = read_body(conn)
+    body = Poison.decode!(body)
+    {result, result_data} = Task.update_finished(body)
+
+    if result == :error do
+      key = result_data.errors |> Enum.at(0)
+      {key, {info, _}} = key
+
+      send_resp(
+        conn,
+        400,
+        Poison.encode!(%{"status" => false, "message" => "#{key} #{info}"})
+      )
+    else
+      send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
+    end
   end
 
   match _ do
