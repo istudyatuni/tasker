@@ -36,8 +36,10 @@ defmodule Tasker.Task do
   defp set_task_id(params) do
     timeid =
       DateTime.now!("Etc/UTC")
-      |> DateTime.to_unix()
-      |> to_string()
+      |> DateTime.to_string()
+
+    # 'yyyy-mm-dd hh:mm:ss.ssssssZ' -> 'yyyymmddhhmmssssssss'
+    timeid = Regex.replace(~r/[:\. \-Z]/, timeid, "")
 
     Map.put(params, "task_id", timeid)
   end
