@@ -10,9 +10,9 @@ import {
 } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
 
-import NewTask from 'components/List/NewTask'
+import NewTask from 'components/Task/NewTask'
 import ImportFile from 'components/List/ImportFile'
-import TaskView from './TaskView'
+import TaskView from 'components/Task/TaskView'
 
 import { GetTasks } from 'api/GetTasksApi'
 import { ExportTasks } from 'api/ExportApi'

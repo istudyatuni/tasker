@@ -5,7 +5,7 @@ import {
 	Modal,
 } from 'semantic-ui-react'
 
-import FormTask from 'components/List/FormTask'
+import FormTask from './FormTask'
 
 const NewTask: React.FC = () => {
 	const [open, setOpen] = useState(false)
