@@ -6,6 +6,7 @@ defmodule Tasker.Task do
   alias Tasker.Repo
 
   schema "tasks" do
+    field(:task_id, :string)
     field(:name, :string, null: false)
     field(:full_name, :string)
     field(:subject, :string)
@@ -28,28 +29,40 @@ defmodule Tasker.Task do
     other_text = params["other_text"]
     other_text = Regex.replace(~r/\r/, other_text, "")
 
-    # in postgres max text field size is 255, so split it in array
+    # in postgres max string field size is 255, so split it in array
     array = Regex.scan(~r/[\w\W\n]{1,255}/u, other_text)
     array = Enum.map(array, fn x -> Enum.at(x, 0) end)
 
     %{params | "other_text" => array}
   end
 
+  defp set_task_id(params) do
+    timeid =
+      DateTime.now!("Etc/UTC")
+      |> DateTime.to_unix()
+      |> to_string()
+
+    Map.put(params, "task_id", timeid)
+  end
+
   def insert_changeset(params) do
-    params = params
-    |> split_big_text()
+    params =
+      params
+      |> split_big_text()
+      |> set_task_id()
+
     %Tasker.Task{}
-    |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
+    |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
     |> validate_required([:name])
     |> set_finished()
     |> Repo.insert()
   end
 
   defp extract_task(task) do
-    other_text = task.other_text
-    |> Enum.join("")
+    other_text = Enum.join(task.other_text, "")
 
     %{
+      "task_id" => task.task_id,
       "name" => task.name,
       "full_name" => task.full_name,
       "subject" => task.subject,
@@ -61,8 +74,11 @@ defmodule Tasker.Task do
 
   def select_all_tasks() do
     query = from(Tasker.Task)
-    tasks = Repo.all(query)
-    result = Enum.map(tasks, fn x -> extract_task(x) end)
+
+    result =
+      Repo.all(query)
+      |> Enum.map(fn x -> extract_task(x) end)
+
     {:ok, result}
   end
 

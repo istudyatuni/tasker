@@ -3,6 +3,7 @@ defmodule Tasker.Repo.Migrations.CreateTasks do
 
   def change do
     create table(:tasks) do
+      add(:task_id, :string)
       add(:name, :string, null: false)
       add(:full_name, :string)
       add(:subject, :string)

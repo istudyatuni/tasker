@@ -14,13 +14,16 @@ defmodule Tasker.Router do
   post "/api/task" do
     {:ok, body, conn} = read_body(conn)
     body = Poison.decode!(body)
-    {result, _result_data} = Task.insert_changeset(body)
+    {result, result_data} = Task.insert_changeset(body)
 
     if result == :error do
+      key = result_data.errors |> Enum.at(0)
+      {key, {info, _}} = key
+
       send_resp(
         conn,
         400,
-        Poison.encode!(%{"status" => false, "message" => "Name cant't be blank"})
+        Poison.encode!(%{"status" => false, "message" => "#{key} #{info}"})
       )
     else
       send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
