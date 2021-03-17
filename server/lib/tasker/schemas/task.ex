@@ -11,7 +11,7 @@ defmodule Tasker.Task do
     field(:subject, :string)
     field(:description, :string)
     field(:finished, :boolean, default: false)
-    field(:other_text, :string)
+    field(:other_text, {:array, :string})
   end
 
   defp set_finished(changeset) do
@@ -24,7 +24,20 @@ defmodule Tasker.Task do
     end
   end
 
+  defp split_big_text(params) do
+    other_text = params["other_text"]
+    other_text = Regex.replace(~r/\r/, other_text, "")
+
+    # in postgres max text field size is 255, so split it in array
+    array = Regex.scan(~r/[\w\W\n]{1,255}/u, other_text)
+    array = Enum.map(array, fn x -> Enum.at(x, 0) end)
+
+    %{params | "other_text" => array}
+  end
+
   def insert_changeset(params) do
+    params = params
+    |> split_big_text()
     %Tasker.Task{}
     |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
     |> validate_required([:name])
@@ -33,13 +46,16 @@ defmodule Tasker.Task do
   end
 
   defp extract_task(task) do
+    other_text = task.other_text
+    |> Enum.join("")
+
     %{
       "name" => task.name,
       "full_name" => task.full_name,
       "subject" => task.subject,
       "description" => task.description,
       "finished" => task.finished,
-      "other_text" => task.other_text
+      "other_text" => other_text
     }
   end
 

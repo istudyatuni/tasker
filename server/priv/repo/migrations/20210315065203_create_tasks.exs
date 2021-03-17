@@ -8,7 +8,7 @@ defmodule Tasker.Repo.Migrations.CreateTasks do
       add(:subject, :string)
       add(:description, :string)
       add(:finished, :boolean, default: false)
-      add(:other_text, :string)
+      add(:other_text, {:array, :string})
     end
   end
 end
