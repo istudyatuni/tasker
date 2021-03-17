@@ -48,7 +48,7 @@ const ListTasks: React.FC = () => {
 			tasks.map((element, index) =>
 				<List.Item key={index.toString()}>
 					<Message
-						color={element.finished === true?'green':'red'}
+						color={element.finished === true?'green':'orange'}
 						className='cursor-pointer'
 						onClick={()=>{toggleElement(index)}}
 					>
@@ -57,7 +57,7 @@ const ListTasks: React.FC = () => {
 					</Message>
 					{open[index] && (<TaskView info={element.info}/>)}
 				</List.Item>
-			) : <p>No items</p>}
+			) : <p>No tasks</p>}
 			<List.Item as="a" key="add">
 				<NewTask />
 			</List.Item>

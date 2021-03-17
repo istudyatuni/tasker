@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
 	Button,
 	Checkbox,
+	Divider,
 	Form,
 	Icon,
 	Message,
 	Modal,
+	SemanticCOLORS,
 	TextArea,
 } from 'semantic-ui-react'
 
@@ -26,7 +28,14 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 	const [finished, setFinished] = useState(false)
 	const [text, setText] = useState('')
 
-	const [submitButton, setSubmitButton] = useState('Submit')
+	useEffect(()=>{
+		setMessageHidden(messageHidden => true)
+	}, [name, full_name, subject, description, finished, text])
+
+	// info message
+	const [messageColor, setMessageColor] = useState('green')
+	const [messageHidden, setMessageHidden] = useState(true)
+	const [messageText, setMessageText] = useState('')
 
 	async function createTask() {
 		let task_data: ITask = {
@@ -40,11 +49,11 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 			},
 		}
 		let result:IResponse = await SendTask(task_data)
-		setSubmitButton(result.message)
+		setMessageText(result.message)
+		setMessageHidden(false)
+		setMessageColor(result.status?'green':'red')
 		if(result.status) {
-			setTimeout(function(){handleResponse(result.status)}, 1000)
-		} else {
-			setTimeout(function(){setSubmitButton('Submit')}, 5 * 1000)
+			setTimeout(function(){window.location.reload()}, 1000)
 		}
 	}
 
@@ -61,7 +70,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 				<Form.Field>
 					<label>Full Name</label>
 					<Form.Input
-						placeholder='Работа №1'
+						placeholder='Самостоятельная работа'
 						onChange={(event: any, data: any)=>{setFullName(data.value)}}
 					/>
 				</Form.Field>
@@ -94,7 +103,13 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse }) => {
 					onChange={(event: any, data: any)=>{setFinished(data.checked)}}
 				/>
 			</Form.Field>
-			<Button type='submit' floated='right' color='green'>{submitButton}</Button>
+			<Message
+				hidden={messageHidden}
+				color={messageColor as SemanticCOLORS}
+				style={{textAlign: 'center'}}
+			>{messageText}</Message>
+			<Button type='submit' floated='right' color='green'>Submit</Button>
+			<Divider hidden style={{marginBottom: '2.4em'}} />
 		</Form>
 	);
 }
