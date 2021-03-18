@@ -29,18 +29,27 @@ defmodule Tasker.WebRouter do
     send_static_file(conn, "", "index.html", "text/html")
   end
 
-  get "assets/:name" do
-    # extract from smth like [["name.png", "png"]]
-    ext = Regex.scan(~r/[\da-zA-Z]+\.([a-z]+)/, name) |> hd |> tl |> hd
-    send_static_file(conn, "/assets", name, "image/#{ext}; charset=utf-8")
-  end
-
   get "static/js/:name" do
     send_static_file(conn, "/static/js", name, "application/javascript")
   end
 
   get "static/css/:name" do
     send_static_file(conn, "/static/css", name, "text/css")
+  end
+
+  get "static/media/:name" do
+  	mime_types = %{
+		  "eot" => "application/octet-stream",
+		  "png" => "image/png",
+		  "svg" => "image/svg+xml",
+		  "ttf" => "application/x-font-ttf",
+		  "woff" => "application/font-woff",
+		  "woff2" => "application/font-woff"
+  	}
+
+    # extract from smth like [["name.png", "png"]]
+    ext = Regex.scan(~r/[\da-zA-Z]+\.([a-z]+)/, name) |> hd |> tl |> hd
+    send_static_file(conn, "/static/media", name, mime_types[ext])
   end
 
   def route_root_folder(conn, name) do
@@ -59,6 +68,7 @@ defmodule Tasker.WebRouter do
   match _ do
     path = conn.path_info |> hd
 
+    # if this is file
     if String.match?(path, ~r/[\S]+\.[a-zA-Z]/) do
       route_root_folder(conn, path)
     else
