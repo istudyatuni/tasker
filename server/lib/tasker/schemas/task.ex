@@ -4,6 +4,7 @@ defmodule Tasker.Task do
   import Ecto.Query
 
   alias Tasker.Repo
+  require Logger
 
   schema "tasks" do
     field(:task_id, :string)
@@ -45,8 +46,8 @@ defmodule Tasker.Task do
     %{params | "other_text" => array}
   end
 
-  defp set_task_id(params, is_set) do
-    if is_set do
+  defp set_task_id(params, exist_already) do
+    if !exist_already do
       timeid =
         DateTime.now!("Etc/UTC")
         |> DateTime.to_string()
@@ -68,17 +69,22 @@ defmodule Tasker.Task do
     end
   end
 
-  defp validate_taskid(taskid) do
-    Regex.match?(~r/(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d{6})/, taskid)
+  defp taskid_exists?(taskid) do
+    Logger.info("Check task_id exist #{inspect(taskid)}")
+    query = from(t in Tasker.Task, where: t.task_id == ^taskid)
+    Repo.exists?(query)
   end
 
   def insert_changeset(params) do
-    is_taskid_exist = validate_taskid(params["task_id"])
+    is_taskid_exist = taskid_exists?(params["task_id"])
+    Logger.info("Insert changeset, task_id exist: #{is_taskid_exist}")
 
     params =
       params
       |> split_big_text()
       |> set_task_id(is_taskid_exist)
+
+    Logger.info("Params: #{inspect(params)}")
 
     %Tasker.Task{}
     |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
@@ -113,6 +119,7 @@ defmodule Tasker.Task do
   end
 
   def insert_many_tasks(data) do
+    Logger.info("Insert many tasks: #{inspect(data)}")
     result = Enum.map(data, fn x -> insert_changeset(x) end)
     {:ok, result}
   end

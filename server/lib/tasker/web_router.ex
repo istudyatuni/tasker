@@ -3,16 +3,10 @@ defmodule Tasker.WebRouter do
   use Plug.Router
   use Plug.Debugger
 
-  alias SeaBattleServer.ShipHandler
-  use Application
-
-  require Logger
-  plug(Plug.Logger, log: :debug)
-
   plug(:match)
   plug(:dispatch)
 
-	def send_static_file(conn, folder, filename, mime_type) do
+  def send_static_file(conn, folder, filename, mime_type) do
     web_app_folder = Application.get_env(:tasker, :web_app_folder)
     folder = "#{web_app_folder}#{folder}"
 
@@ -38,14 +32,14 @@ defmodule Tasker.WebRouter do
   end
 
   get "static/media/:name" do
-  	mime_types = %{
-		  "eot" => "application/octet-stream",
-		  "png" => "image/png",
-		  "svg" => "image/svg+xml",
-		  "ttf" => "application/x-font-ttf",
-		  "woff" => "application/font-woff",
-		  "woff2" => "application/font-woff"
-  	}
+    mime_types = %{
+      "eot" => "application/octet-stream",
+      "png" => "image/png",
+      "svg" => "image/svg+xml",
+      "ttf" => "application/x-font-ttf",
+      "woff" => "application/font-woff",
+      "woff2" => "application/font-woff"
+    }
 
     # extract from smth like [["name.png", "png"]]
     ext = Regex.scan(~r/[\da-zA-Z]+\.([a-z]+)/, name) |> hd |> tl |> hd

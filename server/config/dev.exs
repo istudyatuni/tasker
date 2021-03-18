@@ -4,5 +4,4 @@ config :tasker,
   port: 4000,
   web_app_folder: "../web/build"
 
-config :tasker, Tasker.Repo,
-  hostname: "localhost"
+config :tasker, Tasker.Repo, hostname: "localhost"

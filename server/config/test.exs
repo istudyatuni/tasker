@@ -6,5 +6,4 @@ config :tasker,
 
 config :logger, :console, level: :info
 
-config :tasker, Tasker.Repo,
-  hostname: "localhost"
+config :tasker, Tasker.Repo, hostname: "localhost"
