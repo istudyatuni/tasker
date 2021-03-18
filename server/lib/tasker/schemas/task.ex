@@ -23,7 +23,10 @@ defmodule Tasker.Task do
   end
 
   def update_task_data(params) do
-    params = split_big_text(params)
+    params =
+      params
+      |> split_big_text()
+      |> set_finished()
 
     Repo.get_by!(Tasker.Task, task_id: params["task_id"])
     |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
@@ -42,22 +45,40 @@ defmodule Tasker.Task do
     %{params | "other_text" => array}
   end
 
-  defp set_task_id(params) do
-    timeid =
-      DateTime.now!("Etc/UTC")
-      |> DateTime.to_string()
+  defp set_task_id(params, is_set) do
+    if is_set do
+      timeid =
+        DateTime.now!("Etc/UTC")
+        |> DateTime.to_string()
 
-    # 'yyyy-mm-dd hh:mm:ss.ssssssZ' -> 'yyyymmddhhmmssssssss'
-    timeid = Regex.replace(~r/[:\. \-Z]/, timeid, "")
+      # 'yyyy-mm-dd hh:mm:ss.ssssssZ' -> 'yyyymmddhhmmssssssss'
+      timeid = Regex.replace(~r/[:\. \-Z]/, timeid, "")
 
-    Map.put(params, "task_id", timeid)
+      Map.put(params, "task_id", timeid)
+    else
+      params
+    end
+  end
+
+  defp set_finished(params) do
+    if is_nil(params["finished"]) do
+      Map.put(params, "finished", false)
+    else
+      params
+    end
+  end
+
+  defp validate_taskid(taskid) do
+    Regex.match?(~r/(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d{6})/, taskid)
   end
 
   def insert_changeset(params) do
+    is_taskid_exist = validate_taskid(params["task_id"])
+
     params =
       params
       |> split_big_text()
-      |> set_task_id()
+      |> set_task_id(is_taskid_exist)
 
     %Tasker.Task{}
     |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
@@ -67,6 +88,7 @@ defmodule Tasker.Task do
 
   defp extract_task(task) do
     other_text = Enum.join(task.other_text, "")
+    other_text = Regex.replace(~r/\r/, other_text, "")
 
     %{
       "task_id" => task.task_id,
