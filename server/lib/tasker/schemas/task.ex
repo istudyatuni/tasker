@@ -77,14 +77,13 @@ defmodule Tasker.Task do
 
   def insert_changeset(params) do
     is_taskid_exist = taskid_exists?(params["task_id"])
-    Logger.info("Insert changeset, task_id exist: #{is_taskid_exist}")
 
     params =
       params
       |> split_big_text()
       |> set_task_id(is_taskid_exist)
 
-    Logger.info("Params: #{inspect(params)}")
+    Logger.info("Insert changeset, task_id exist: #{is_taskid_exist}, params: #{inspect(params)}")
 
     %Tasker.Task{}
     |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
@@ -120,7 +119,7 @@ defmodule Tasker.Task do
 
   def insert_many_tasks(data) do
     Logger.info("Insert many tasks: #{inspect(data)}")
-    result = Enum.map(data, fn x -> insert_changeset(x) end)
-    {:ok, result}
+    Enum.each(data, fn x -> insert_changeset(x) end)
+    {:ok, "Ok"}
   end
 end
