@@ -8,11 +8,12 @@ ENV MIX_ENV=prod
 RUN mix release
 
 FROM node:12.18.3-alpine3.12 AS node_builder
-ENV NODE_ENV="production"
 WORKDIR /app
 COPY ./web/package.json ./web/yarn.lock ./
 RUN yarn install
 COPY ./web ./
+ENV NODE_ENV="production" \
+    GENERATE_SOURCEMAP=false
 RUN yarn build
 
 FROM alpine:latest
