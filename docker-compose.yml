@@ -1,13 +1,12 @@
 version: '3'
 services:
   db:
-    image: postgis/postgis
+    image: postgres:12.6-alpine
     restart: always
-    environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env
     volumes:
-    - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     ports:
     - "5432:5432"
 
@@ -21,17 +20,17 @@ services:
 
   # server:
   #   image: tasker:latest
+  #   restart: on-failure
   #   build:
-  #     context: .
+  #     context: server
   #   depends_on:
   #     - db
   #   links:
-  #   - db
-    # environment:
-    # - PGHOST: db
-    # - PGDATABASE: postgres
-    # - PGUSER: postgres
-    # - PGPASSWORD: postgres
+  #     - db
+  #   ports:
+  #     - 80:80
+  #   env_file:
+  #     - .env
 
 volumes:
   pgdata:
