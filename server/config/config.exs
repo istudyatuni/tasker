@@ -4,7 +4,6 @@ config :tasker, Tasker.Repo,
   database: "tasker_repo",
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
   port: 5432
 
 config :tasker, ecto_repos: [Tasker.Repo]
