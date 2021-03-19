@@ -17,6 +17,8 @@ import FormTask from './FormTask'
 
 import { ITask } from 'interfaces/ITask'
 
+import './Task.css'
+
 type TaskViewProps = {
 	id: string|null;
 	finished: boolean;
@@ -69,10 +71,10 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
 					/>
 				</Modal.Content>
 			</Modal>
-			<Header>{element.info.full_name}</Header>
-			<Header sub>{element.info.subject}</Header>
+			<Header className='task-header'>{element.info.full_name}</Header>
+			<Header sub className='task-subheader'>{element.info.subject}</Header>
 			<Divider />
-			<Container>
+			<Container className='task-text'>
 				<Button
 					color='teal'
 					floated='right'

@@ -1,0 +1,11 @@
+.task-header {
+	min-height: 1.2em;
+}
+
+.task-subheader {
+	min-height: 1em;
+}
+
+.task-text {
+	min-height: 2em;
+}
