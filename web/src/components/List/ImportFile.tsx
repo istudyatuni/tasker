@@ -1,4 +1,5 @@
 import React, {
+	useState,
 	useRef,
 } from 'react';
 import {
@@ -8,6 +9,8 @@ import {
 import { ImportTasks } from 'api/ImportApi'
 
 function ImportFile() {
+	const [buttonText, setButtonText] = useState("Import tasks")
+
 	const inputFile = useRef<HTMLInputElement>(null)
 
 	const onButtonClick = () => {
@@ -25,7 +28,7 @@ function ImportFile() {
 		}
 	}
 
-	function uploadFile() {
+	async function uploadFile() {
 		let input_files = document.getElementById('import-file') as HTMLInputElement
 		let file: File
 
@@ -36,16 +39,22 @@ function ImportFile() {
 
 			reader.onloadend = () => {
 				if(reader.result) {
-					ImportTasks(reader.result as string)
+					(async () => {
+						let result = await ImportTasks(reader.result as string)
+						if(result.status) {
+							window.location.reload()
+						} else {
+							setButtonText("Error exporting")
+						}
+					})();
 				}
 			}
 		}
-		window.location.reload()
 	}
 
 	return (
 		<>
-			<Button content="Import tasks" onClick={onButtonClick} />
+			<Button content={buttonText} onClick={onButtonClick} />
 			<input type="file" id="import-file" ref={inputFile} style={{display: 'none'}} />
 			<input type="submit" id="submit-import" onClick={uploadFile} style={{display: 'none'}} />
 		</>

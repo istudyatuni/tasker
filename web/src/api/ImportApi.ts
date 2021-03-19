@@ -1,11 +1,20 @@
-export const ImportTasks = async(data: string) => {
+import IResponse from 'interfaces/IResponse'
+
+export const ImportTasks = async(data: string):Promise<IResponse> => {
 	let response = await fetch('/api/import', {
 		method: 'POST',
 		body: data
 	})
 	if(response.ok) {
-		console.log('sending file')
+		return {
+			status: true,
+			message: "File imported"
+		}
 	} else {
-		console.log(response)
+		console.error(response)
+		return {
+			status: false,
+			message: "Some error"
+		}
 	}
 }
