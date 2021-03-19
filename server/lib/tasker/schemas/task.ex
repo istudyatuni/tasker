@@ -71,8 +71,13 @@ defmodule Tasker.Task do
 
   defp taskid_exists?(taskid) do
     Logger.info("Check task_id exist #{inspect(taskid)}")
-    query = from(t in Tasker.Task, where: t.task_id == ^taskid)
-    Repo.exists?(query)
+
+    if is_nil(taskid) do
+      false
+    else
+      query = from(t in Tasker.Task, where: t.task_id == ^taskid)
+      Repo.exists?(query)
+    end
   end
 
   def insert_changeset(params) do
