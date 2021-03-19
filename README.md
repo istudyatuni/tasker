@@ -1,12 +1,19 @@
 # Tasker
 
+**How it looks**
+
+<div align="center">
+	<img src="docs/images/main-page_screenshot.png" alt="main-page" width="70%">
+	<img src="docs/images/edit-page_screenshot.png" alt="edit-page" width="70%">
+</div>
+
 ## Running
 
 **In docker container**
 
-*I don't know how to link containers without docker-compose*
+*I don't know how to link containers without docker-compose, so*
 
-You need `docker-compose.yml` file, download it, and run
+You need [`docker-compose.yml`](docker-compose.yml) file, download it, and run
 
 ```bash
 docker-compose up -d tasker
