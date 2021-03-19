@@ -29,6 +29,15 @@ services:
     depends_on:
       - db
 
+  tasker:
+    image: istudyatuni/tasker:latest
+    ports:
+      - "80:80"
+    links:
+      - db
+    depends_on:
+      - db
+
 volumes:
   pgdata:
     external: true
