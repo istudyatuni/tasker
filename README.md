@@ -4,8 +4,12 @@
 
 **In docker container**
 
+*I don't know how to link containers without docker-compose*
+
+You need `docker-compose.yml` file, download it, and run
+
 ```bash
-docker-compose up -d server
+docker-compose up -d tasker
 ```
 
 Then open http://localhost
@@ -13,7 +17,7 @@ Then open http://localhost
 *If you want to manage your database (delete tasks, for example), run*
 
 ```bash
-docker-compose up -d
+docker-compose up -d tasker adminer
 ```
 
 Adminer interface will be opened on http://localhost:8080
