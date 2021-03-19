@@ -70,7 +70,7 @@ defmodule Tasker.Task do
   end
 
   defp taskid_exists?(taskid) do
-    Logger.info("Check task_id exist #{inspect(taskid)}")
+    Logger.debug("Check task_id exist #{inspect(taskid)}")
 
     if is_nil(taskid) do
       false
@@ -83,17 +83,23 @@ defmodule Tasker.Task do
   def insert_changeset(params) do
     is_taskid_exist = taskid_exists?(params["task_id"])
 
-    params =
-      params
-      |> split_big_text()
-      |> set_task_id(is_taskid_exist)
+    if !is_taskid_exist do
+      params =
+        params
+        |> split_big_text()
+        |> set_task_id(is_taskid_exist)
 
-    Logger.info("Insert changeset, task_id exist: #{is_taskid_exist}, params: #{inspect(params)}")
+      Logger.info("Insert changeset, task_id not exist, params: #{inspect(params)}")
 
-    %Tasker.Task{}
-    |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
-    |> validate_required([:name])
-    |> Repo.insert()
+      %Tasker.Task{}
+      |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
+      |> validate_required([:name])
+      |> Repo.insert()
+    else
+      Logger.info("Skip insert changeset, task_id exist, params: #{inspect(params)}")
+      {:error, %{errors: [{:task_id, {"already exist", ""}}]}}
+    end
+
   end
 
   defp extract_task(task) do
