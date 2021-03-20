@@ -4,8 +4,18 @@
 
 .task-subheader {
 	min-height: 1em;
+	text-transform: unset!important;
 }
 
 .task-text {
 	min-height: 2em;
+}
+
+.task-text > p {
+	min-height: 0.35em;
+	margin-bottom: 0.2em;
+}
+
+.markdown-icon {
+	margin-left: 0.5em;
 }

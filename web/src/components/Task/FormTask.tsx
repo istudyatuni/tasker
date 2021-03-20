@@ -4,8 +4,11 @@ import {
 	Checkbox,
 	Divider,
 	Form,
+	Icon,
 	Message,
+	Popup,
 	SemanticCOLORS,
+	SemanticICONS,
 	TextArea,
 } from 'semantic-ui-react'
 
@@ -26,7 +29,10 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 	const [subject, setSubject] = useState(element.info.subject)
 	const [description, setDescription] = useState(element.description)
 	const [finished, setFinished] = useState(element.finished)
-	const [text, setText] = useState(element.info.other_text)
+	// when you start editing, you need transform double line break back to \n
+	// on server this store as one \n, but here (and in 'api/GetTasksApi.ts:TransformTasks')
+	// were make this transformation
+	const [text, setText] = useState(element.info.other_text.replaceAll('\n\n', '\n'))
 
 	useEffect(()=>{
 		setMessageHidden(messageHidden => true)
@@ -65,15 +71,15 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 					<label>Name</label>
 					<Form.Input
 						placeholder='JS ans CSS'
-						defaultValue={element.name}
+						defaultValue={name}
 						onChange={(event: any, data: any)=>{setName(data.value)}}
 					/>
 				</Form.Field>
 				<Form.Field>
 					<label>Full Name</label>
 					<Form.Input
-						placeholder='Самостоятельная работа'
-						defaultValue={element.info.full_name}
+						placeholder='Самостоятельная работа №1'
+						defaultValue={full_name}
 						onChange={(event: any, data: any)=>{setFullName(data.value)}}
 					/>
 				</Form.Field>
@@ -81,7 +87,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 					<label>Subject</label>
 					<Form.Input
 						placeholder='Информационные сети'
-						defaultValue={element.info.subject}
+						defaultValue={subject}
 						onChange={(event: any, data: any)=>{setSubject(data.value)}}
 					/>
 				</Form.Field>
@@ -90,16 +96,23 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 				<label>Description</label>
 				<Form.Input
 					placeholder='Лабораторное занятие 01.01.1970'
-					defaultValue={element.description}
+					defaultValue={description}
 					onChange={(event: any, data: any)=>{setDescription(data.value)}}
 				/>
 			</Form.Field>
 			<Form.Field>
-				<label>Text</label>
+				<label>
+					Text
+					<span className='markdown-icon'>
+						<Popup content='Styling with Markdown is supported' trigger={
+							<Icon name={'markdown' as SemanticICONS} />
+						} size='mini' basic position='right center'/>
+					</span>
+				</label>
 				<TextArea
-					rows={3}
+					rows={6}
 					placeholder="Например, список названий лекций"
-					defaultValue={element.info.other_text}
+					defaultValue={text}
 					onChange={(event: any, data: any)=>{setText(data.value)}}
 				/>
 			</Form.Field>
@@ -107,7 +120,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 				<Form.Field>
 					<Checkbox
 						label='Finished'
-						checked={element.finished}
+						checked={finished}
 						onChange={(event: any, data: any)=>{setFinished(data.checked)}}
 					/>
 				</Form.Field>

@@ -1,6 +1,8 @@
 import React, {
 	useState
 } from 'react';
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 import {
 	Button,
 	Container,
@@ -81,9 +83,7 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
 					content={finishButton}
 					onClick={toggleFinishButton}
 				/>
-				{element.info.other_text.split(/\n/).map((e)=>
-					<p style={{marginBottom: '0.4em'}}>{e}</p>
-				)}
+				<ReactMarkdown plugins={[gfm]} allowDangerousHtml={true}>{element.info.other_text}</ReactMarkdown>
 			</Container>
 			<Divider hidden />
 		</>

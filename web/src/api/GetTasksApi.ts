@@ -25,7 +25,8 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 			info: {
 				full_name: e.full_name,
 				subject: e.subject,
-				other_text: e.other_text,
+				// in markdown you need double \n for line break
+				other_text: e.other_text.replaceAll('\n', '\n\n'),
 			}
 		}
 	})
