@@ -31,7 +31,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 	const [finished, setFinished] = useState(element.finished)
 	// when you start editing, you need transform double line break back to \n
 	// on server this store as one \n, but here (and in 'api/GetTasksApi.ts:TransformTasks')
-	// were make this transformation
+	// we make this transformation
 	const [text, setText] = useState(element.info.other_text.replaceAll('\n\n', '\n'))
 
 	useEffect(()=>{
@@ -70,7 +70,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 				<Form.Field required>
 					<label>Name</label>
 					<Form.Input
-						placeholder='JS ans CSS'
+						placeholder='JS and CSS'
 						defaultValue={name}
 						onChange={(event: any, data: any)=>{setName(data.value)}}
 					/>

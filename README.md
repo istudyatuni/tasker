@@ -19,7 +19,7 @@ You need [`docker-compose.yml`](docker-compose.yml) file, download it, and run
 docker-compose up -d tasker
 ```
 
-Then open http://localhost
+Then open http://localhost:11697
 
 *If you want to manage your database (delete tasks, for example), run*
 

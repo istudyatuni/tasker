@@ -19,11 +19,14 @@ services:
     - 8080:8080
     links:
     - db
+    logging:
+      options:
+        max-size: 1m
 
   server:
     build: .
     ports:
-      - "80:80"
+      - "11697:80"
     links:
       - db
     depends_on:
@@ -32,7 +35,7 @@ services:
   tasker:
     image: istudyatuni/tasker:latest
     ports:
-      - "80:80"
+      - "11697:80"
     links:
       - db
     depends_on:
