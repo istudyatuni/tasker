@@ -13,7 +13,7 @@ defmodule Tasker.Task do
     field(:subject, :string)
     field(:description, :string)
     field(:finished, :boolean, default: false)
-    field(:other_text, {:array, :string})
+    field(:other_text, :string)
   end
 
   def update_finished(params) do
@@ -23,27 +23,32 @@ defmodule Tasker.Task do
     |> Repo.update()
   end
 
+  defp fix_string(str) do
+    if is_nil(str), do: str, else: Regex.replace(~r/\r/, str, "")
+  end
+
+  defp fix_texts(params) do
+    %{
+      "task_id" => params["task_id"],
+      "name" => fix_string(params["name"]),
+      "full_name" => fix_string(params["full_name"]),
+      "subject" => fix_string(params["subject"]),
+      "description" => fix_string(params["description"]),
+      "finished" => params["finished"],
+      "other_text" => fix_string(params["other_text"])
+    }
+  end
+
   def update_task_data(params) do
     params =
       params
-      |> split_big_text()
       |> set_finished()
+      |> fix_texts()
 
     Repo.get_by!(Tasker.Task, task_id: params["task_id"])
     |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
     |> validate_required([:name])
     |> Repo.update()
-  end
-
-  defp split_big_text(params) do
-    other_text = params["other_text"]
-    other_text = Regex.replace(~r/\r/, other_text, "")
-
-    # in postgres max string field size is 255, so split it in array
-    array = Regex.scan(~r/[\w\W\n]{1,255}/u, other_text)
-    array = Enum.map(array, fn x -> Enum.at(x, 0) end)
-
-    %{params | "other_text" => array}
   end
 
   defp set_task_id(params, exist_already) do
@@ -86,34 +91,42 @@ defmodule Tasker.Task do
     if !is_taskid_exist do
       params =
         params
-        |> split_big_text()
         |> set_task_id(is_taskid_exist)
+        |> fix_texts()
 
       Logger.info("Insert changeset, task_id not exist, params: #{inspect(params)}")
 
       %Tasker.Task{}
-      |> cast(params, [:task_id, :name, :full_name, :subject, :description, :finished, :other_text])
+      |> cast(params, [
+        :task_id,
+        :name,
+        :full_name,
+        :subject,
+        :description,
+        :finished,
+        :other_text
+      ])
       |> validate_required([:name])
       |> Repo.insert()
     else
       Logger.info("Skip insert changeset, task_id exist, params: #{inspect(params)}")
       {:error, %{errors: [{:task_id, {"already exist", ""}}]}}
     end
+  end
 
+  defp set_if_nil(text, new_value \\ "") do
+    if !is_nil(text), do: text, else: new_value
   end
 
   defp extract_task(task) do
-    other_text = Enum.join(task.other_text, "")
-    other_text = Regex.replace(~r/\r/, other_text, "")
-
     %{
       "task_id" => task.task_id,
       "name" => task.name,
-      "full_name" => task.full_name,
-      "subject" => task.subject,
-      "description" => task.description,
+      "full_name" => set_if_nil(task.full_name),
+      "subject" => set_if_nil(task.subject),
+      "description" => set_if_nil(task.description),
       "finished" => task.finished,
-      "other_text" => other_text
+      "other_text" => set_if_nil(task.other_text)
     }
   end
 
@@ -130,7 +143,10 @@ defmodule Tasker.Task do
 
   def insert_many_tasks(data) do
     Logger.info("Insert many tasks: #{inspect(data)}")
-    Enum.each(data, fn x -> insert_changeset(x) end)
+
+    Enum.reverse(data)
+    |> Enum.each(fn x -> insert_changeset(x) end)
+
     {:ok, "Ok"}
   end
 end
