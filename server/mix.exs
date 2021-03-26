@@ -14,7 +14,7 @@ defmodule Tasker.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :plug_cowboy, :plug, :poison],
+      extra_applications: [:logger, :plug_cowboy, :plug, :jason],
       mod: {Tasker.Application, []}
     ]
   end
@@ -22,9 +22,9 @@ defmodule Tasker.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.2"},
       {:plug, "~> 1.5"},
-      {:poison, "~> 4.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:ecto_sql, "~> 3.5.4"},
       {:postgrex, "~> 0.15"}
     ]

@@ -21,16 +21,16 @@ defmodule Tasker.Router do
       send_resp(
         conn,
         400,
-        Poison.encode!(%{"status" => false, "message" => "#{key} #{info}"})
+        Jason.encode!(%{"status" => false, "message" => "#{key} #{info}"})
       )
     else
-      send_resp(conn, 200, Poison.encode!(%{"status" => true, "message" => "Ok"}))
+      send_resp(conn, 200, Jason.encode!(%{"status" => true, "message" => "Ok"}))
     end
   end
 
   post "/api/task" do
     {:ok, body, conn} = read_body(conn)
-    body = Poison.decode!(body)
+    body = Jason.decode!(body)
     result = Task.insert_changeset(body)
     send_repo_action_result(conn, result)
   end
@@ -40,7 +40,7 @@ defmodule Tasker.Router do
 
     conn
     |> put_resp_header("content-type", "application/json; charset=utf-8")
-    |> send_resp(200, Poison.encode!(data))
+    |> send_resp(200, Jason.encode!(data))
   end
 
   get "/api/export" do
@@ -48,7 +48,12 @@ defmodule Tasker.Router do
 
     export_path = "/tmp/export_tasks.json"
     File.touch!(export_path)
-    File.write!(export_path, Poison.encode!(data))
+
+    data =
+      Jason.encode!(data)
+      |> Jason.Formatter.pretty_print()
+
+    File.write!(export_path, data)
 
     conn
     |> put_resp_header("content-type", "application/json; charset=utf-8")
@@ -57,21 +62,21 @@ defmodule Tasker.Router do
 
   post "/api/import" do
     {:ok, body, conn} = read_body(conn)
-    body = Poison.decode!(body)
+    body = Jason.decode!(body)
     result = Task.insert_many_tasks(body)
     send_repo_action_result(conn, result)
   end
 
   patch "/api/finish" do
     {:ok, body, conn} = read_body(conn)
-    body = Poison.decode!(body)
+    body = Jason.decode!(body)
     result = Task.update_finished(body)
     send_repo_action_result(conn, result)
   end
 
   patch "/api/update" do
     {:ok, body, conn} = read_body(conn)
-    body = Poison.decode!(body)
+    body = Jason.decode!(body)
     result = Task.update_task_data(body)
     send_repo_action_result(conn, result)
   end
