@@ -22,16 +22,14 @@ function ListContainer() {
 				<List>
 					<ListTasks />
 				</List>
-				<Grid columns={4}>
+				<Grid stackable columns={2}>
 					<Grid.Row>
-						<Grid.Column />
-						<Grid.Column>
+						<Grid.Column textAlign='center'>
 							<Button content='Export tasks' onClick={ExportTasks} />
 						</Grid.Column>
-						<Grid.Column>
+						<Grid.Column textAlign='center'>
 							<ImportFile />
 						</Grid.Column>
-						<Grid.Column />
 					</Grid.Row>
 				</Grid>
 				<Divider hidden style={{marginTop: '3em'}} />

@@ -3,18 +3,7 @@ import { ITask } from 'interfaces/ITask'
 
 function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	if(tasks===undefined) {
-		return [{
-			task_id: '0',
-			name: 'Not a task',
-			description: '',
-			finished: false,
-			info: {
-				full_name: '',
-				subject: '',
-				other_text: '',
-			}
-		}
-	]
+		return []
 	}
 	let new_tasks:ITask[] = tasks.map(e => {
 		return {
@@ -33,13 +22,17 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	return new_tasks
 }
 
-export const GetTasks = async ():Promise<ITask[]> => {
-	const response = await fetch('/api/tasks', {
-		method: 'GET'
-	})
-	if(response.ok) {
-		let resp = await response.json() as ITasksList[];
-		return TransformTasks(resp)
+export const GetTasks = async ():Promise<ITask[]|string> => {
+	try	{
+		const response = await fetch('/api/tasks', {
+			method: 'GET'
+		})
+		if(response.ok) {
+			let resp = await response.json() as ITasksList[];
+			return TransformTasks(resp)
+		}
+		return TransformTasks()
+	} catch (err) {
+		return 'Server unavailable'
 	}
-	return TransformTasks()
 }

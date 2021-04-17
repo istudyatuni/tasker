@@ -20,6 +20,7 @@ import './List.css'
 const ListTasks: React.FC = () => {
 	const [tasks, setTasks] = useState<ITask[]>([])
 	const [isNoTasks, setNoTasks] = useState(true)
+	const [errorMessage, setErrorMessage] = useState('No tasks')
 	const [open, setOpen] = useState(Array(tasks.length).fill(false))
 
 	const [showFinished, setShowFinished] = useState((Cookies.get('show-finished') === 'true') || false)
@@ -37,12 +38,24 @@ const ListTasks: React.FC = () => {
 	}
 
 	useEffect(()=>{
+		if (!navigator.onLine) {
+			setErrorMessage('You\'re offline')
+			return
+		}
 		let new_tasks:ITask[]
 		(async()=>{
-			new_tasks = await GetTasks()
-			setTasks(tasks => new_tasks)
-			setNoTasks(false)
-			setOpen(Array(new_tasks.length).fill(false))
+			let result:ITask[]|string
+			result = await GetTasks()
+			if (result instanceof Array && result.length > 0) {
+				// it's definitly array, so we can do this
+				new_tasks = result as ITask[]
+				setTasks(tasks => new_tasks)
+				setNoTasks(false)
+				setOpen(Array(new_tasks.length).fill(false))
+			} else {
+				// it's not array, so it's a string
+				setErrorMessage(result as string)
+			}
 		})();
 	}, [])
 
@@ -70,7 +83,7 @@ const ListTasks: React.FC = () => {
 					</Message>
 					{open[index] && (<TaskView id={element.task_id} finished={element.finished} element={element}/>)}
 				</List.Item>
-			) : <p>No tasks</p>}
+			) : <p>{errorMessage}</p>}
 		</>
 	);
 }
