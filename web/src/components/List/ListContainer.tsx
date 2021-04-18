@@ -22,7 +22,7 @@ function ListContainer() {
 				<List>
 					<ListTasks />
 				</List>
-				<Grid stackable columns={2}>
+				<Grid columns={2}>
 					<Grid.Row>
 						<Grid.Column textAlign='center'>
 							<Button content='Export tasks' onClick={ExportTasks} />
