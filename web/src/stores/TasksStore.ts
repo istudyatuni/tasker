@@ -1,19 +1,21 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 import { ITask } from 'interfaces/ITask'
 
-export default class TasksStore {
+export class TasksStore {
 	@observable
 	tasks: ITask[] = []
+	opened: boolean[] = []
 
 	@action
 	add(task: ITask) {
-		this.tasks.push(task)
+		this.tasks.unshift(task)
+		this.opened.unshift(false)
 	}
 
 	@action
 	update(task_id: string, task: ITask) {
-		// maybe better use bin search
+		// maybe faster use bin search
 		let ind = this.tasks.findIndex(e => e.task_id === task_id)
 		if (ind !== -1) {
 			this.tasks[ind] = task
@@ -23,10 +25,18 @@ export default class TasksStore {
 	@action
 	setAll(list: ITask[]) {
 		this.tasks = list
+		this.opened = Array(this.tasks.length).fill(false)
+	}
+
+	@computed
+	get getAll(): ITask[] {
+		return this.tasks
 	}
 
 	@action
-	getAll(): ITask[] {
-		return this.tasks
+	toggleOpen(index: number) {
+		if (this.tasks.length > 0) {
+			this.opened[index] = !this.opened[index]
+		}
 	}
 }

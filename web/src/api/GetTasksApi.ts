@@ -24,7 +24,7 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	return new_tasks
 }
 
-export const GetTasks = async ():Promise<boolean> => {
+export const GetTasks = async () => {
 	try	{
 		let tasksStore = stores.tasksStore
 
@@ -36,9 +36,7 @@ export const GetTasks = async ():Promise<boolean> => {
 			let resp = await response.json() as ITasksList[];
 			tasksStore.setAll(TransformTasks(resp))
 		}
-		return true
 	} catch (err) {
 		console.error(err)
-		return false
 	}
 }
