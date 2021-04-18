@@ -1,17 +1,18 @@
 import Cookies from 'js-cookie'
-import { action, observable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 export class SettingsStore {
-	@observable
 	listMessage = 'No tasks'
 	showFinished = Cookies.get('show-finished') === 'true' || false
 
-	@action
+	constructor() {
+		makeAutoObservable(this)
+	}
+
 	setMessage(m: string) {
 		this.listMessage = m
 	}
 
-	@action
 	toggleShowFinished() {
 		this.showFinished = !this.showFinished
 		Cookies.set('show-finished', this.showFinished.toString())
