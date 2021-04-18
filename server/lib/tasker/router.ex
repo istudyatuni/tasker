@@ -11,7 +11,7 @@ defmodule Tasker.Router do
   plug(:match)
   plug(:dispatch)
 
-  defp send_repo_action_result(conn, result) do
+  defp send_repo_action_result(conn, result, task_id \\ "0") do
     {result, result_data} = result
 
     if result == :error do
@@ -24,7 +24,7 @@ defmodule Tasker.Router do
         Jason.encode!(%{"status" => false, "message" => "#{key} #{info}"})
       )
     else
-      send_resp(conn, 200, Jason.encode!(%{"status" => true, "message" => "Ok"}))
+      send_resp(conn, 200, Jason.encode!(%{"status" => true, "message" => "Ok", "task_id" => task_id}))
     end
   end
 
@@ -32,7 +32,9 @@ defmodule Tasker.Router do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
     result = Task.insert_changeset(body)
-    send_repo_action_result(conn, result)
+    {_, task} = result
+    IO.inspect(task.task_id)
+    send_repo_action_result(conn, result, task.task_id)
   end
 
   get "/api/tasks" do
