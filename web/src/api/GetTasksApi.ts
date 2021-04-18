@@ -1,6 +1,8 @@
 import ITasksList from 'interfaces/ITasksList'
 import { ITask } from 'interfaces/ITask'
 
+import { stores } from 'stores/stores'
+
 function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	if(tasks===undefined) {
 		return []
@@ -22,17 +24,21 @@ function TransformTasks(tasks?: ITasksList[]): ITask[] {
 	return new_tasks
 }
 
-export const GetTasks = async ():Promise<ITask[]|string> => {
+export const GetTasks = async ():Promise<boolean> => {
 	try	{
+		let tasksStore = stores.tasksStore
+
 		const response = await fetch('/api/tasks', {
 			method: 'GET'
 		})
+
 		if(response.ok) {
 			let resp = await response.json() as ITasksList[];
-			return TransformTasks(resp)
+			tasksStore.setAll(TransformTasks(resp))
 		}
-		return TransformTasks()
+		return true
 	} catch (err) {
-		return 'Server unavailable'
+		console.error(err)
+		return false
 	}
 }

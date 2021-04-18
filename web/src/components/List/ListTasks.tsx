@@ -7,6 +7,7 @@ import {
 	Message,
 } from 'semantic-ui-react'
 import Cookies from 'js-cookie'
+import { observer } from 'mobx-react-lite'
 
 import NewTask from 'components/Task/NewTask'
 import TaskView from 'components/Task/TaskView'
@@ -15,11 +16,14 @@ import { GetTasks } from 'api/GetTasksApi'
 
 import { ITask } from 'interfaces/ITask'
 
+import { useStore } from 'stores/hooks'
+
 import './List.css'
 
-const ListTasks: React.FC = () => {
-	const [tasks, setTasks] = useState<ITask[]>([])
-	const [isNoTasks, setNoTasks] = useState(true)
+const ListTasks = observer(() => {
+	const tasksStore = useStore('tasksStore')
+
+	const [tasks, setTasks] = useState<ITask[]>(tasksStore.getAll())
 	const [errorMessage, setErrorMessage] = useState('No tasks')
 	const [open, setOpen] = useState(Array(tasks.length).fill(false))
 
@@ -30,7 +34,7 @@ const ListTasks: React.FC = () => {
 	}, [showFinished])
 
 	function toggleElement(index: number) {
-		if(isNoTasks) return
+		if(tasks.length === 0) return
 
 		let copy = [...open]
 		copy[index] = !open[index]
@@ -44,17 +48,15 @@ const ListTasks: React.FC = () => {
 		}
 		let new_tasks:ITask[]
 		(async()=>{
-			let result:ITask[]|string
-			result = await GetTasks()
-			if (result instanceof Array && result.length > 0) {
-				// it's definitly array, so we can do this
-				new_tasks = result as ITask[]
+			let status:boolean
+			status = await GetTasks()
+
+			if (status) {
+				new_tasks = tasksStore.getAll()
 				setTasks(tasks => new_tasks)
-				setNoTasks(false)
 				setOpen(Array(new_tasks.length).fill(false))
 			} else {
-				// it's not array, so it's a string
-				setErrorMessage(result as string)
+				setErrorMessage('Server unavailable')
 			}
 		})();
 	}, [])
@@ -86,6 +88,6 @@ const ListTasks: React.FC = () => {
 			) : <p>{errorMessage}</p>}
 		</>
 	);
-}
+})
 
 export default ListTasks;
