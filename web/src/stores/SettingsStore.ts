@@ -16,6 +16,5 @@ export class SettingsStore {
 	toggleShowFinished() {
 		this.showFinished = !this.showFinished
 		Cookies.set('show-finished', this.showFinished.toString())
-		console.log('show')
 	}
 }
