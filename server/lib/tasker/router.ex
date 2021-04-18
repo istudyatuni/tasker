@@ -43,6 +43,15 @@ defmodule Tasker.Router do
     |> send_resp(200, Jason.encode!(data))
   end
 
+  # get task by id
+  get "/api/task" do
+    %{"task_id" => task_id} = fetch_query_params(conn).params
+
+    task = Task.select_task_by_id(task_id)
+
+    send_resp(conn, 200, Jason.encode!(task))
+  end
+
   get "/api/export" do
     {_, data} = Task.select_all_tasks()
 
