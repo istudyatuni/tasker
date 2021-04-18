@@ -3,6 +3,15 @@
 	[
 		{
 			"path": "."
+		},
+		{
+			"path": "server/",
+			"name": "server",
+			"folder_exclude_patterns": ["_build", "deps"]
+		},
+		{
+			"path": "web/src/",
+			"name": "client"
 		}
 	],
 	"settings":

@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
+
 import App from './components/App/App';
+import { StoresProvider, stores } from 'stores/stores'
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<StoresProvider value={stores}>
+			<App />
+		</StoresProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

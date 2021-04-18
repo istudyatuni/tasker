@@ -30,7 +30,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 	const [description, setDescription] = useState(element.description)
 	const [finished, setFinished] = useState(element.finished)
 	// when you start editing, you need transform double line break back to \n
-	// on server this store as one \n, but here (and in 'api/GetTasksApi.ts:TransformTasks')
+	// on server this store as one \n, but here (and in 'api/helpers/transformTasks.ts:TasksListElement2Task')
 	// we make this transformation
 	const [text, setText] = useState(element.info.other_text.replaceAll('\n\n', '\n'))
 
@@ -60,7 +60,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 		setMessageHidden(false)
 		setMessageColor(result.status?'green':'red')
 		if(result.status) {
-			setTimeout(function(){window.location.reload()}, 1000)
+			setTimeout(function(){handleResponse(result.status)}, 300)
 		}
 	}
 
