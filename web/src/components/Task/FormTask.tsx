@@ -60,7 +60,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 		setMessageHidden(false)
 		setMessageColor(result.status?'green':'red')
 		if(result.status) {
-			setTimeout(function(){window.location.reload()}, 1000)
+			setTimeout(function(){handleResponse(result.status)}, 300)
 		}
 	}
 
