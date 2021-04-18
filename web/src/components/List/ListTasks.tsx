@@ -41,7 +41,7 @@ const ListTasks = () => {
 			{tasksStore.getAll.length ?
 			tasksStore.getAll.map((element, index) =>
 				!settingsStore.showFinished && element.finished ?
-				<div></div>
+				<></>
 				: <List.Item key={index.toString()}>
 					<Message
 						color={element.finished === true?'green':'orange'}
@@ -51,7 +51,10 @@ const ListTasks = () => {
 						<Message.Header>{element.name}</Message.Header>
 						<p>{element.description}</p>
 					</Message>
-					{tasksStore.opened[index] && (<TaskView id={element.task_id} finished={element.finished} element={element}/>)}
+					{
+						tasksStore.opened[index]
+						&& (<TaskView id={element.task_id} finished={element.finished} element={element}/>)
+					}
 				</List.Item>
 			) : <Message warning>{settingsStore.listMessage}</Message>}
 		</>

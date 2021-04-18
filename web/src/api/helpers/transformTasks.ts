@@ -3,7 +3,7 @@ import { ITask } from 'interfaces/ITask'
 
 ////// ITaskList to ITask //////
 
-export const TaskListElement2Task = (task: ITasksList): ITask => {
+export const TasksListElement2Task = (task: ITasksList): ITask => {
 	return {
 		task_id: task.task_id,
 		name: task.name,
@@ -18,10 +18,24 @@ export const TaskListElement2Task = (task: ITasksList): ITask => {
 	}
 }
 
-export const TaskListArray2Task = (tasks?: ITasksList[]): ITask[] => {
+export const TasksListArray2Task = (tasks?: ITasksList[]): ITask[] => {
 	if(tasks===undefined) {
 		return []
 	}
-	let new_tasks:ITask[] = tasks.map(e => TaskListElement2Task(e))
+	let new_tasks:ITask[] = tasks.map(e => TasksListElement2Task(e))
 	return new_tasks
+}
+
+////// ITask to ITaskList //////
+
+export const Task2TasksListElement = (task: ITask): ITasksList => {
+	return {
+		task_id: task.task_id,
+		name: task.name,
+		full_name: task.info.full_name,
+		subject: task.info.subject,
+		description: task.description,
+		finished: task.finished,
+		other_text: task.info.other_text
+	}
 }

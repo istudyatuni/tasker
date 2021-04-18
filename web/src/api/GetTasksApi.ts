@@ -1,6 +1,6 @@
 import ITasksList from 'interfaces/ITasksList'
 
-import { TaskListArray2Task } from 'api/helpers/transformTasks'
+import { TasksListArray2Task } from 'api/helpers/transformTasks'
 
 import { stores } from 'stores/stores'
 
@@ -14,7 +14,7 @@ export const GetTasks = async () => {
 
 		if(response.ok) {
 			let resp = await response.json() as ITasksList[];
-			tasksStore.setAll(TaskListArray2Task(resp))
+			tasksStore.setAll(TasksListArray2Task(resp))
 		}
 	} catch (err) {
 		console.error(err)
