@@ -16,7 +16,11 @@ export const GetTasks = async () => {
 
 		if(response.ok) {
 			let resp = await response.json() as ITasksList[];
-			tasksStore.setAll(TasksListArray2Task(resp))
+			if(resp.length) {
+				tasksStore.setAll(TasksListArray2Task(resp))
+			} else {
+				settingsStore.setTasksListMessage('List tasks is empty')
+			}
 		}
 	} catch (err) {
 		settingsStore.setTasksListMessage('Server unavailable')

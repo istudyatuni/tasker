@@ -4,12 +4,14 @@ import React, {
 } from 'react';
 import {
 	Button,
+	SemanticCOLORS,
 } from 'semantic-ui-react'
 
 import { ImportTasks } from 'api/ImportApi'
 
 function ImportFile() {
 	const [buttonText, setButtonText] = useState("Import tasks")
+	const [buttonColor, setButtonColor] = useState('')
 
 	const inputFile = useRef<HTMLInputElement>(null)
 
@@ -45,6 +47,11 @@ function ImportFile() {
 							window.location.reload()
 						} else {
 							setButtonText("Error exporting")
+							setButtonColor('red')
+							setTimeout(function(){
+								setButtonText('Import tasks')
+								setButtonColor('')
+							}, 1500)
 						}
 					})();
 				}
@@ -54,7 +61,7 @@ function ImportFile() {
 
 	return (
 		<>
-			<Button content={buttonText} onClick={onButtonClick} />
+			<Button color={buttonColor as SemanticCOLORS} content={buttonText} onClick={onButtonClick} />
 			<input type="file" id="import-file" ref={inputFile} style={{display: 'none'}} />
 			<input type="submit" id="submit-import" onClick={uploadFile} style={{display: 'none'}} />
 		</>

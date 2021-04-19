@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { makeAutoObservable } from 'mobx'
 
 export class SettingsStore {
-	tasksListMessage = 'No tasks'
+	tasksListMessage = 'Loading'
 	showFinished = Cookies.get('show-finished') === 'true' || false
 
 	constructor() {
