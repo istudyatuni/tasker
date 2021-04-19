@@ -1,5 +1,8 @@
+import { SetUpdatedTask } from 'api/helpers/setUpdatedTask'
+
+import IResponse from 'interfaces/IResponse'
+
 export const FinishTask = async(id: string, status: boolean) => {
-	// eslint-disable-next-line
 	let response = await fetch('/api/finish', {
 		method: 'PATCH',
 		body: JSON.stringify({
@@ -7,4 +10,10 @@ export const FinishTask = async(id: string, status: boolean) => {
 			status: status
 		})
 	})
+
+	let resp = await response.json() as IResponse
+
+	if(resp.status) {
+		SetUpdatedTask(id)
+	}
 }
