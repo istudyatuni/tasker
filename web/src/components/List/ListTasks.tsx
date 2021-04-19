@@ -23,7 +23,7 @@ const ListTasks = () => {
 
 	useEffect(()=>{
 		if (!navigator.onLine) {
-			settingsStore.setMessage('You\'re offline')
+			settingsStore.setTasksListMessage('You\'re offline')
 			return
 		}
 		GetTasks()
@@ -56,7 +56,7 @@ const ListTasks = () => {
 						&& (<TaskView id={element.task_id} finished={element.finished} element={element}/>)
 					}
 				</List.Item>
-			) : <Message warning>{settingsStore.listMessage}</Message>}
+			) : <Message warning>{settingsStore.tasksListMessage}</Message>}
 		</>
 	));
 }

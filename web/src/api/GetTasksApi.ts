@@ -5,6 +5,8 @@ import { TasksListArray2Task } from 'api/helpers/transformTasks'
 import { stores } from 'stores/stores'
 
 export const GetTasks = async () => {
+	let settingsStore = stores.settingsStore
+
 	try	{
 		let tasksStore = stores.tasksStore
 
@@ -17,6 +19,7 @@ export const GetTasks = async () => {
 			tasksStore.setAll(TasksListArray2Task(resp))
 		}
 	} catch (err) {
+		settingsStore.setTasksListMessage('Server unavailable')
 		console.error(err)
 	}
 }

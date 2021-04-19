@@ -2,15 +2,15 @@ import Cookies from 'js-cookie'
 import { makeAutoObservable } from 'mobx'
 
 export class SettingsStore {
-	listMessage = 'No tasks'
+	tasksListMessage = 'No tasks'
 	showFinished = Cookies.get('show-finished') === 'true' || false
 
 	constructor() {
 		makeAutoObservable(this)
 	}
 
-	setMessage(m: string) {
-		this.listMessage = m
+	setTasksListMessage(m: string) {
+		this.tasksListMessage = m
 	}
 
 	toggleShowFinished() {
