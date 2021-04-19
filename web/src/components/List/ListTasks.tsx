@@ -11,7 +11,7 @@ import { useObserver } from 'mobx-react-lite'
 import NewTask from 'components/Task/NewTask'
 import TaskView from 'components/Task/TaskView'
 
-import { GetTasks } from 'api/GetTasksApi'
+import { LoadTasks } from 'api/LoadTasksApi'
 
 import { useStore } from 'stores/hooks'
 
@@ -26,7 +26,7 @@ const ListTasks = () => {
 			settingsStore.setTasksListMessage('You\'re offline')
 			return
 		}
-		GetTasks()
+		LoadTasks()
 	}, [])
 
 	return useObserver(() => (

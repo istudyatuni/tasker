@@ -4,7 +4,7 @@ import { TasksListArray2Task } from 'api/helpers/transformTasks'
 
 import { stores } from 'stores/stores'
 
-export const GetTasks = async () => {
+export const LoadTasks = async () => {
 	let settingsStore = stores.settingsStore
 
 	try	{

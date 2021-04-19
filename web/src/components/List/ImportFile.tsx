@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react'
 
 import { ImportTasks } from 'api/ImportApi'
+import { LoadTasks } from 'api/LoadTasksApi'
 
 function ImportFile() {
 	const [buttonText, setButtonText] = useState("Import tasks")
@@ -44,7 +45,7 @@ function ImportFile() {
 					(async () => {
 						let result = await ImportTasks(reader.result as string)
 						if(result.status) {
-							window.location.reload()
+							LoadTasks()
 						} else {
 							setButtonText("Error exporting")
 							setButtonColor('red')
