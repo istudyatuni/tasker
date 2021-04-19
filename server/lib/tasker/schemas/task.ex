@@ -24,7 +24,14 @@ defmodule Tasker.Task do
   end
 
   defp fix_string(str) do
-    if is_nil(str), do: str, else: Regex.replace(~r/\r/, str, "")
+    if is_nil(str) do
+      str
+    else
+      # \r\n -> \n
+      s = Regex.replace(~r/\r/, str, "")
+      # weird space
+      Regex.replace(~r/ /, s, " ")
+    end
   end
 
   defp fix_texts(params) do
