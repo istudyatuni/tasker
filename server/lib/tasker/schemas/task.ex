@@ -7,13 +7,13 @@ defmodule Tasker.Task do
   require Logger
 
   schema "tasks" do
-    field(:task_id,     :string)
-    field(:name,        :string, null: false)
-    field(:full_name,   :string)
-    field(:subject,     :string)
+    field(:task_id, :string)
+    field(:name, :string, null: false)
+    field(:full_name, :string)
+    field(:subject, :string)
     field(:description, :string)
-    field(:finished,    :boolean, default: false)
-    field(:other_text,  :string)
+    field(:finished, :boolean, default: false)
+    field(:other_text, :string)
   end
 
   def update_finished(params) do
@@ -36,13 +36,13 @@ defmodule Tasker.Task do
 
   defp fix_texts(params) do
     %{
-      "task_id"     => params["task_id"],
-      "name"        => fix_string(params["name"]),
-      "full_name"   => fix_string(params["full_name"]),
-      "subject"     => fix_string(params["subject"]),
+      "task_id" => params["task_id"],
+      "name" => fix_string(params["name"]),
+      "full_name" => fix_string(params["full_name"]),
+      "subject" => fix_string(params["subject"]),
       "description" => fix_string(params["description"]),
-      "finished"    => params["finished"],
-      "other_text"  => fix_string(params["other_text"])
+      "finished" => params["finished"],
+      "other_text" => fix_string(params["other_text"])
     }
   end
 
@@ -127,13 +127,13 @@ defmodule Tasker.Task do
 
   defp extract_task(task) do
     %{
-      "task_id"     => task.task_id,
-      "name"        => task.name,
-      "full_name"   => set_if_nil(task.full_name),
-      "subject"     => set_if_nil(task.subject),
+      "task_id" => task.task_id,
+      "name" => task.name,
+      "full_name" => set_if_nil(task.full_name),
+      "subject" => set_if_nil(task.subject),
       "description" => set_if_nil(task.description),
-      "finished"    => task.finished,
-      "other_text"  => set_if_nil(task.other_text)
+      "finished" => task.finished,
+      "other_text" => set_if_nil(task.other_text)
     }
   end
 
