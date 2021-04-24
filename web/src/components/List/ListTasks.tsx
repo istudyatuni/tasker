@@ -27,6 +27,7 @@ const ListTasks = () => {
 			return
 		}
 		LoadTasks()
+	// eslint-disable-next-line
 	}, [])
 
 	return useObserver(() => (

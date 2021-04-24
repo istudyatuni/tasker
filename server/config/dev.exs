@@ -1,10 +1,6 @@
 use Mix.Config
 
-config :tasker, Tasker.Repo,
-  database: "tasker_repo_dev",
-  username: "postgres",
-  password: "postgres",
-  port: 5432
+config :tasker, Tasker.Repo, database: "tasker_repo_dev"
 
 config :tasker,
   port: 4000,

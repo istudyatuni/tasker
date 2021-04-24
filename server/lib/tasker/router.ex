@@ -11,6 +11,14 @@ defmodule Tasker.Router do
   plug(:match)
   plug(:dispatch)
 
+  get "/api/page_title" do
+    if Mix.env() == :dev do
+      send_resp(conn, 200, " - development")
+    else
+      send_resp(conn, 200, "")
+    end
+  end
+
   defp send_repo_action_result(conn, result) do
     {result, result_data} = result
 
