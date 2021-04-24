@@ -24,11 +24,20 @@ defmodule Tasker.Router do
         Jason.encode!(%{"status" => false, "message" => "#{key} #{info}"})
       )
     else
-      send_resp(
-        conn,
-        200,
-        Jason.encode!(%{"status" => true, "message" => "Ok", "task_id" => result_data.task_id})
-      )
+      # no task id in result_data
+      if result == :ok and result_data == "Ok" do
+        send_resp(
+          conn,
+          200,
+          Jason.encode!(%{"status" => true, "message" => "Ok"})
+        )
+      else
+        send_resp(
+          conn,
+          200,
+          Jason.encode!(%{"status" => true, "message" => "Ok", "task_id" => result_data.task_id})
+        )
+      end
     end
   end
 
