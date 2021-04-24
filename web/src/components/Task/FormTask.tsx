@@ -124,7 +124,7 @@ const FormTask: React.FC<FormTaskProps> = ({ handleResponse, apiFunction, elemen
 						onChange={(event: any, data: any)=>{setFinished(data.checked)}}
 					/>
 				</Form.Field>
-				: <span></span>
+				: <></>
 			}
 			<Message
 				hidden={messageHidden}

@@ -7,6 +7,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=tasker_repo
+      # - POSTGRES_DB=tasker_repo_dev
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

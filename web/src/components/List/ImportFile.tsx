@@ -5,13 +5,15 @@ import React, {
 import {
 	Button,
 } from 'semantic-ui-react'
+import { useObserver } from 'mobx-react-lite'
 
 import { ImportTasks } from 'api/ImportApi'
 import { LoadTasks } from 'api/LoadTasksApi'
 
+import { useStore } from 'stores/hooks'
+
 function ImportFile() {
-	const [buttonText, setButtonText] = useState("Import tasks")
-	const [buttonNegative, setButtonNegative] = useState(false)
+	const settingsStore = useStore('settingsStore')
 
 	const inputFile = useRef<HTMLInputElement>(null)
 
@@ -46,11 +48,9 @@ function ImportFile() {
 						if(result.status) {
 							LoadTasks()
 						} else {
-							setButtonText("Error exporting")
-							setButtonNegative(true)
+							settingsStore.setImportButton('Error importing', true)
 							setTimeout(function(){
-								setButtonText('Import tasks')
-								setButtonNegative(false)
+								settingsStore.setImportButton('Import tasks', false)
 							}, 1500)
 						}
 					})();
@@ -59,13 +59,17 @@ function ImportFile() {
 		}
 	}
 
-	return (
+	return useObserver(() => (
 		<>
-			<Button negative={buttonNegative} content={buttonText} onClick={onButtonClick} />
+			<Button
+				negative={settingsStore.import.button.is_negative}
+				content= {settingsStore.import.button.text}
+				onClick={onButtonClick}
+			/>
 			<input type="file" id="import-file" ref={inputFile} style={{display: 'none'}} />
 			<input type="submit" id="submit-import" onClick={uploadFile} style={{display: 'none'}} />
 		</>
-	);
+	));
 }
 
 export default ImportFile;
