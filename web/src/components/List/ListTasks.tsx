@@ -6,7 +6,7 @@ import {
 	List,
 	Message,
 } from 'semantic-ui-react'
-import { useObserver } from 'mobx-react-lite'
+import { Observer } from 'mobx-react-lite'
 
 import NewTask from 'components/Task/NewTask'
 import TaskView from 'components/Task/TaskView'
@@ -30,7 +30,9 @@ const ListTasks = () => {
 	// eslint-disable-next-line
 	}, [])
 
-	return useObserver(() => (
+	return (
+		<Observer>
+		{() => (
 		<>
 			<Checkbox
 				toggle
@@ -59,7 +61,9 @@ const ListTasks = () => {
 				</List.Item>
 			) : <Message warning>{settingsStore.tasksListMessage}</Message>}
 		</>
-	));
+		)}
+		</Observer>
+	);
 }
 
 export default ListTasks;

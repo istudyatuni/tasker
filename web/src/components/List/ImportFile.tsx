@@ -4,7 +4,7 @@ import React, {
 import {
 	Button,
 } from 'semantic-ui-react'
-import { useObserver } from 'mobx-react-lite'
+import { Observer } from 'mobx-react-lite'
 
 import { ImportTasks } from 'api/ImportApi'
 import { LoadTasks } from 'api/LoadTasksApi'
@@ -58,7 +58,9 @@ function ImportFile() {
 		}
 	}
 
-	return useObserver(() => (
+	return (
+		<Observer>
+		{() => (
 		<>
 			<Button
 				negative={settingsStore.import.button.is_negative}
@@ -68,7 +70,9 @@ function ImportFile() {
 			<input type="file" id="import-file" ref={inputFile} style={{display: 'none'}} />
 			<input type="submit" id="submit-import" onClick={uploadFile} style={{display: 'none'}} />
 		</>
-	));
+		)}
+		</Observer>
+	);
 }
 
 export default ImportFile;
