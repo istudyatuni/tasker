@@ -1,4 +1,4 @@
-defmodule Tasker.WebRouter do
+defmodule Tasker.Routers.Web do
   import Plug.Conn
   use Plug.Router
   use Plug.Debugger

@@ -40,8 +40,8 @@ defmodule Tasker.Application do
     [
       {:_,
        [
-         {"/api/[...]", Plug.Cowboy.Handler, {Tasker.Router, []}},
-         {:_, Plug.Cowboy.Handler, {Tasker.WebRouter, []}}
+         {"/api/[...]", Plug.Cowboy.Handler, {Tasker.Routers.TasksApi, []}},
+         {:_, Plug.Cowboy.Handler, {Tasker.Routers.Web, []}}
        ]}
     ]
   end

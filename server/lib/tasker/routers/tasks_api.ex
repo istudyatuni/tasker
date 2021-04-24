@@ -1,4 +1,4 @@
-defmodule Tasker.Router do
+defmodule Tasker.Routers.TasksApi do
   import Plug.Conn
   use Plug.Router
   use Plug.Debugger
