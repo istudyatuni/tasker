@@ -1,3 +1,7 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+.left-margin {
+	margin-left: 1em!important;
+}

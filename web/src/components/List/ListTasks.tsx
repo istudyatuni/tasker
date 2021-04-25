@@ -2,7 +2,9 @@ import React, {
 	useEffect,
 } from 'react';
 import {
+	Accordion,
 	Checkbox,
+	Label,
 	List,
 	Message,
 } from 'semantic-ui-react'
@@ -46,18 +48,18 @@ const ListTasks = () => {
 				!settingsStore.showFinished && element.finished ?
 				<></>
 				: <List.Item key={index.toString()}>
-					<Message
-						color={element.finished === true?'green':'orange'}
-						className='cursor-pointer'
-						onClick={()=>{tasksStore.toggleOpen(index)}}
-					>
-						<Message.Header>{element.name}</Message.Header>
-						<p>{element.description}</p>
-					</Message>
-					{
-						tasksStore.opened[index]
-						&& (<TaskView id={element.task_id} finished={element.finished} element={element}/>)
-					}
+					<Accordion styled fluid>
+						<Accordion.Title onClick={()=>{tasksStore.toggleOpen(index)}} className='cursor-pointer'>
+							<Message.Header>
+								{element.name}
+								{element.finished && (<Label color='green' content='Finished' size='mini' className='left-margin' />)}
+							</Message.Header>
+							<p>{element.description}</p>
+						</Accordion.Title>
+						<Accordion.Content active={tasksStore.opened[index]}>
+							<TaskView id={element.task_id} finished={element.finished} element={element}/>
+						</Accordion.Content>
+					</Accordion>
 				</List.Item>
 			) : <Message warning>{settingsStore.tasksListMessage}</Message>}
 		</>
