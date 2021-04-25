@@ -84,7 +84,6 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
 				/>
 				<ReactMarkdown plugins={[gfm]} allowDangerousHtml={true}>{element.info.other_text}</ReactMarkdown>
 			</Container>
-			<Divider hidden />
 		</>
 	);
 }
