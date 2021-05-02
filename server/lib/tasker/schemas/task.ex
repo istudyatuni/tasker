@@ -28,8 +28,8 @@ defmodule Tasker.Task do
       str
     else
       # \r\n -> \n
-      # no break space
-      Regex.replace(~r/[\r\xa0]/, str, "")
+      # no break space - now not replace, but stay here - ' '
+      Regex.replace(~r/[\r]/, str, "")
     end
   end
 
