@@ -82,7 +82,7 @@ const TaskView: React.FC<TaskViewProps> = ({ id, finished, element }) => {
 					content={finishButton}
 					onClick={toggleFinishButton}
 				/>
-				<ReactMarkdown plugins={[gfm]} allowDangerousHtml={true}>{element.info.other_text}</ReactMarkdown>
+				<ReactMarkdown plugins={[gfm]} skipHtml={true}>{element.info.other_text}</ReactMarkdown>
 			</Container>
 		</>
 	);
