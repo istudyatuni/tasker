@@ -8,8 +8,10 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/web" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    target-branch: bumps
   - package-ecosystem: "mix" # See documentation for possible values
     directory: "/server" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    target-branch: bumps
