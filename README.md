@@ -21,7 +21,7 @@ docker-compose up -d tasker
 
 Then open http://localhost:11697
 
-*If you want to manage your database (delete tasks, for example), run*
+*If you want to manage your database (delete tasks, for example), you also need to run adminer*
 
 ```bash
 docker-compose up -d tasker adminer
@@ -29,11 +29,11 @@ docker-compose up -d tasker adminer
 
 Adminer interface will be opened on http://localhost:8080
 
-Username and password: `postgres`
+System - `PostgreSQL`, server - `db`, username and password: `postgres`, database - `tasker_repo`
 
-**Manually, build from source**
+**Running in development mode**
 
-1. PostgresSQL in docker:
+1. PostgreSQL in docker:
 
 ```bash
 docker-compose up adminer
