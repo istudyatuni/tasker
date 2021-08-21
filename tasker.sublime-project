@@ -12,7 +12,12 @@
 		{
 			"path": "web/src/",
 			"name": "client"
-		}
+		},
+		{
+			"path": "web-svelte/",
+			"name": "client-svelte",
+			"folder_exclude_patterns": ["node_modules"]
+		},
 	],
 	"settings":
 	{
