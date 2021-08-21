@@ -8,17 +8,15 @@ ENV MIX_ENV=prod
 RUN mix release
 
 FROM node:alpine AS node_builder
-WORKDIR /app
-COPY ./web/package.json ./web/yarn.lock ./
+WORKDIR /swelte
+COPY ./web-svelte/package.json ./web-svelte/yarn.lock ./
 RUN yarn install
-COPY ./web ./
-ENV NODE_ENV="production" \
-GENERATE_SOURCEMAP=false
+COPY ./web-svelte ./
 RUN yarn build
 
 FROM alpine:latest
 RUN apk add --no-cache ncurses-dev
 COPY --from=build-env /server/_build/prod/rel/tasker/ /server/
-COPY --from=node_builder /app/build /web/dist
+COPY --from=node_builder /swelte/public /web/dist
 
 CMD ["/server/bin/tasker", "start"]

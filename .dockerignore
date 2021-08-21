@@ -7,8 +7,11 @@
 **/doc/
 task/
 doc/
+mobile/
 
 *.md
 openapi.yaml
 *.sublime-*
 re_migrate.sh
+
+**/.vscode/
