@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# not sure that this is right, but it's a pretty huge files
+.yarn/releases/yarn-berry.cjs
+.pnp.cjs
+.yarn
