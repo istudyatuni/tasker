@@ -18,6 +18,11 @@ function localKeyValueStore(name, initial = {}) {
 			data[key] = value
 			localStorage.setItem(name, toString(data))
 			return data
+		}),
+		delete: (key) => update(data => {
+			delete data[key]
+			localStorage.setItem(name, toString(data))
+			return data
 		})
 	}
 }
