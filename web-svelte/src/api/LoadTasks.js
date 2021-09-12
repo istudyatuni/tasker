@@ -1,3 +1,5 @@
+import { tasks as tasksStore } from 'src/stores/tasks.js'
+
 export const LoadTasks = async () => {
 	try	{
 		const response = await fetch('/api/tasks', {
@@ -7,12 +9,14 @@ export const LoadTasks = async () => {
 		if(response.ok) {
 			let resp = await response.json()
 			if(resp.length) {
-				return resp;
+				tasksStore.set(resp)
 			} else {
-				return []
+				tasksStore.set([])
 			}
+			return true
 		}
 	} catch (err) {
 		console.error('Server unavailable:', err)
+		return false
 	}
 }
