@@ -7,17 +7,24 @@ function tasksStore() {
 	return {
 		subscribe,
 		set,
-		update: (id, task) => {
-			const i = data.findIndex(e => e.task_id === id)
+		update: (id, task) => update(tasks => {
+			const i = tasks.findIndex(e => e.task_id === id)
 			if (i !== -1) {
-				return update(tasks => {
 					tasks[i] = task
 					return tasks
-				})
 			}
 
 			console.error('Not found task with id ', id)
-		},
+		}),
+		finish: (id, status) => update(tasks => {
+			const i = tasks.findIndex(e => e.task_id === id)
+			if (i !== -1) {
+					tasks[i].finished = status
+					return tasks
+			}
+
+			console.error('Not found task with id ', id)
+		}),
 		push: (task) => update(tasks => tasks.push(task))
 	}
 }

@@ -1,5 +1,6 @@
 <script>
 	import { tasks } from 'src/stores/tasks.js'
+	import { FinishTask } from 'src/api/FinishTask.js'
 </script>
 
 {#if $tasks.length === 0}
@@ -12,6 +13,9 @@
 		<div class="is-flex">
 			<img
 				src={`icons/${task.finished ? '' : 'in'}completed-task.svg`}
+				on:click={() => {
+					FinishTask(task.task_id, !task.finished)
+				}}
 				class="icon mr-3 pt-1 is-clickable"
 				width="50" height="50" alt=""
 			>

@@ -1,4 +1,4 @@
-import { tasks as tasksStore } from 'src/stores/tasks.js'
+import { tasks } from 'src/stores/tasks.js'
 
 export const LoadTasks = async () => {
 	try	{
@@ -9,9 +9,9 @@ export const LoadTasks = async () => {
 		if(response.ok) {
 			let resp = await response.json()
 			if(resp.length) {
-				tasksStore.set(resp)
+				tasks.set(resp)
 			} else {
-				tasksStore.set([])
+				tasks.set([])
 			}
 			return true
 		}
