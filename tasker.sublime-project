@@ -14,7 +14,7 @@
 			"name": "client"
 		},
 		{
-			"path": "web-svelte/",
+			"path": "web-svelte/src/",
 			"name": "client-svelte",
 			"folder_exclude_patterns": ["node_modules"]
 		},

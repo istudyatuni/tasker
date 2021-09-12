@@ -80,7 +80,7 @@ export default {
 
     alias({
       entries: [
-      	{ find: 'src', replacement: 'src' },
+      	{ find: '@src', replacement: 'src' },
       ]
     }),
 	],
