@@ -1,30 +1,21 @@
 <script>
-	export let name;
+	import { LoadTasks } from 'src/api/LoadTasks.js'
+
+	import SettingsBox from 'src/components/SettingsBox.svelte'
+	import TasksList from 'src/components/TasksList.svelte'
+
+	let tasks = LoadTasks()
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<main class="container is-max-desktop pt-5">
+	<h1 class="title">Tasks</h1>
+	<SettingsBox />
+
+	{#await tasks}
+		<p>Loading...</p>
+	{:then data}
+		<TasksList tasks={data} />
+	{:catch e}
+		<p>Failed to load tasks: {JSON.stringify(e)}</p>
+	{/await}
 </main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>

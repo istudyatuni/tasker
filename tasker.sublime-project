@@ -2,21 +2,21 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": ".",
 		},
 		{
-			"path": "server/",
+			"path": "server",
 			"name": "server",
-			"folder_exclude_patterns": ["_build", "deps"]
+			"folder_exclude_patterns": ["_build", "deps"],
 		},
 		{
-			"path": "web/src/",
-			"name": "client"
+			"path": "web/src",
+			"name": "client",
 		},
 		{
-			"path": "web-svelte/src/",
+			"path": "web-svelte/src",
 			"name": "client-svelte",
-			"folder_exclude_patterns": ["node_modules"]
+			"folder_exclude_patterns": ["node_modules"],
 		},
 	],
 	"settings":
@@ -24,6 +24,6 @@
 		"tab_size": 2,
 		"translate_tabs_to_spaces": false,
 		"trim_trailing_white_space_on_save": true,
-		"ensure_newline_at_eof_on_save": true
-	}
+		"ensure_newline_at_eof_on_save": true,
+	},
 }
