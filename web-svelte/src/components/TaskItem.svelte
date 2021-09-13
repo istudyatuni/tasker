@@ -11,20 +11,17 @@
 </script>
 
 <!-- header -->
-<div class="is-flex">
+<div class="is-flex is-clickable" on:click={toggleDetails}>
 	<img
 		src={`icons/${task.finished ? '' : 'in'}completed-task.svg`}
-		on:click={() => {
+		on:click|stopPropagation={() => {
 			FinishTask(task.task_id, !task.finished)
 		}}
 		class="icon mr-4 pt-1 is-clickable"
 		width="50" height="50" alt=""
 		title="Finish task"
 	>
-	<div class="is-clickable"
-		on:click={toggleDetails}
-		title="Open details"
-	>
+	<div title="Open details">
 		<p class="title is-5">{task.name}</p>
 		<p class="subtitle">{task.description}</p>
 	</div>
