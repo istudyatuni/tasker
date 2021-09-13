@@ -1,7 +1,7 @@
 import { tasks } from 'src/stores/tasks.js'
 
 export const LoadTasks = async () => {
-	try	{
+	try {
 		const response = await fetch('/api/tasks', {
 			method: 'GET'
 		})
