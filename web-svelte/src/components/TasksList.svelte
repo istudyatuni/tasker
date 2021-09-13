@@ -1,4 +1,5 @@
 <script>
+	import { settings } from 'src/stores/settings.js'
 	import { tasks } from 'src/stores/tasks.js'
 
 	import TaskItem from 'src/components/TaskItem.svelte'
@@ -9,7 +10,9 @@
 {/if}
 
 {#each $tasks as task}
-	<div class="box">
-		<TaskItem {task} />
-	</div>
+	{#if !task.finished || $settings.show_finished}
+		<div class="box">
+			<TaskItem {task} />
+		</div>
+	{/if}
 {/each}
