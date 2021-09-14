@@ -1,4 +1,6 @@
 <script>
+	import TaskInputModal from 'src/components/TaskInputModal.svelte'
+
 	import { settings } from 'src/stores/settings.js'
 
 	function toggleSetting(key) {
@@ -24,7 +26,9 @@
 		<span>Settings</span>
 	</button>
 
-	<button class="button is-primary block">Add a task</button>
+	<TaskInputModal>
+		<button slot="trigger" class="button is-primary block">Add a task</button>
+	</TaskInputModal>
 </div>
 
 {#if opened}
