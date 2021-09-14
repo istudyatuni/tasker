@@ -4,6 +4,12 @@
 	import SettingsBox from 'src/components/SettingsBox.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
 
+	import { settings } from 'src/stores/settings.js'
+
+	import { initSettings } from 'src/utils/defaultSettings.js'
+
+	initSettings($settings)
+
 	let promise = LoadTasks()
 </script>
 

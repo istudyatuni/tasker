@@ -1,22 +1,61 @@
 <script>
 	import { settings } from 'src/stores/settings.js'
 
-	if ($settings.show_finished === undefined) {
-		settings.set('show_finished', true)
+	function toggleSetting(key) {
+		settings.set(key, !$settings[key])
 	}
 
-	function toggleFinished() {
-		const current = $settings.show_finished
-		settings.set('show_finished', !current)
+	const saveStrictLB = $settings.strict_line_breaks
+
+	let opened = false, show_reload = false;
+
+	function toggleReload() {
+		show_reload = !show_reload
 	}
 </script>
 
-<label class="checkbox block">
-	<input
-		type="checkbox"
-		name="show_finished"
-		checked={$settings.show_finished}
-		on:click={toggleFinished}
+<div class="is-flex is-justify-content-space-between">
+	<button class="button is-primary is-inverted block"
+		on:click={() => { opened = !opened }}
 	>
-	Show finished
-</label>
+		<span class="icon is-not-focused">
+			<img src="icons/settings-gear.svg" alt="">
+		</span>
+		<span>Settings</span>
+	</button>
+
+	<button class="button is-primary block">Add a task</button>
+</div>
+
+{#if opened}
+	<label class="checkbox block">
+		<input
+			type="checkbox" name="show_finished"
+			checked={$settings.show_finished}
+			on:click={() => { toggleSetting('show_finished') }}>
+		Show finished
+	</label>
+
+	<br>
+
+	<div class="block">
+		<label class="checkbox" title="Ignore single line breaks according to the markdown specs">
+			<input
+				type="checkbox" name="strict_line_breaks"
+				checked={$settings.strict_line_breaks}
+				on:click={() => { toggleSetting('strict_line_breaks'); toggleReload() }}>
+			Strict line breaks
+		</label>
+
+		{#if show_reload}
+			<span class="icon is-clickable"
+				title="Reload page to apply"
+				on:click={() => {
+					window.location.reload()
+				}}>
+				<img src="icons/reload-circle.svg" alt="">
+			</span>
+		{/if}
+
+	</div>
+{/if}

@@ -3,11 +3,17 @@
 
 	import { FinishTask } from 'src/api/FinishTask.js'
 
+	import { settings } from 'src/stores/settings.js'
+
 	import { scriptSanitize } from 'src/utils/sanitize.js'
 
 	export let task;
 
-	let opened = true;
+	let markedOptions = {
+		breaks: !$settings.strict_line_breaks
+	}
+
+	let opened = false;
 
 	function toggleDetails() {
 		opened = !opened;
@@ -42,6 +48,6 @@
 	</div>
 	<hr>
 	<div class="content">
-		{@html scriptSanitize(marked(task.other_text))}
+		{@html scriptSanitize(marked(task.other_text, markedOptions))}
 	</div>
 {/if}
