@@ -17,6 +17,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "bulma": "^0.9.3"
+    "bulma": "^0.9.3",
+    "marked": "^3.0.3"
   }
 }

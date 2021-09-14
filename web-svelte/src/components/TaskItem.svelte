@@ -1,5 +1,9 @@
 <script>
+	import marked from 'marked'
+
 	import { FinishTask } from 'src/api/FinishTask.js'
+
+	import { scriptSanitize } from 'src/utils/sanitize.js'
 
 	export let task;
 
@@ -37,4 +41,7 @@
 		<button class="button">Edit</button>
 	</div>
 	<hr>
+	<div class="content">
+		{@html scriptSanitize(marked(task.other_text))}
+	</div>
 {/if}

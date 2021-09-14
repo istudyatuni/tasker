@@ -18,5 +18,5 @@
 		checked={$settings.show_finished}
 		on:click={toggleFinished}
 	>
-	Toggle finished
+	Show finished
 </label>
