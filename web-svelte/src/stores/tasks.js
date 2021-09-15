@@ -25,7 +25,7 @@ function tasksStore() {
 
 			console.error('Not found task with id ', id)
 		}),
-		push: (task) => update(tasks => tasks.push(task))
+		push: (task) => update(tasks => [task, ...tasks])
 	}
 }
 

@@ -1,7 +1,16 @@
 <script>
 	import TextInput from 'src/components/blocks/TextInput.svelte'
 
-	export let task = {};
+	export let task = {
+		name: '',
+		full_name: '',
+		subject: '',
+		description: '',
+		other_text: '',
+	};
+
+	// should return true to close modal
+	export let submitter = (task) => {};
 
 	const placeholders = {
 		name: 'JS and CSS',
@@ -45,7 +54,12 @@
 		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
 			<button class="button" on:click={toggleOpen}>Cancel</button>
 			<button class="button is-success"
-				on:click={() => { console.log(task) }}>Save changes</button>
+				on:click={async () => {
+					const result = await submitter(task)
+					if (result === true) {
+						toggleOpen()
+					}
+				}}>Save changes</button>
 		</footer>
 	</div>
 </div>

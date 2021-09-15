@@ -1,6 +1,6 @@
 import { tasks } from 'src/stores/tasks.js'
 
-export const LoadTasks = async () => {
+export async function LoadTasks() {
 	try {
 		const response = await fetch('/api/tasks', {
 			method: 'GET'
@@ -19,4 +19,17 @@ export const LoadTasks = async () => {
 		console.error('Server unavailable:', err)
 		return false
 	}
+}
+
+export async function LoadTaskById(task_id) {
+	const response = await fetch('/api/task?task_id=' + task_id, {
+		method: 'GET'
+	})
+	if(response.ok) {
+		const resp = await response.json()
+		tasks.push(resp)
+		return true
+	}
+
+	return false
 }

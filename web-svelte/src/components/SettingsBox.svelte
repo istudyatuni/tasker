@@ -1,4 +1,6 @@
 <script>
+	import { SendNewTask } from 'src/api/CreateTask.js'
+
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 
 	import { settings } from 'src/stores/settings.js'
@@ -6,8 +8,6 @@
 	function toggleSetting(key) {
 		settings.set(key, !$settings[key])
 	}
-
-	const saveStrictLB = $settings.strict_line_breaks
 
 	let opened = false, show_reload = false;
 
@@ -18,15 +18,14 @@
 
 <div class="is-flex is-justify-content-space-between">
 	<button class="button is-primary is-inverted block"
-		on:click={() => { opened = !opened }}
-	>
+		on:click={() => { opened = !opened }}>
 		<span class="icon is-not-focused">
 			<img src="icons/settings-gear.svg" alt="">
 		</span>
 		<span>Settings</span>
 	</button>
 
-	<TaskInputModal>
+	<TaskInputModal submitter={SendNewTask}>
 		<button slot="trigger" class="button is-primary block">Add a task</button>
 	</TaskInputModal>
 </div>
