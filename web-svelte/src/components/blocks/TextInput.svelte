@@ -8,7 +8,10 @@
 <div class="field">
 	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<label class="label">
-		<span class:required title="Required">{label}</span>
+		<span class:required>
+			{label}
+			<slot name="after-label"></slot>
+		</span>
 		{#if !big_text}
 			<input class="input control" type="text" placeholder={placeholder} bind:value>
 		{:else}

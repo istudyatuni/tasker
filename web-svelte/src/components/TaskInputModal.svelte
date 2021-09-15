@@ -48,7 +48,11 @@
 			<TextInput label="Description" placeholder={placeholders.description}
 				bind:value={task.description} />
 			<TextInput label="Detailed description" placeholder={placeholders.other_text}
-				bind:value={task.other_text} big_text />
+				bind:value={task.other_text} big_text>
+				<span class="icon" slot="after-label">
+					<img src="icons/markdown.svg" alt="">
+				</span>
+			</TextInput>
 
 		</section>
 		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
