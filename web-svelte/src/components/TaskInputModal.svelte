@@ -20,10 +20,10 @@
 		other_text: 'Например, список названий лекций'
 	}
 
-	let modal_root = null
+	let active = false
 
 	function toggleOpen() {
-		modal_root.classList.toggle('is-active')
+		active = !active
 	}
 </script>
 
@@ -31,7 +31,7 @@
 	<slot name="trigger"></slot>
 </div>
 
-<div class="modal" bind:this={modal_root}>
+<div class="modal" class:is-active={active}>
 	<div class="modal-background"></div>
 	<div class="modal-card">
 		<header class="modal-card-head">
