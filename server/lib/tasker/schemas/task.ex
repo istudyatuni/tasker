@@ -25,7 +25,7 @@ defmodule Tasker.Task do
 
   defp fix_string(str) do
     if is_nil(str) do
-      str
+      ""
     else
       # \r\n -> \n
       # no break space - now not replace, but stay here - ' '
@@ -98,6 +98,7 @@ defmodule Tasker.Task do
       params =
         params
         |> set_task_id(is_taskid_exist)
+        |> set_finished()
         |> fix_texts()
 
       Logger.info("Insert changeset, task_id not exist, params: #{inspect(params)}")
