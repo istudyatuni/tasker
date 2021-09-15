@@ -23,6 +23,15 @@
 			<img src="icons/settings-gear.svg" alt="">
 		</span>
 		<span>Settings</span>
+		{#if show_reload}
+			<span class="icon is-clickable"
+				title="Reload page to apply"
+				on:click={() => {
+					window.location.reload()
+				}}>
+				<img src="icons/reload-circle.svg" alt="">
+			</span>
+		{/if}
 	</button>
 
 	<TaskInputModal submitter={SendNewTask}>
@@ -51,15 +60,6 @@
 			<p class="help">Ignore single line breaks in detailed description according to the markdown specs</p>
 		</label>
 
-		{#if show_reload}
-			<span class="icon is-clickable"
-				title="Reload page to apply"
-				on:click={() => {
-					window.location.reload()
-				}}>
-				<img src="icons/reload-circle.svg" alt="">
-			</span>
-		{/if}
 
 	</div>
 {/if}
