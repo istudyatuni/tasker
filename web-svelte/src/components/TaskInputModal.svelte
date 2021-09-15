@@ -10,7 +10,7 @@
 	};
 
 	// should return true to close modal
-	export let submitter = (task) => {};
+	export let submitter = (task) => true;
 
 	const placeholders = {
 		name: 'JS and CSS',

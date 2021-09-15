@@ -42,12 +42,13 @@
 	<br>
 
 	<div class="block">
-		<label class="checkbox" title="Ignore single line breaks according to the markdown specs">
+		<label class="checkbox">
 			<input
 				type="checkbox" name="strict_line_breaks"
 				checked={$settings.strict_line_breaks}
 				on:click={() => { toggleSetting('strict_line_breaks'); toggleReload() }}>
 			Strict line breaks
+			<p class="help">Ignore single line breaks in detailed description according to the markdown specs</p>
 		</label>
 
 		{#if show_reload}
