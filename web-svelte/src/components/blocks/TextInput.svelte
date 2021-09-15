@@ -1,17 +1,25 @@
 <script>
 	export let
 		label, placeholder, value,
-		big_text = false // use textarea
+		big_text = false, // use textarea
+		required = false
 </script>
 
 <div class="field">
-	{#if !big_text}
-		<label class="label">{label}
+	<!-- svelte-ignore a11y-label-has-associated-control -->
+	<label class="label">
+		<span class:required title="Required">{label}</span>
+		{#if !big_text}
 			<input class="input control" type="text" placeholder={placeholder} bind:value>
-		</label>
-	{:else}
-		<label class="label">{label}
+		{:else}
 			<textarea class="textarea control" placeholder={placeholder} bind:value></textarea>
-		</label>
-	{/if}
+		{/if}
+	</label>
 </div>
+
+<style type="text/css">
+	.required:after {
+		content: ' *';
+		color: red;
+	}
+</style>

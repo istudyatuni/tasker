@@ -40,7 +40,7 @@
 		<section class="modal-card-body">
 
 			<TextInput label="Name" placeholder={placeholders.name}
-				bind:value={task.name} />
+				bind:value={task.name} required />
 			<TextInput label="Full name" placeholder={placeholders.full_name}
 				bind:value={task.full_name} />
 			<TextInput label="Subject" placeholder={placeholders.subject}
