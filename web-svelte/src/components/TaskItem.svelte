@@ -2,6 +2,9 @@
 	import marked from 'marked'
 
 	import { FinishTask } from 'src/api/FinishTask.js'
+	import { UpdateTask } from 'src/api/UpdateTask.js'
+
+	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
@@ -44,7 +47,13 @@
 			<p class="title is-4">{task.full_name}</p>
 			<p class="subtitle">{task.subject}</p>
 		</div>
-		<button class="button">Edit</button>
+
+		<!--
+			not optimally. better to draw one modal at the
+			end of page and pass to it all tasks -->
+		<TaskInputModal {task} submitter={UpdateTask}>
+			<button slot="trigger" class="button">Edit</button>
+		</TaskInputModal>
 	</div>
 	<hr>
 	<div class="content">

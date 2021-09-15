@@ -1,5 +1,7 @@
 import { LoadTaskById } from './LoadTasks.js'
 
+import { tasks } from 'src/stores/tasks.js'
+
 export async function SendNewTask(task) {
 	const response = await fetch('/api/task', {
 		method: 'POST',
@@ -9,7 +11,11 @@ export async function SendNewTask(task) {
 
 	let resp = await response.json()
 	if('task_id' in resp) {
-		return await LoadTaskById(resp.task_id)
+		const task = await LoadTaskById(resp.task_id)
+		if (task !== null) {
+			tasks.push(task)
+			return true
+		}
 	}
 
 	return false

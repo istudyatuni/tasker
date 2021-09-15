@@ -25,11 +25,10 @@ export async function LoadTaskById(task_id) {
 	const response = await fetch('/api/task?task_id=' + task_id, {
 		method: 'GET'
 	})
+
 	if(response.ok) {
-		const resp = await response.json()
-		tasks.push(resp)
-		return true
+		return await response.json()
 	}
 
-	return false
+	return null
 }

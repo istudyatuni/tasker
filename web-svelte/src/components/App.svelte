@@ -13,7 +13,7 @@
 	let promise = LoadTasks()
 </script>
 
-<main class="container is-max-desktop pt-5 pb-5">
+<main class="container is-max-desktop pt-5 pb-5 pl-3 pr-3">
 	<h1 class="title">Tasks</h1>
 	<SettingsBox />
 
