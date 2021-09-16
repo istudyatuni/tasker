@@ -3,10 +3,12 @@
 
 	import SettingsBox from 'src/components/SettingsBox.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
+	import Notification from 'src/components/Notification.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
 	import { initSettings } from 'src/utils/defaultSettings.js'
+	import { notify } from 'src/utils/notify.js'
 
 	initSettings($settings)
 
@@ -26,4 +28,6 @@
 			<p class="notification is-danger">Failed to load tasks</p>
 		{/if}
 	{/await}
+
+	<Notification />
 </main>
