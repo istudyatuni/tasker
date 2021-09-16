@@ -5,8 +5,6 @@ const initialSettings = {
 	show_finished: true,
 	// ignore single line breaks as in markdown specs
 	strict_line_breaks: true,
-	// opening links in new tab
-	link_target_blank: false,
 }
 
 export async function initSettings() {

@@ -8,17 +8,12 @@
 
 	import { settings } from 'src/stores/settings.js'
 
-	import { walkTokens } from 'src/utils/html.js'
 	import { scriptSanitize } from 'src/utils/sanitize.js'
 
 	export let task;
 
 	let markedOptions = {
 		breaks: !$settings.strict_line_breaks
-	}
-
-	if ($settings.link_target_blank === true) {
-		marked.use({ walkTokens })
 	}
 
 	let opened = false;
