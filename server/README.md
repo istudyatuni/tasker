@@ -1,21 +1,14 @@
-# Tasker
+# Tasker server
 
-**TODO: Add description**
+Work with db
 
-## Installation
+```bash
+# drop
+mix ecto.drop
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `tasker` to your list of dependencies in `mix.exs`:
+# create database
+mix ecto.create
 
-```elixir
-def deps do
-  [
-    {:tasker, "~> 0.1.0"}
-  ]
-end
+# run migrations
+mix ecto.migrate
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/tasker](https://hexdocs.pm/tasker).
-
