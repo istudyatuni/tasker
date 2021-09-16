@@ -21,7 +21,7 @@ export async function SendNewTask(task) {
 	}
 
 	if (resp.status === false) {
-		notify('Error: ' + resp.message, 'danger')
+		notify('Error: ' + resp.message, 'error')
 	}
 
 	return false

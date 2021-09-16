@@ -7,9 +7,10 @@ function pop_note() {
 }
 
 const levels = {
+	info: 'info',
 	success: 'success',
 	warning: 'warning',
-	danger: 'danger'
+	error: 'danger'
 }
 
 export function notify(message, level, delay = 5000) {

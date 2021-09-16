@@ -1,3 +1,4 @@
+import { get } from 'svelte/store'
 import { settings } from 'src/stores/settings.js'
 
 const initialSettings = {
@@ -6,9 +7,11 @@ const initialSettings = {
 	strict_line_breaks: true,
 }
 
-export function initSettings(current_settings) {
+export async function initSettings() {
+	const s = get(settings)
+
 	for (let key of Object.keys(initialSettings)) {
-		if (current_settings[key] === undefined) {
+		if (s[key] === undefined) {
 			settings.set(key, initialSettings[key])
 		}
 	}

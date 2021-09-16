@@ -10,7 +10,7 @@
 	import { initSettings } from 'src/utils/defaultSettings.js'
 	import { notify } from 'src/utils/notify.js'
 
-	initSettings($settings)
+	initSettings()
 
 	let promise = LoadTasks()
 </script>

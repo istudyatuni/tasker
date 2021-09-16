@@ -1,3 +1,5 @@
+import { notify } from 'src/utils/notify.js'
+
 export async function DownloadTasks() {
 	const response = await fetch('/api/download')
 	const blob = await response.blob()
@@ -16,9 +18,11 @@ export async function UploadTasks(data) {
 	})
 
 	if(response.ok) {
+		notify('Tasks were successfully imported', 'success')
 		return true
 	} else {
 		console.error(response)
+		notify('Failed to import tasks', 'error')
 		return false
 	}
 }
