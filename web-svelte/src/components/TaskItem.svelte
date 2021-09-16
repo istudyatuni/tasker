@@ -55,7 +55,7 @@
 			<button slot="trigger" class="button">Edit</button>
 		</TaskInputModal>
 	</div>
-	<hr>
+	<hr class:is-hidden={task.other_text === ''}>
 	<div class="content">
 		{@html scriptSanitize(marked(task.other_text, markedOptions))}
 	</div>
