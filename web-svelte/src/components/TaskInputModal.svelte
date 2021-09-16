@@ -1,13 +1,13 @@
 <script>
 	import TextInput from 'src/components/blocks/TextInput.svelte'
 
-	export let task = {
-		name: '',
-		full_name: '',
-		subject: '',
-		description: '',
-		other_text: '',
-	};
+	const defaultTask = {
+		name: '', full_name: '',
+		subject: '', description: '',
+		other_text: ''
+	}
+
+	export let task = defaultTask
 
 	// should return true to close modal
 	export let submitter = (task) => true;
@@ -55,15 +55,21 @@
 			</TextInput>
 
 		</section>
-		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
-			<button class="button" on:click={toggleOpen}>Cancel</button>
-			<button class="button is-success"
-				on:click={async () => {
-					const result = await submitter(task)
-					if (result === true) {
-						toggleOpen()
-					}
-				}}>Save changes</button>
+		<footer class="modal-card-foot is-flex is-justify-content-space-between">
+			<button class="button is-info is-inverted" on:click={() => {
+				task = defaultTask
+			}}>Clear fields</button>
+
+			<div>
+				<button class="button" on:click={toggleOpen}>Cancel</button>
+				<button class="button is-success"
+					on:click={async () => {
+						const result = await submitter(task)
+						if (result === true) {
+							toggleOpen()
+						}
+					}}>Save changes</button>
+			</div>
 		</footer>
 	</div>
 </div>
