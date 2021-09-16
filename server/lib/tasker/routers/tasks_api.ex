@@ -73,7 +73,7 @@ defmodule Tasker.Routers.TasksApi do
     send_resp(conn, 200, Jason.encode!(task))
   end
 
-  get "/api/export" do
+  get "/api/download" do
     {_, data} = Task.select_all_tasks()
 
     export_path = "/tmp/export_tasks.json"
@@ -90,7 +90,7 @@ defmodule Tasker.Routers.TasksApi do
     |> send_file(200, export_path)
   end
 
-  post "/api/import" do
+  post "/api/upload" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
     result = Task.insert_many_tasks(body)

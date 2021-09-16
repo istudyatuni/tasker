@@ -16,12 +16,15 @@
 You need [`docker-compose.yml`](docker-compose.yml) file, download it, and run
 
 ```bash
+# if it's first run
+./setup.sh
+
 docker-compose up -d tasker
 ```
 
 Then open http://localhost:11697
 
-*If you want to manage your database (delete tasks, for example), you also need to run adminer*
+*If you want to manage your database (delete tasks, for example), you also need to run adminer:*
 
 ```bash
 docker-compose up -d tasker adminer
