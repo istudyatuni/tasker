@@ -13,10 +13,10 @@
 
 *I don't know how to link containers without docker-compose, so*
 
-You need [`docker-compose.yml`](docker-compose.yml) file, download it, and run
+You need [source code](https://github.com/istudyatuni/tasker), clone the repo, and run from the root folder
 
 ```bash
-# if it's first run
+# if this is the first run
 ./setup.sh
 
 docker-compose up -d tasker
@@ -24,13 +24,13 @@ docker-compose up -d tasker
 
 Then open http://localhost:11697
 
-*If you want to manage your database (delete tasks, for example), you also need to run adminer:*
+*If you want to manage your database (e.g. delete tasks), you also need to run adminer:*
 
 ```bash
 docker-compose up -d tasker adminer
 ```
 
-Adminer interface will be opened on http://localhost:8080
+The adminer interface will be opened on http://localhost:8080
 
 System - `PostgreSQL`, server - `db`, username and password: `postgres`, database - `tasker_repo`
 
