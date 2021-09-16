@@ -5,13 +5,12 @@
 **/_build/
 **/deps/
 **/doc/
-task/
-doc/
+docs/
 mobile/
 
 *.md
 openapi.yaml
 *.sublime-*
-re_migrate.sh
+setup.sh
 
 **/.vscode/
