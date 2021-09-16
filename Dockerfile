@@ -9,9 +9,9 @@ RUN mix release
 
 FROM node:alpine AS node_builder
 WORKDIR /swelte
-COPY ./web-svelte/package.json ./web-svelte/yarn.lock ./
+COPY ./web/package.json ./web/yarn.lock ./
 RUN yarn install
-COPY ./web-svelte ./
+COPY ./web ./
 RUN yarn build
 
 FROM alpine:latest
