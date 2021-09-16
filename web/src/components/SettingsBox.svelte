@@ -1,14 +1,11 @@
 <script>
 	import { SendNewTask } from 'src/api/CreateTask.js'
 
+	import SettingCheckbox from 'src/components/blocks/SettingCheckbox.svelte'
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import ImportExport from 'src/components/ImportExport.svelte'
 
 	import { settings } from 'src/stores/settings.js'
-
-	function toggleSetting(key) {
-		settings.set(key, !$settings[key])
-	}
 
 	let opened = false, show_reload = false;
 
@@ -42,25 +39,14 @@
 
 {#if opened}
 	<div class="is-flex is-justify-content-space-between">
-		<div class="block">
-			<label class="checkbox block">
-				<input
-					type="checkbox" name="show_finished"
-					checked={$settings.show_finished}
-					on:click={() => { toggleSetting('show_finished') }}>
-				Show finished
-			</label>
+		<div>
+			<SettingCheckbox text="Show finished" name="show_finished"
+				bind:checked={$settings.show_finished} />
 
-			<br>
-
-			<label class="checkbox block">
-				<input
-					type="checkbox" name="strict_line_breaks"
-					checked={$settings.strict_line_breaks}
-					on:click={() => { toggleSetting('strict_line_breaks'); toggleReload() }}>
-				Strict line breaks
-				<p class="help">Ignore single line breaks in detailed description according to the markdown specs</p>
-			</label>
+			<SettingCheckbox text="Strict line breaks" name="strict_line_breaks"
+				help="Ignore single line breaks in detailed description according to the markdown specs"
+				bind:checked={$settings.strict_line_breaks}
+				on:change={toggleReload} />
 		</div>
 
 		<ImportExport />
