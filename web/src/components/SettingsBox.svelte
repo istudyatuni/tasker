@@ -47,6 +47,10 @@
 				help="Ignore single line breaks in detailed description according to the markdown specs"
 				bind:checked={$settings.strict_line_breaks}
 				on:change={toggleReload} />
+
+			<SettingCheckbox text="Open links in new tab" name="link_target_blank"
+				bind:checked={$settings.link_target_blank}
+				on:change={toggleReload} />
 		</div>
 
 		<ImportExport />
