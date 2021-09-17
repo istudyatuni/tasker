@@ -14,14 +14,14 @@ defmodule Tasker.Db.Utils.Tasks do
   end
 
   @doc """
-  Fix strings in `%Tasker.Db.Task{}`
+  Fix strings in `Tasker.Db.Task.__struct__/0`
 
   1. Replace `nil` with empty string
   2. Remove `\\r`
 
   ## Parameters
 
-    - `params` - `%Tasker.Db.Task{}`
+    - `params` - `Tasker.Db.Task.__struct__/0`
   """
   def fix_texts(params) do
     %{
@@ -40,7 +40,7 @@ defmodule Tasker.Db.Utils.Tasks do
 
   ## Parameters
 
-    - `params` - `%Tasker.Db.Task{}`
+    - `params` - `Tasker.Db.Task.__struct__/0`
   """
   def set_task_id(params) do
     timeid =
@@ -58,7 +58,7 @@ defmodule Tasker.Db.Utils.Tasks do
 
   ## Parameters
 
-    - `params` - `%Tasker.Db.Task{}`
+    - `params` - `Tasker.Db.Task.__struct__/0`
   """
   def set_finished(params) do
     if is_nil(params["finished"]) do
@@ -73,11 +73,11 @@ defmodule Tasker.Db.Utils.Tasks do
   end
 
   @doc """
-  Convert `%Tasker.Db.Task{}` to `Map`
+  Convert `Tasker.Db.Task.__struct__/0` to `Map`
 
   ## Parameters
 
-    - `task` - `%Tasker.Db.Task{}`
+    - `task` - `Tasker.Db.Task.__struct__/0`
   """
   def extract_task(task) do
     %{

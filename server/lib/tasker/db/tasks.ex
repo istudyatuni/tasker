@@ -64,7 +64,7 @@ defmodule Tasker.Db.Task do
 
   ## Parameters
 
-    - `params` is `%Tasker.Db.Task{}`
+    - `params` is `__struct__/0`
   """
   def update_task_data(params) do
     params =
@@ -94,7 +94,7 @@ defmodule Tasker.Db.Task do
 
   ## Parameters
 
-    - `params` is `%Tasker.Db.Task{}`
+    - `params` is `__struct__/0`
   """
   def insert_task(params) do
     is_taskid_exist = taskid_exists?(params["task_id"])
@@ -157,7 +157,7 @@ defmodule Tasker.Db.Task do
 
   ## Parameters
 
-    - `data` is the `%Tasker.Db.Task{}` `List`
+    - `data` is the `__struct__/0` `List`
   """
   def insert_many_tasks(data) do
     Logger.info("Insert many tasks: #{inspect(data)}")
