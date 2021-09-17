@@ -10,8 +10,12 @@ defmodule Tasker.MixProject do
       deps: deps(),
 
       # docs
-      name: "Tasker",
-      source_url: "https://github.com/istudyatuni/tasker"
+      name: "Tasker server",
+      source_url: "https://github.com/istudyatuni/tasker",
+      docs: [
+        formatters: ["html"],
+        source_url_pattern: "https://github.com/istudyatuni/tasker/blob/master/server/%{path}#L%{line}"
+      ]
     ]
   end
 

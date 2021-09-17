@@ -1,4 +1,6 @@
 defmodule Tasker.Routers.Tasks do
+  @moduledoc false
+
   import Plug.Conn
   use Plug.Router
   use Plug.Debugger
@@ -44,7 +46,7 @@ defmodule Tasker.Routers.Tasks do
   post "/api/task" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Task.insert_changeset(body)
+    result = Task.insert_task(body)
     send_repo_action_result(conn, result)
   end
 

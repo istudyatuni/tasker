@@ -1,4 +1,8 @@
 defmodule Tasker.Db.Task do
+  @moduledoc """
+  Repository layer for work with tasks
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
@@ -7,6 +11,19 @@ defmodule Tasker.Db.Task do
   alias Tasker.Db.Utils.Tasks, as: Utils
   require Logger
 
+  @doc """
+  Task model
+
+  ## Fields
+
+    - `task_id`: task id,
+    - `name`: task name, required,
+    - `full_name`
+    - `subject`: lecture subject,
+    - `description`
+    - `finished`: marker whether the task finished or not,
+    - `other_text`: big description with markdown support (on client side).
+  """
   schema "tasks" do
     field(:task_id, :string)
     field(:name, :string, null: false)
@@ -17,6 +34,24 @@ defmodule Tasker.Db.Task do
     field(:other_text, :string)
   end
 
+  @doc """
+  Mark task finished/unfinished
+
+  ## Parameters
+
+    - `params`: `Map` with 2 fields:
+      - `task_id`: returned by the `select_all_tasks/0`
+      - `status`: `true` or `false`
+
+  ## Example
+
+  ```json
+  {
+    "task_id": "20210917164114147324",
+    "status": false
+  }
+  ```
+  """
   def update_finished(params) do
     Repo.get_by!(Tasker.Db.Task, task_id: params["task_id"])
     |> change(finished: params["status"])
@@ -24,6 +59,13 @@ defmodule Tasker.Db.Task do
     |> Repo.update()
   end
 
+  @doc """
+  Update task
+
+  ## Parameters
+
+    - `params` is `%Tasker.Db.Task{}`
+  """
   def update_task_data(params) do
     params =
       params
@@ -47,13 +89,20 @@ defmodule Tasker.Db.Task do
     end
   end
 
-  def insert_changeset(params) do
+  @doc """
+  Insert/create task
+
+  ## Parameters
+
+    - `params` is `%Tasker.Db.Task{}`
+  """
+  def insert_task(params) do
     is_taskid_exist = taskid_exists?(params["task_id"])
 
     if !is_taskid_exist do
       params =
         params
-        |> Utils.set_task_id(is_taskid_exist)
+        |> Utils.set_task_id()
         |> Utils.set_finished()
         |> Utils.fix_texts()
 
@@ -77,11 +126,21 @@ defmodule Tasker.Db.Task do
     end
   end
 
+  @doc """
+  Select task by id
+
+  ## Parameters
+
+    - `id` is `task_id`
+  """
   def select_task_by_id(id) do
     Repo.get_by!(Tasker.Db.Task, task_id: id)
     |> Utils.extract_task()
   end
 
+  @doc """
+  Select all tasks (sorted by `task_id`)
+  """
   def select_all_tasks() do
     query = from(Tasker.Db.Task)
 
@@ -93,11 +152,18 @@ defmodule Tasker.Db.Task do
     {:ok, result}
   end
 
+  @doc """
+  Insert tasks from `List`
+
+  ## Parameters
+
+    - `data` is the `%Tasker.Db.Task{}` `List`
+  """
   def insert_many_tasks(data) do
     Logger.info("Insert many tasks: #{inspect(data)}")
 
     Enum.reverse(data)
-    |> Enum.each(fn x -> insert_changeset(x) end)
+    |> Enum.each(fn x -> insert_task(x) end)
 
     {:ok, "Ok"}
   end

@@ -1,4 +1,8 @@
 defmodule Tasker.Db.Utils.Tasks do
+  @moduledoc """
+  Bunch of utils for `Tasker.Db.Task`
+  """
+
   defp fix_string(str) do
     if is_nil(str) do
       ""
@@ -9,6 +13,16 @@ defmodule Tasker.Db.Utils.Tasks do
     end
   end
 
+  @doc """
+  Fix strings in `%Tasker.Db.Task{}`
+
+  1. Replace `nil` with empty string
+  2. Remove `\\r`
+
+  ## Parameters
+
+    - `params` - `%Tasker.Db.Task{}`
+  """
   def fix_texts(params) do
     %{
       "task_id" => params["task_id"],
@@ -21,21 +35,31 @@ defmodule Tasker.Db.Utils.Tasks do
     }
   end
 
-  def set_task_id(params, exist_already) do
-    if !exist_already do
-      timeid =
-        DateTime.now!("Etc/UTC")
-        |> DateTime.to_string()
+  @doc """
+  Generate `task_id`
 
-      # 'yyyy-mm-dd hh:mm:ss.ssssssZ' -> 'yyyymmddhhmmssssssss'
-      timeid = Regex.replace(~r/[:\. \-Z]/, timeid, "")
+  ## Parameters
 
-      Map.put(params, "task_id", timeid)
-    else
-      params
-    end
+    - `params` - `%Tasker.Db.Task{}`
+  """
+  def set_task_id(params) do
+    timeid =
+      DateTime.now!("Etc/UTC")
+      |> DateTime.to_string()
+
+    # 'yyyy-mm-dd hh:mm:ss.ssssssZ' -> 'yyyymmddhhmmssssssss'
+    timeid = Regex.replace(~r/[:\. \-Z]/, timeid, "")
+
+    Map.put(params, "task_id", timeid)
   end
 
+  @doc """
+  Set `finished` to `false` if `params["finished"]` is `nil`
+
+  ## Parameters
+
+    - `params` - `%Tasker.Db.Task{}`
+  """
   def set_finished(params) do
     if is_nil(params["finished"]) do
       Map.put(params, "finished", false)
@@ -48,6 +72,13 @@ defmodule Tasker.Db.Utils.Tasks do
     if !is_nil(text), do: text, else: new_value
   end
 
+  @doc """
+  Convert `%Tasker.Db.Task{}` to `Map`
+
+  ## Parameters
+
+    - `task` - `%Tasker.Db.Task{}`
+  """
   def extract_task(task) do
     %{
       "task_id" => task.task_id,
