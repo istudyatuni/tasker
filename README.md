@@ -13,12 +13,29 @@
 
 *I don't know how to link containers without docker-compose, so*
 
-You need [source code](https://github.com/istudyatuni/tasker), clone the repo, and run from the root folder
+1. Clone the [repo](https://github.com/istudyatuni/tasker)
 
 ```bash
-# if this is the first run
-./setup.sh
+git clone -b release https://github.com/istudyatuni/tasker.git
+cd tasker
+```
 
+*or, without history*
+
+```bash
+git clone -b release --single-branch --depth=1 https://github.com/istudyatuni/tasker.git
+cd tasker
+```
+
+2. Run migrations for the database (only if this is the first run)
+
+```bash
+./setup.sh
+```
+
+3. Run app
+
+```bash
 docker-compose up -d tasker
 ```
 
