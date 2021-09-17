@@ -4,10 +4,14 @@ defmodule Tasker.MixProject do
   def project do
     [
       app: :tasker,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+
+      # docs
+      name: "Tasker",
+      source_url: "https://github.com/istudyatuni/tasker"
     ]
   end
 
@@ -26,7 +30,8 @@ defmodule Tasker.MixProject do
       {:plug, "~> 1.5"},
       {:plug_cowboy, "~> 2.0"},
       {:ecto_sql, "~> 3.6.1"},
-      {:postgrex, "~> 0.15"}
+      {:postgrex, "~> 0.15"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 end

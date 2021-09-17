@@ -13,3 +13,9 @@ Links
 - [`mix ecto.migrate`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Migrate.html)
 - [`mix ecto.migrations`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Migrations.html)
 - [`mix ecto.rollback`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html)
+
+Generate documentation
+
+```bash
+mix docs
+```
