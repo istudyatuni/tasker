@@ -14,7 +14,7 @@ defmodule Tasker.MixProject do
       source_url: "https://github.com/istudyatuni/tasker",
       docs: [
         formatters: ["html"],
-        source_url_pattern: "https://github.com/istudyatuni/tasker/blob/master/server/%{path}#L%{line}"
+        source_url_pattern: "https://github.com/istudyatuni/tasker/blob/release/server/%{path}#L%{line}"
       ]
     ]
   end
