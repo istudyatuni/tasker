@@ -66,6 +66,9 @@ cd server
 # dependencies
 mix deps.get
 iex -S mix
+
+# run migrations in dev db
+../scripts/migrate.sh
 ```
 
 3. Web app
