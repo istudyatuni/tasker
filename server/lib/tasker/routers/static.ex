@@ -1,4 +1,4 @@
-defmodule Tasker.Routers.Web do
+defmodule Tasker.Routers.Static do
   use Plug.Router
 
   @static_folder Path.expand(Application.get_env(:tasker, :web_app_folder))
