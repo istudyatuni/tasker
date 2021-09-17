@@ -3,7 +3,7 @@ defmodule Tasker.Routers.Tasks do
   use Plug.Router
   use Plug.Debugger
 
-  alias Tasker.Task
+  alias Tasker.Db.Task
 
   require Logger
   plug(Plug.Logger, log: :debug)

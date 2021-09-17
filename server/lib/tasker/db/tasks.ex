@@ -1,4 +1,4 @@
-defmodule Tasker.Task do
+defmodule Tasker.Db.Task do
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
@@ -18,7 +18,7 @@ defmodule Tasker.Task do
   end
 
   def update_finished(params) do
-    Repo.get_by!(Tasker.Task, task_id: params["task_id"])
+    Repo.get_by!(Tasker.Db.Task, task_id: params["task_id"])
     |> change(finished: params["status"])
     |> validate_inclusion(:finished, [true, false])
     |> Repo.update()
@@ -30,7 +30,7 @@ defmodule Tasker.Task do
       |> Utils.set_finished()
       |> Utils.fix_texts()
 
-    Repo.get_by!(Tasker.Task, task_id: params["task_id"])
+    Repo.get_by!(Tasker.Db.Task, task_id: params["task_id"])
     |> cast(params, [:name, :full_name, :subject, :description, :finished, :other_text])
     |> validate_required([:name])
     |> Repo.update()
@@ -42,7 +42,7 @@ defmodule Tasker.Task do
     if is_nil(taskid) do
       false
     else
-      query = from(t in Tasker.Task, where: t.task_id == ^taskid)
+      query = from(t in Tasker.Db.Task, where: t.task_id == ^taskid)
       Repo.exists?(query)
     end
   end
@@ -59,7 +59,7 @@ defmodule Tasker.Task do
 
       Logger.info("Insert changeset, task_id not exist, params: #{inspect(params)}")
 
-      %Tasker.Task{}
+      %Tasker.Db.Task{}
       |> cast(params, [
         :task_id,
         :name,
@@ -78,12 +78,12 @@ defmodule Tasker.Task do
   end
 
   def select_task_by_id(id) do
-    Repo.get_by!(Tasker.Task, task_id: id)
+    Repo.get_by!(Tasker.Db.Task, task_id: id)
     |> Utils.extract_task()
   end
 
   def select_all_tasks() do
-    query = from(Tasker.Task)
+    query = from(Tasker.Db.Task)
 
     result =
       Repo.all(query)
