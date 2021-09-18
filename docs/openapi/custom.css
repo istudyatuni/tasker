@@ -1,0 +1,14 @@
+/*
+  Do not hide top bar
+ */
+
+.topbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.swagger-ui {
+  padding-top: 2em;
+}
