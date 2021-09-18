@@ -1,6 +1,6 @@
 # Tasker server
 
-Work with db
+## Work with db
 
 - `mix ecto.gen.migration` - generates a migration that the user can fill in with particular commands
 - `mix ecto.migrate` - migrates a repository
@@ -14,8 +14,10 @@ Links
 - [`mix ecto.migrations`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Migrations.html)
 - [`mix ecto.rollback`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html)
 
-Generate documentation
+## Generate documentation
 
 ```bash
 mix docs
 ```
+
+See at https://istudyatuni.github.io/tasker
