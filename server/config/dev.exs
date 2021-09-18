@@ -6,4 +6,5 @@ config :tasker, Tasker.Repo,
 
 config :tasker,
   port: 4000,
-  web_app_folder: "../web/public"
+  web_app_folder: "../web/public",
+  openapi_folder: "../docs/openapi"
