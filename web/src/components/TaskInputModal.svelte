@@ -1,11 +1,9 @@
 <script>
 	import TextInput from 'src/components/blocks/TextInput.svelte'
 
-	const defaultTask = {
-		name: '', full_name: '',
-		subject: '', description: '',
-		other_text: ''
-	}
+	import { objectFromKeys } from 'src/utils/objects.js'
+
+	const defaultTask = objectFromKeys(['name', 'full_name', 'subject', 'description', 'other_text'], '')
 
 	export let task = defaultTask
 
@@ -24,6 +22,14 @@
 
 	function toggleOpen() {
 		active = !active
+	}
+
+	function resetTask() {
+		task.name = ''
+		task.full_name = ''
+		task.subject = ''
+		task.description = ''
+		task.other_text = ''
 	}
 </script>
 
@@ -55,21 +61,16 @@
 			</TextInput>
 
 		</section>
-		<footer class="modal-card-foot is-flex is-justify-content-space-between">
-			<button class="button is-info is-inverted" on:click={() => {
-				task = defaultTask
-			}}>Clear fields</button>
-
-			<div>
-				<button class="button" on:click={toggleOpen}>Cancel</button>
-				<button class="button is-success"
-					on:click={async () => {
-						const result = await submitter(task)
-						if (result === true) {
-							toggleOpen()
-						}
-					}}>Save changes</button>
-			</div>
+		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
+			<button class="button" on:click={toggleOpen}>Cancel</button>
+			<button class="button is-success"
+				on:click={async () => {
+					const result = await submitter(task)
+					if (result === true) {
+						toggleOpen()
+						resetTask()
+					}
+				}}>Save changes</button>
 		</footer>
 	</div>
 </div>
