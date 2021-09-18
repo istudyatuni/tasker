@@ -13,6 +13,10 @@ defmodule Tasker.Routers.Tasks do
   plug(:match)
   plug(:dispatch)
 
+  defp put_json_header(conn) do
+    conn |> put_resp_header("content-type", "application/json; charset=utf-8")
+  end
+
   defp send_repo_action_result(conn, result) do
     {result, result_data} = result
 
@@ -20,24 +24,37 @@ defmodule Tasker.Routers.Tasks do
       key = result_data.errors |> Enum.at(0)
       {key, {info, _}} = key
 
-      send_resp(
-        conn,
+      conn
+      |> put_json_header()
+      |> send_resp(
         400,
-        Jason.encode!(%{"status" => false, "message" => "#{key} #{info}"})
+        Jason.encode!(%{
+          "status" => false,
+          "message" => "#{key} #{info}"
+        })
       )
     else
       # no task id in result_data
       if result == :ok and result_data == "Ok" do
-        send_resp(
-          conn,
+        conn
+        |> put_json_header()
+        |> send_resp(
           200,
-          Jason.encode!(%{"status" => true, "message" => "Ok"})
+          Jason.encode!(%{
+            "status" => true,
+            "message" => "Ok"
+          })
         )
       else
-        send_resp(
-          conn,
+        conn
+        |> put_json_header()
+        |> send_resp(
           200,
-          Jason.encode!(%{"status" => true, "message" => "Ok", "task_id" => result_data.task_id})
+          Jason.encode!(%{
+            "status" => true,
+            "message" => "Ok",
+            "task_id" => result_data.task_id
+          })
         )
       end
     end
@@ -54,7 +71,7 @@ defmodule Tasker.Routers.Tasks do
     {_, data} = Tasks.select_all()
 
     conn
-    |> put_resp_header("content-type", "application/json; charset=utf-8")
+    |> put_json_header()
     |> send_resp(200, Jason.encode!(data))
   end
 
@@ -64,7 +81,9 @@ defmodule Tasker.Routers.Tasks do
 
     task = Tasks.select_by_id(task_id)
 
-    send_resp(conn, 200, Jason.encode!(task))
+    conn
+    |> put_json_header()
+    |> send_resp(200, Jason.encode!(task))
   end
 
   get "/api/download" do
