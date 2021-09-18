@@ -152,6 +152,11 @@ defmodule Tasker.Db.Task do
     {:ok, result}
   end
 
+  def select_subjects() do
+    Repo.all(from(t in Tasker.Db.Task, select: t.subject))
+    |> Enum.uniq()
+  end
+
   @doc """
   Insert tasks from `List`
 

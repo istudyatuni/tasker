@@ -80,6 +80,11 @@ defmodule Tasker.Routers.Tasks do
     |> send_resp(200, Jason.encode!(task))
   end
 
+  get "/api/subjects" do
+    subjects = Tasks.select_subjects()
+    send_status_message(conn, 200, true, "Ok", [subjects: subjects])
+  end
+
   get "/api/download" do
     {_, data} = Tasks.select_all()
 
