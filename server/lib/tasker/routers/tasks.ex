@@ -89,18 +89,13 @@ defmodule Tasker.Routers.Tasks do
   get "/api/download" do
     {_, data} = Tasks.select_all()
 
-    export_path = "/tmp/export_tasks.json"
-    File.touch!(export_path)
-
     data =
       Jason.encode!(data)
       |> Jason.Formatter.pretty_print()
 
-    File.write!(export_path, data)
-
     conn
-    |> put_resp_header("content-type", "application/json; charset=utf-8")
-    |> send_file(200, export_path)
+    |> put_json_header()
+    |> send_resp(200, data)
   end
 
   post "/api/upload" do
