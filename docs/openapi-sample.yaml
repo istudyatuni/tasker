@@ -1,0 +1,82 @@
+# https://swagger.io/docs/specification/basic-structure/
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions
+openapi: 3.0.0
+info:
+  title: ""
+  description: ""
+  version: 1.0
+
+# https://swagger.io/docs/specification/api-host-and-base-path/
+servers:
+  - url: ""
+    description: ""
+
+# https://swagger.io/docs/specification/paths-and-operations/
+paths:
+  /sample:
+    get:
+      summary: ""
+      description: "" # can be multi-line, support markdown
+
+      # https://swagger.io/docs/specification/describing-parameters/
+      parameters: # optional
+        - name:  ""
+          in: path # query header cookie
+          required: true # false
+          description: ""
+          schema:
+            type: string
+
+      # https://swagger.io/docs/specification/describing-request-body/
+      requestBody:
+        required: true # false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+
+      # https://swagger.io/docs/specification/describing-responses/
+      responses:
+        '200': # '400', etc
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/...'
+          headers:
+            X-Clacks-Overhead:
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+
+    post:
+      deprecated: true # false
+
+# https://swagger.io/docs/specification/data-models/
+components:
+  schemas:
+    Sample:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Test string
+      required:
+        - id
+        - name
+    Base:
+      type: object
+    ExtendedBase:
+      allOf: # Combines the Base and the inline model
+        - $ref: '#/components/schemas/Base'
+        - type: object
+          properties:
+            sample:
+              type: string

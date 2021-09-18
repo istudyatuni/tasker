@@ -20,4 +20,7 @@ mv $root/swagger-api-*/dist/* $root
 rm -rf $root/swagger-api-*
 
 echo $tag > $version_file
-sed -i 's/https:\/\/petstore.swagger.io\/v2\/swagger.json/http:\/\/localhost:4000\/openapi.yaml/' docs/openapi/index.html
+
+swagger_index='docs/openapi/index.html'
+sed -i 's/https:\/\/petstore.swagger.io\/v2\/swagger.json/\/openapi.yaml/' $swagger_index
+sed -i 's/<title>Swagger UI/<title>Swagger UI - Tasker/' $swagger_index

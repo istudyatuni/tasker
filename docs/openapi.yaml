@@ -1,50 +1,188 @@
 openapi: 3.0.0
 info:
-  description: Docs for tasker server API
-  version: 1.0.0
   title: Tasker
+  version: 0.3.1
+  description: Docs for tasker server REST API
 servers:
-  - url: 'http://localhost:4000/api'
+  - url: 'http://localhost:4000'
     description: Local dev server
 tags:
-  - name: task
+  - name: tasks
     description: Methods for work with tasks in db
+
 paths:
-  /add_task:
+  /api/task:
     post:
       tags:
-        - task
-      parameters:
-        - in: body
-          name: Task data
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              full_name:
-                type: string
-              subject:
-                type: string
-              description:
-                type: string
-              finished:
-                type: boolean
-              list:
-                type: array
-                items:
-                  - name: string
+        - tasks
+      summary: Create a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
       responses:
         '200':
-          description: Login successfull
+          description: Task created
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Успешно авторизован
-                  status:
-                    type: boolean
-                    example: true
+                $ref: '#/components/schemas/StatusWithId'
+    get:
+      tags:
+        - tasks
+      summary: Get task by id
+      parameters:
+        - name: task_id
+          in: query
+          required: true
+          description: Task id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /api/tasks:
+    get:
+      tags:
+        - tasks
+      summary: Get tasks list
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksArray'
+
+  /api/finish:
+    patch:
+      tags:
+        - tasks
+      summary: Mark task finished/unfinished
+      description: Toggle `finished` status for task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskStatus'
+      responses:
+        '200':
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusWithId'
+
+  /api/update:
+    put:
+      tags:
+        - tasks
+      summary: Update task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusWithId'
+
+  /api/download:
+    get:
+      tags:
+        - tasks
+      summary: Download file with tasks
+      description: |
+        This endpoint is different from `GET /api/tasks`,
+        it returns formatted JSON. Used for backup.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksArray'
+
+  /api/upload:
+    post:
+      tags:
+        - tasks
+      summary: Upload tasks from array
+      description: Used for restoring from backup.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TasksArray'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseStatusResponse'
+
+components:
+  schemas:
+    Task:
+      type: object
+      description: Task model
+      properties:
+        task_id:
+          type: string
+          example: "20201010100000000000"
+        name:
+          type: string
+        full_name:
+          type: string
+        subject:
+          type: string
+        description:
+          type: string
+        finished:
+          type: boolean
+        other_text:
+          type: string
+      required:
+        - name
+
+    TasksArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Task'
+
+    TaskStatus:
+      type: object
+      properties:
+        task_id:
+          type: string
+        status:
+          type: boolean
+
+    BaseStatusResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: boolean
+
+    StatusWithId:
+      allOf:
+        - $ref: '#/components/schemas/BaseStatusResponse'
+        - type: object
+          properties:
+            task_id:
+              type: string

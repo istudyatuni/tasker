@@ -80,3 +80,5 @@ yarn start
 ```
 
 Then open http://localhost:8000
+
+*See also [`server/README.md`](server/README.md)*
