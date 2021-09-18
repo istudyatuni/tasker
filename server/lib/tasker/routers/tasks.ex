@@ -17,45 +17,39 @@ defmodule Tasker.Routers.Tasks do
     conn |> put_resp_header("content-type", "application/json; charset=utf-8")
   end
 
+  # Send JSON with `{ "status", "message" }` keys
+  # with ability to add other keys
+  # Parameters
+  #   - `conn` - connection
+  #   - `code` - status code
+  #   - `status` - value for "status"
+  #   - `message` - value for message
+  #   - `args` - additional args, syntax: `Keyword`
+  defp send_status_message(conn, code, status, message, args \\ []) do
+    defaults = [
+      {:status, status},
+      {:message, message}
+    ]
+    response = Keyword.merge(defaults, args) |> Enum.into(%{})
+
+    conn
+    |> put_json_header()
+    |> send_resp(code, Jason.encode!(response))
+  end
+
   defp send_repo_action_result(conn, result) do
-    {result, result_data} = result
+    {status, data} = result
 
-    if result == :error do
-      key = result_data.errors |> Enum.at(0)
-      {key, {info, _}} = key
-
-      conn
-      |> put_json_header()
-      |> send_resp(
-        400,
-        Jason.encode!(%{
-          "status" => false,
-          "message" => "#{key} #{info}"
-        })
-      )
+    if status == :error do
+      error = data.errors |> Enum.at(0)
+      {key, {info, _}} = error
+      send_status_message(conn, 400, false, "#{key} #{info}")
     else
-      # no task id in result_data
-      if result == :ok and result_data == "Ok" do
-        conn
-        |> put_json_header()
-        |> send_resp(
-          200,
-          Jason.encode!(%{
-            "status" => true,
-            "message" => "Ok"
-          })
-        )
+      # no task_id in result
+      if result == {:ok, "Ok"} do
+        send_status_message(conn, 200, true, "Ok")
       else
-        conn
-        |> put_json_header()
-        |> send_resp(
-          200,
-          Jason.encode!(%{
-            "status" => true,
-            "message" => "Ok",
-            "task_id" => result_data.task_id
-          })
-        )
+        send_status_message(conn, 200, true, "Ok", [task_id: data.task_id])
       end
     end
   end
@@ -115,8 +109,13 @@ defmodule Tasker.Routers.Tasks do
   put "/api/update" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Tasks.update_task(body)
-    send_repo_action_result(conn, result)
+
+    if !is_nil(body["task_id"]) do
+      result = Tasks.update_task(body)
+      send_repo_action_result(conn, result)
+    else
+      send_status_message(conn, 400, false, "task_id can't be null")
+    end
   end
 
   match _ do
