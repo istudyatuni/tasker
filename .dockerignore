@@ -11,6 +11,6 @@ mobile/
 *.md
 openapi.yaml
 *.sublime-*
-setup.sh
+scripts/
 
 **/.vscode/

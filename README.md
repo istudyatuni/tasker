@@ -30,7 +30,7 @@ cd tasker
 2. Run migrations for the database (only if this is the first run)
 
 ```bash
-./scripts/setup.sh
+./scripts/setup-db.sh
 ```
 
 3. Run app
