@@ -14,10 +14,20 @@ Links
 - [`mix ecto.migrations`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Migrations.html)
 - [`mix ecto.rollback`](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html)
 
-## Generate documentation
+## Generate ExDoc documentation for methods
 
 ```bash
 mix docs
 ```
 
 See at https://istudyatuni.github.io/tasker
+
+## OpenAPI documentation
+
+Specification file placed in `docs/openapi.yaml`. For setup swagger-ui, run:
+
+```bash
+./scripts/openapi.sh
+```
+
+Served in `dev` environment at [http://localhost:4000/?openapi](http://localhost:4000/?openapi)
