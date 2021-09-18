@@ -30,7 +30,7 @@ cd tasker
 2. Run migrations for the database (only if this is the first run)
 
 ```bash
-./setup.sh
+./scripts/setup.sh
 ```
 
 3. Run app
@@ -79,4 +79,4 @@ yarn install
 yarn start
 ```
 
-Then open http://localhost:3000
+Then open http://localhost:8000

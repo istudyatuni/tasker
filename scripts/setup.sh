@@ -10,7 +10,7 @@ docker volume create --name=pgdata
 docker-compose up -d db
 
 # build
-cd server
+cd ../server 2> /dev/null || cd server
 mix local.hex --force && mix deps.get && mix local.rebar --force
 mix release
 
