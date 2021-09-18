@@ -5,7 +5,7 @@ defmodule Tasker.Routers.Tasks do
   use Plug.Router
   use Plug.Debugger
 
-  alias Tasker.Db.Task
+  alias Tasker.Db.Task, as: Tasks
 
   require Logger
   plug(Plug.Logger, log: :debug)
@@ -46,12 +46,12 @@ defmodule Tasker.Routers.Tasks do
   post "/api/task" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Task.insert_task(body)
+    result = Tasks.insert_task(body)
     send_repo_action_result(conn, result)
   end
 
   get "/api/tasks" do
-    {_, data} = Task.select_all_tasks()
+    {_, data} = Tasks.select_all()
 
     conn
     |> put_resp_header("content-type", "application/json; charset=utf-8")
@@ -62,13 +62,13 @@ defmodule Tasker.Routers.Tasks do
   get "/api/task" do
     %{"task_id" => task_id} = fetch_query_params(conn).params
 
-    task = Task.select_task_by_id(task_id)
+    task = Tasks.select_by_id(task_id)
 
     send_resp(conn, 200, Jason.encode!(task))
   end
 
   get "/api/download" do
-    {_, data} = Task.select_all_tasks()
+    {_, data} = Tasks.select_all()
 
     export_path = "/tmp/export_tasks.json"
     File.touch!(export_path)
@@ -87,21 +87,21 @@ defmodule Tasker.Routers.Tasks do
   post "/api/upload" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Task.insert_many_tasks(body)
+    result = Tasks.insert_many_tasks(body)
     send_repo_action_result(conn, result)
   end
 
   patch "/api/finish" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Task.update_finished(body)
+    result = Tasks.update_finished(body)
     send_repo_action_result(conn, result)
   end
 
-  patch "/api/update" do
+  put "/api/update" do
     {:ok, body, conn} = read_body(conn)
     body = Jason.decode!(body)
-    result = Task.update_task_data(body)
+    result = Tasks.update_task(body)
     send_repo_action_result(conn, result)
   end
 

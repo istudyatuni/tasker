@@ -40,7 +40,7 @@ defmodule Tasker.Db.Task do
   ## Parameters
 
     - `params`: `Map` with 2 fields:
-      - `task_id`: returned by the `select_all_tasks/0`
+      - `task_id`: returned by the `select_all/0`
       - `status`: `true` or `false`
 
   ## Example
@@ -66,7 +66,7 @@ defmodule Tasker.Db.Task do
 
     - `params` is `__struct__/0`
   """
-  def update_task_data(params) do
+  def update_task(params) do
     params =
       params
       |> Utils.set_finished()
@@ -133,7 +133,7 @@ defmodule Tasker.Db.Task do
 
     - `id` is `task_id`
   """
-  def select_task_by_id(id) do
+  def select_by_id(id) do
     Repo.get_by!(Tasker.Db.Task, task_id: id)
     |> Utils.extract_task()
   end
@@ -141,7 +141,7 @@ defmodule Tasker.Db.Task do
   @doc """
   Select all tasks (sorted by `task_id`)
   """
-  def select_all_tasks() do
+  def select_all() do
     query = from(Tasker.Db.Task)
 
     result =

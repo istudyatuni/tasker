@@ -5,7 +5,7 @@ import { notify } from 'src/utils/notify.js'
 
 export async function UpdateTask(data) {
 	let response = await fetch('/api/update', {
-		method: 'PATCH',
+		method: 'PUT',
 		body: JSON.stringify(data)
 	})
 

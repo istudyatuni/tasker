@@ -3,14 +3,14 @@ defmodule Tasker.Routers.Static do
 
   use Plug.Router
 
-  @static_folder Path.expand(Application.get_env(:tasker, :web_app_folder))
+  @web_folder Path.expand(Application.get_env(:tasker, :web_app_folder))
 
-  plug(Plug.Static, at: "/", from: @static_folder)
+  plug(Plug.Static, at: "/", from: @web_folder)
   plug(:match)
   plug(:dispatch)
 
   get "/" do
-    send_file(conn, 200, "#{@static_folder}/index.html")
+    send_file(conn, 200, "#{@web_folder}/index.html")
   end
 
   match _ do
