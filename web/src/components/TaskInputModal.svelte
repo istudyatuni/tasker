@@ -3,12 +3,14 @@
 	import { UpdateTask } from 'src/api/UpdateTask.js'
 
 	import TextInput from 'src/components/blocks/TextInput.svelte'
+	import DropdownTextInput from 'src/components/blocks/DropdownTextInput.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 	import { tasks } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
 	import { defaultTask } from 'src/utils/objects.js'
+	import { getSubjects } from 'src/utils/tasks.js'
 
 	// should return true to close modal
 	const submitters = {
@@ -19,6 +21,7 @@
 
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $tasks.find((t) => t.task_id === $settings.editor.task_id) || defaultTask
+	$: subjects = getSubjects($tasks)
 
 	const placeholders = {
 		name: 'JS and CSS',
@@ -43,8 +46,8 @@
 				bind:value={task.name} required />
 			<TextInput label="Full name" placeholder={placeholders.full_name}
 				bind:value={task.full_name} />
-			<TextInput label="Subject" placeholder={placeholders.subject}
-				bind:value={task.subject} />
+			<DropdownTextInput label="Subject" placeholder={placeholders.subject}
+				bind:value={task.subject} dropdown={subjects} />
 			<TextInput label="Description" placeholder={placeholders.description}
 				bind:value={task.description} />
 			<TextInput label="Detailed description" placeholder={placeholders.other_text}

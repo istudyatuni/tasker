@@ -9,8 +9,7 @@
 	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<label class="label">
 		<span class:required>
-			{label}
-			<slot name="after-label"></slot>
+			{label} <slot name="after-label"></slot>
 		</span>
 		{#if !big_text}
 			<input class="input control" type="text" placeholder={placeholder} bind:value>
