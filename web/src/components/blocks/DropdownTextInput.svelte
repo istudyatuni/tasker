@@ -18,7 +18,8 @@
 			<input bind:value placeholder={placeholder}
 				class="input control" type="text">
 			<span on:click={open} class="icon is-small is-right is-clickable">
-				<img src="icons/arrow-down.svg" width="10px" height="10px" alt="">
+				<img src="icons/arrow-down.svg" class:is-180-rotate={opened}
+					width="10px" height="10px" alt="">
 			</span>
 		</div>
 
@@ -46,5 +47,8 @@
 	.required:after {
 		content: ' *';
 		color: red;
+	}
+	.is-180-rotate {
+		transform: rotate(180deg);
 	}
 </style>
