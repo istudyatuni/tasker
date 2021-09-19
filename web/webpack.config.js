@@ -65,5 +65,8 @@ module.exports = {
 			'/api': 'http://localhost:4000',
 		},
 		port: 8000,
+		static: {
+			directory: path.join(__dirname, 'public'),
+		},
 	}
 };
