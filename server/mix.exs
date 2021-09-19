@@ -32,9 +32,8 @@ defmodule Tasker.MixProject do
   defp deps do
     [
       {:jason, "~> 1.2"},
-      {:plug, "~> 1.5"},
       {:plug_cowboy, "~> 2.0"},
-      {:ecto_sql, "~> 3.6.1"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, "~> 0.15"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
