@@ -4,7 +4,7 @@ defmodule Tasker.MixProject do
   def project do
     [
       app: :tasker,
-      version: "0.3.0",
+      version: "0.3.2",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
