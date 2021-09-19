@@ -51,7 +51,7 @@ The adminer interface will be opened on http://localhost:8080
 
 System - `PostgreSQL`, server - `db`, username and password: `postgres`, database - `tasker_repo`
 
-**Running in development mode**
+**In development mode**
 
 1. PostgreSQL in docker:
 
@@ -82,3 +82,19 @@ yarn start
 Then open http://localhost:8000
 
 *See also [`server/README.md`](server/README.md)*
+
+## Comparison of TypeScript and Svelte usage in this project
+
+```
+$ scc .
+
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+TypeScript                  31      1142      148        81      913         83
+─────────────────────────
+Svelte                      10       410       63         6      341          8
+JavaScript                  17       400       58        16      326         23
+```
+
+Commit for TypeScript: 759230c, for Svelte and JavaScript: 8628398
