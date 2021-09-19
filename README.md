@@ -97,4 +97,4 @@ Svelte                      10       410       63         6      341          8
 JavaScript                  17       400       58        16      326         23
 ```
 
-Commit for TypeScript: 759230c, for Svelte and JavaScript: 8628398
+Commit for TypeScript: [`759230c`](https://github.com/istudyatuni/tasker/tree/759230c), for Svelte and JavaScript: [`8628398`](https://github.com/istudyatuni/tasker/tree/8628398)
