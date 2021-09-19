@@ -9,7 +9,7 @@
 	import { tasks } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
-	import { defaultTask } from 'src/utils/objects.js'
+	import { defaultTask, placeholders } from 'src/utils/objects.js'
 	import { getSubjects } from 'src/utils/tasks.js'
 
 	// should return true to close modal
@@ -22,14 +22,6 @@
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $tasks.find((t) => t.task_id === $settings.editor.task_id) || defaultTask
 	$: subjects = getSubjects($tasks)
-
-	const placeholders = {
-		name: 'JS and CSS',
-		full_name: 'Самостоятельная работа №1',
-		subject: 'Информационные сети',
-		description: 'Лабораторное занятие 01.01.1970',
-		other_text: 'Например, список названий лекций'
-	}
 
 	function close() { edit('close') }
 
