@@ -34,6 +34,8 @@
 						}} class:is-active={item === value} class="dropdown-item">
 							{item}
 						</a>
+					{:else}
+						<div class="dropdown-item">No subjects</div>
 					{/each}
 
 				</div>
