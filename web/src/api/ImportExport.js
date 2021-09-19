@@ -11,7 +11,6 @@ export async function DownloadTasks() {
 }
 
 export async function UploadTasks(data) {
-	console.log('upload')
 	let response = await fetch('/api/upload', {
 		method: 'POST',
 		body: data
