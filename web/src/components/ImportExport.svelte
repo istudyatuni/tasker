@@ -1,7 +1,9 @@
-<script>
+<script context="module">
 	import { DownloadTasks, UploadTasks } from 'src/api/ImportExport.js'
 	import { LoadTasks } from 'src/api/LoadTasks.js'
+</script>
 
+<script>
 	let fileRef;
 	function openFileDialog() {
 		fileRef.click()

@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import { settings } from 'src/stores/settings.js'
 	import { tasks } from 'src/stores/tasks.js'
 

@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import { LoadTasks } from 'src/api/LoadTasks.js'
 
 	import SettingsBox from 'src/components/SettingsBox.svelte'
@@ -13,7 +13,9 @@
 
 	edit('close')
 	initSettings()
+</script>
 
+<script>
 	let promise = LoadTasks()
 </script>
 

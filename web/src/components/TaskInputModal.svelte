@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import { SendNewTask } from 'src/api/CreateTask.js'
 	import { UpdateTask } from 'src/api/UpdateTask.js'
 
@@ -19,11 +19,13 @@
 		edit: UpdateTask
 	}
 
+	function close() { edit('close') }
+</script>
+
+<script>
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $tasks.find((t) => t.task_id === $settings.editor.task_id) || defaultTask
 	$: subjects = getSubjects($tasks)
-
-	function close() { edit('close') }
 
 	function resetTask() {
 		task.name = ''

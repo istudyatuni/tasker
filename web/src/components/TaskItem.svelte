@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import marked from 'marked'
 
 	import { FinishTask } from 'src/api/FinishTask.js'
@@ -9,7 +9,9 @@
 
 	import { edit } from 'src/utils/editor.js'
 	import { scriptSanitize } from 'src/utils/sanitize.js'
+</script>
 
+<script>
 	export let task;
 
 	let markedOptions = {

@@ -1,11 +1,13 @@
-<script>
+<script context="module">
 	import SettingCheckbox from 'src/components/blocks/SettingCheckbox.svelte'
 	import ImportExport from 'src/components/ImportExport.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
 	import { edit } from 'src/utils/editor.js'
+</script>
 
+<script>
 	let opened = false, show_reload = false;
 
 	function toggleReload() {

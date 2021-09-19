@@ -1,4 +1,4 @@
-<script>
+<script context="module">
 	import { notifications } from 'src/stores/notifications.js'
 </script>
 
