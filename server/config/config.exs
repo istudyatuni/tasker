@@ -3,7 +3,8 @@ import Config
 config :tasker,
   port: 0,
   web_app_folder: "",
-  openapi_folder: ""
+  openapi_folder: "",
+  dev: false
 
 config :tasker, Tasker.Repo,
   database: "tasker_repo",
