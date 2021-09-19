@@ -61,25 +61,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/TasksArray'
 
-  /api/subjects:
-    get:
-      tags:
-        - tasks
-      summary: Get subjects list
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/BaseStatusResponse'
-                  - type: object
-                    properties:
-                      subjects:
-                        type: array
-                        items:
-                          type: string
-
   /api/finish:
     patch:
       tags:
