@@ -1,7 +1,9 @@
-export function objectFromKeys(keys, initial) {
-	let res = {}
-	for (let key of keys) {
-		res[key] = initial
-	}
-	return res
+export const defaultTask = {
+	task_id: '',
+	name: '',
+	full_name: '',
+	subject: '',
+	description: '',
+	finished: false,
+	other_text: ''
 }

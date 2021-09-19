@@ -2,14 +2,16 @@
 	import { LoadTasks } from 'src/api/LoadTasks.js'
 
 	import SettingsBox from 'src/components/SettingsBox.svelte'
+	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
 	import Notification from 'src/components/Notification.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
+	import { edit } from 'src/utils/editor.js'
 	import { initSettings } from 'src/utils/defaultSettings.js'
-	import { notify } from 'src/utils/notify.js'
 
+	edit('close')
 	initSettings()
 
 	let promise = LoadTasks()
@@ -30,4 +32,6 @@
 	{/await}
 
 	<Notification />
+
+	<TaskInputModal />
 </main>

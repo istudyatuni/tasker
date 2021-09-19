@@ -1,14 +1,24 @@
 <script>
+	import { SendNewTask } from 'src/api/CreateTask.js'
+	import { UpdateTask } from 'src/api/UpdateTask.js'
+
 	import TextInput from 'src/components/blocks/TextInput.svelte'
 
-	import { objectFromKeys } from 'src/utils/objects.js'
+	import { settings } from 'src/stores/settings.js'
+	import { tasks } from 'src/stores/tasks.js'
 
-	const defaultTask = objectFromKeys(['name', 'full_name', 'subject', 'description', 'other_text'], '')
-
-	export let task = defaultTask
+	import { edit } from 'src/utils/editor.js'
+	import { defaultTask } from 'src/utils/objects.js'
 
 	// should return true to close modal
-	export let submitter = (task) => true;
+	const submitters = {
+		close: (task) => true,
+		create: SendNewTask,
+		edit: UpdateTask
+	}
+
+	$: submitter = submitters[$settings.editor.state]
+	$: task = $tasks.find((t) => t.task_id === $settings.editor.task_id) || defaultTask
 
 	const placeholders = {
 		name: 'JS and CSS',
@@ -18,26 +28,10 @@
 		other_text: 'Например, список названий лекций'
 	}
 
-	let active = false
-
-	function toggleOpen() {
-		active = !active
-	}
-
-	function resetTask() {
-		task.name = ''
-		task.full_name = ''
-		task.subject = ''
-		task.description = ''
-		task.other_text = ''
-	}
+	function close() { edit('close') }
 </script>
 
-<div on:click={toggleOpen}>
-	<slot name="trigger"></slot>
-</div>
-
-<div class="modal" class:is-active={active}>
+<div class="modal" class:is-active={$settings.editor.state !== 'close'}>
 	<div class="modal-background"></div>
 	<div class="modal-card">
 		<header class="modal-card-head">
@@ -62,13 +56,12 @@
 
 		</section>
 		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
-			<button class="button" on:click={toggleOpen}>Cancel</button>
+			<button class="button" on:click={close}>Cancel</button>
 			<button class="button is-success"
 				on:click={async () => {
 					const result = await submitter(task)
 					if (result === true) {
-						toggleOpen()
-						resetTask()
+						close()
 					}
 				}}>Save changes</button>
 		</footer>

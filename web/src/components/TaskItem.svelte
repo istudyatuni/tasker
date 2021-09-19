@@ -2,12 +2,12 @@
 	import marked from 'marked'
 
 	import { FinishTask } from 'src/api/FinishTask.js'
-	import { UpdateTask } from 'src/api/UpdateTask.js'
 
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
+	import { edit } from 'src/utils/editor.js'
 	import { scriptSanitize } from 'src/utils/sanitize.js'
 
 	export let task;
@@ -48,12 +48,9 @@
 			<p class="subtitle">{task.subject}</p>
 		</div>
 
-		<!--
-			not optimally. better to draw one modal at the
-			end of page and pass to it all tasks -->
-		<TaskInputModal {task} submitter={UpdateTask}>
-			<button slot="trigger" class="button">Edit</button>
-		</TaskInputModal>
+		<button class="button"
+			on:click={() => edit('edit', task.task_id)}
+		>Edit</button>
 	</div>
 	<hr class:is-hidden={task.other_text === ''}>
 	<div class="content">

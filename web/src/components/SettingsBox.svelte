@@ -1,11 +1,10 @@
 <script>
-	import { SendNewTask } from 'src/api/CreateTask.js'
-
 	import SettingCheckbox from 'src/components/blocks/SettingCheckbox.svelte'
-	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import ImportExport from 'src/components/ImportExport.svelte'
 
 	import { settings } from 'src/stores/settings.js'
+
+	import { edit } from 'src/utils/editor.js'
 
 	let opened = false, show_reload = false;
 
@@ -32,9 +31,9 @@
 		{/if}
 	</button>
 
-	<TaskInputModal submitter={SendNewTask}>
-		<button slot="trigger" class="button is-primary block">Add a task</button>
-	</TaskInputModal>
+	<button class="button is-primary block"
+		on:click={() => edit('create')}
+	>Add a task</button>
 </div>
 
 {#if opened}
