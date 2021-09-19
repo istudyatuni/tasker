@@ -32,6 +32,14 @@
 	}
 
 	function close() { edit('close') }
+
+	function resetTask() {
+		task.name = ''
+		task.full_name = ''
+		task.subject = ''
+		task.description = ''
+		task.other_text = ''
+	}
 </script>
 
 <div class="modal" class:is-active={$settings.editor.state !== 'close'}>
@@ -64,6 +72,7 @@
 				on:click={async () => {
 					const result = await submitter(task)
 					if (result === true) {
+						resetTask()
 						close()
 					}
 				}}>Save changes</button>
