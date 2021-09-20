@@ -8,7 +8,7 @@ const initialSettings = {
 	editor: {
 		// close edit create
 		state: 'close',
-		task_id: ''
+		task: {}
 	}
 }
 
