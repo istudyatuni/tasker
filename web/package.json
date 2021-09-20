@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "webpack serve --content-base public",
+    "start": "webpack serve",
     "start:local": "webpack serve --host 0.0.0.0"
   },
   "devDependencies": {

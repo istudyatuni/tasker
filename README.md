@@ -79,6 +79,12 @@ yarn install
 yarn start
 ```
 
+Or, run script for running commands in `tmux`:
+
+```bash
+./scripts/dev.sh
+```
+
 Then open http://localhost:8000
 
 *See also [`server/README.md`](server/README.md)*
