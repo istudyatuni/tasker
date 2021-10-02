@@ -23,6 +23,10 @@
 	function toggleDetails() {
 		opened = !opened
 	}
+
+	function onEdit() {
+		edit('edit', task.task_id)
+	}
 </script>
 
 <!-- header -->
@@ -52,9 +56,7 @@
 			<p class="subtitle">{task.subject}</p>
 		</div>
 
-		<button class="button" on:click={() => edit('edit', task.task_id)}
-			>Edit</button
-		>
+		<button class="button" on:click={onEdit}>Edit</button>
 	</div>
 	<hr class:is-hidden={task.other_text === ''} />
 	<div class="content">
