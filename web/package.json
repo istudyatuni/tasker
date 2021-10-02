@@ -5,12 +5,15 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "start": "webpack serve",
-    "start:local": "webpack serve --host 0.0.0.0"
+    "start:local": "webpack serve --host 0.0.0.0",
+    "prettier": "prettier --write --plugin-search-dir=. ./**/*.js ./**/*.svelte"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",
     "mini-css-extract-plugin": "^2.3.0",
+    "prettier": "^2.4.1",
+    "prettier-plugin-svelte": "^2.4.0",
     "svelte": "^3.42.6",
     "svelte-loader": "^3.0.0",
     "webpack": "^5.53.0",
