@@ -10,7 +10,6 @@
 {:else if !$settings.show_finished && $tasks.every((task) => task.finished)}
 	<p class="notification is-success">All tasks are finished!</p>
 {:else}
-
 	{#each $tasks as task}
 		{#if !task.finished || $settings.show_finished}
 			<div class="box">
@@ -18,5 +17,4 @@
 			</div>
 		{/if}
 	{/each}
-
 {/if}

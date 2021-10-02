@@ -4,7 +4,7 @@
 </script>
 
 <script>
-	let fileRef;
+	let fileRef
 	function openFileDialog() {
 		fileRef.click()
 	}
@@ -16,10 +16,10 @@
 			reader.readAsText(file, 'UTF-8')
 
 			reader.onloadend = () => {
-				if(reader.result) {
-					(async () => {
+				if (reader.result) {
+					;(async () => {
 						let result = await UploadTasks(String(reader.result))
-						if(result) {
+						if (result) {
 							LoadTasks()
 						}
 					})()
@@ -32,18 +32,24 @@
 <div class="block">
 	<button class="button" on:click={DownloadTasks}>
 		<span class="icon">
-			<img src="icons/download.svg" alt="">
+			<img src="icons/download.svg" alt="" />
 		</span>
 		<span>Download backup</span>
 	</button>
 
 	<button class="button" on:click={openFileDialog}>
 		<span class="icon is-180-rotate">
-			<img src="icons/download.svg" alt="">
+			<img src="icons/download.svg" alt="" />
 		</span>
 		<span>Export from backup</span>
-		<input bind:this={fileRef} on:change={handleUpload}
-			type="file" accept=".json" name="data" class="is-hidden">
+		<input
+			bind:this={fileRef}
+			on:change={handleUpload}
+			type="file"
+			accept=".json"
+			name="data"
+			class="is-hidden"
+		/>
 	</button>
 </div>
 

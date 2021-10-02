@@ -12,16 +12,16 @@
 </script>
 
 <script>
-	export let task;
+	export let task
 
 	let markedOptions = {
-		breaks: !$settings.strict_line_breaks
+		breaks: !$settings.strict_line_breaks,
 	}
 
-	let opened = false;
+	let opened = false
 
 	function toggleDetails() {
-		opened = !opened;
+		opened = !opened
 	}
 </script>
 
@@ -33,9 +33,11 @@
 			FinishTask(task.task_id, !task.finished)
 		}}
 		class="icon mr-4 pt-1 is-clickable"
-		width="50" height="50" alt=""
+		width="50"
+		height="50"
+		alt=""
 		title="Finish task"
-	>
+	/>
 	<div title="Open details">
 		<p class="title is-5">{task.name}</p>
 		<p class="subtitle">{task.description}</p>
@@ -50,11 +52,11 @@
 			<p class="subtitle">{task.subject}</p>
 		</div>
 
-		<button class="button"
-			on:click={() => edit('edit', task.task_id)}
-		>Edit</button>
+		<button class="button" on:click={() => edit('edit', task.task_id)}
+			>Edit</button
+		>
 	</div>
-	<hr class:is-hidden={task.other_text === ''}>
+	<hr class:is-hidden={task.other_text === ''} />
 	<div class="content">
 		{@html scriptSanitize(marked(task.other_text, markedOptions))}
 	</div>
