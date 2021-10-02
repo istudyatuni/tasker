@@ -26,6 +26,13 @@
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $settings.editor.task
 	$: subjects = getSubjects($tasks)
+
+	async function submit() {
+		const result = await submitter(task)
+		if (result === true) {
+			close()
+		}
+	}
 </script>
 
 <div class="modal" class:is-active={$settings.editor.state !== 'close'}>
@@ -47,20 +54,14 @@
 			<TextInput label="Detailed description" placeholder={placeholders.other_text}
 				bind:value={task.other_text} big_text>
 				<span class="icon" slot="after-label">
-					<img src="icons/markdown.svg" alt="">
+					<img src="icons/markdown.svg" title="Markdown is supported" alt="">
 				</span>
 			</TextInput>
 
 		</section>
 		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
 			<button class="button" on:click={close}>Cancel</button>
-			<button class="button is-success"
-				on:click={async () => {
-					const result = await submitter(task)
-					if (result === true) {
-						close()
-					}
-				}}>Save changes</button>
+			<button class="button is-success" on:click={submit}>Save changes</button>
 		</footer>
 	</div>
 </div>
