@@ -89,18 +89,24 @@ Then open http://localhost:8000
 
 *See also [`server/README.md`](server/README.md)*
 
-## Comparison of TypeScript and Svelte usage in this project
+## Comparison of React + TS and Svelte + JS usage in this project
+
+Counted with [tokei](https://github.com/XAMPPRocky/tokei)
 
 ```
-$ scc .
+$ tokei
 
-───────────────────────────────────────────────────────────────────────────────
-Language                 Files     Lines   Blanks  Comments     Code Complexity
-───────────────────────────────────────────────────────────────────────────────
-TypeScript                  31      1142      148        81      913         83
-─────────────────────────
-Svelte                      10       410       63         6      341          8
-JavaScript                  17       400       58        16      326         23
+===============================================================================
+ Language            Files        Lines         Code     Comments       Blanks
+===============================================================================
+ TSX                    10          546          471           12           63
+ TypeScript             22          597          442           70           85
+===============================================================================
+ JavaScript             17          400          326           16           58
+-------------------------------------------------------------------------------
+ Svelte                 10          265          226            5           34
+ |- JavaScript          10          125           95            1           29
+ (Total)                            390          321            6           63
 ```
 
 Commit for TypeScript: [`759230c`](https://github.com/istudyatuni/tasker/tree/759230c), for Svelte and JavaScript: [`8628398`](https://github.com/istudyatuni/tasker/tree/8628398)
