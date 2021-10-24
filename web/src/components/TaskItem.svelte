@@ -43,7 +43,7 @@
 		title="Finish task"
 	/>
 	<div title="Open details">
-		<p class="title is-5">{task.name}</p>
+		<p class="title is-5" class:completed-title={task.finished}>{task.name}</p>
 		<p class="subtitle">{task.description}</p>
 	</div>
 </div>
@@ -63,3 +63,9 @@
 		{@html scriptSanitize(marked(task.other_text, markedOptions))}
 	</div>
 {/if}
+
+<style>
+	.completed-title {
+		color: hsl(0, 0%, 60%);
+	}
+</style>
