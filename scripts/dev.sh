@@ -16,6 +16,6 @@ tmux new-window -d -n web
 tmux send-keys -t db 'docker-compose up db' Enter
 echo 'sleep a little' && sleep 1
 tmux send-keys -t server 'cd server && iex -S mix' Enter
-tmux send-keys -t web 'cd web && yarn start:local' Enter
+tmux send-keys -t web 'cd web && yarn start' Enter
 
 tmux attach-session -t $session
