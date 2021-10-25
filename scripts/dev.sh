@@ -1,4 +1,5 @@
 #!/bin/sh
+# deps: docker, docker-compose, tmux, elixir (iex), node (yarn)
 
 session=tasker
 

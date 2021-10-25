@@ -1,4 +1,5 @@
 #!/bin/sh
+# deps: docker, docker-compose, elixir (mix)
 
 # exit if any command fails
 set -e

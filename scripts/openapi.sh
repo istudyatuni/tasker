@@ -1,5 +1,6 @@
 #!/bin/sh
 # Download latest swagger-ui and place in docs/openapi
+# deps: tar, jq, curl, wget
 
 # inject custom.css, 1 for enable
 custom_css=0
@@ -26,7 +27,7 @@ echo $tag > $version_file
 
 # patch index.html
 
-swagger_index='docs/openapi/index.html'
+swagger_index="$root/index.html"
 sed -i 's/https:\/\/petstore.swagger.io\/v2\/swagger.json/\/openapi.yaml/' $swagger_index
 sed -i 's/<title>Swagger UI/<title>Swagger UI - Tasker/' $swagger_index
 

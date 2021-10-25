@@ -1,4 +1,6 @@
 #!/bin/sh
+# deps: git, elixir (mix)
+
 set -e
 
 export LANG=en_US.utf-8

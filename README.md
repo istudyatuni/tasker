@@ -13,14 +13,14 @@
 
 *I don't know how to link containers without docker-compose, so*
 
-1. Clone the [repo](https://github.com/istudyatuni/tasker)
+1. Clone the [repository](https://github.com/istudyatuni/tasker)
 
 ```bash
 git clone -b release https://github.com/istudyatuni/tasker.git
 cd tasker
 ```
 
-*or, without history*
+*or, without history (less repository size)*
 
 ```bash
 git clone -b release --single-branch --depth=1 https://github.com/istudyatuni/tasker.git
@@ -101,12 +101,13 @@ $ tokei
 ===============================================================================
  TSX                    10          546          471           12           63
  TypeScript             22          597          442           70           85
+ Total                  32          1143         913           82           148
 ===============================================================================
  JavaScript             17          400          326           16           58
 -------------------------------------------------------------------------------
  Svelte                 10          265          226            5           34
  |- JavaScript          10          125           95            1           29
- (Total)                            390          321            6           63
+ Total                  27          790          647            22          121
 ```
 
 Commit for TypeScript: [`759230c`](https://github.com/istudyatuni/tasker/tree/759230c), for Svelte and JavaScript: [`8628398`](https://github.com/istudyatuni/tasker/tree/8628398)
