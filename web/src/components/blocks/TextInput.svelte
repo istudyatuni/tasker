@@ -13,10 +13,10 @@
 			{label}
 			<slot name="after-label" />
 		</span>
-		{#if !big_text}
-			<input class="input control" type="text" {placeholder} bind:value />
-		{:else}
+		{#if big_text}
 			<textarea class="textarea control" {placeholder} bind:value />
+		{:else}
+			<input class="input control" type="text" {placeholder} bind:value />
 		{/if}
 	</label>
 </div>

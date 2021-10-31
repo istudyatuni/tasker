@@ -3,15 +3,17 @@
 .gitignore
 
 **/_build/
+**/build/
 **/deps/
 **/doc/
+
 docs/
 mobile/
+scripts/
 
 *.md
 openapi.yaml
 *.sublime-*
-scripts/
 
 **/.vscode/
 Makefile

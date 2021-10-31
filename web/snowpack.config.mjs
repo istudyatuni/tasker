@@ -1,5 +1,10 @@
 import proxy from 'http2-proxy'
 
+const DEV_SERVER = {
+	hostname: 'localhost',
+	port: 4000,
+}
+
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
 	alias: {
@@ -14,10 +19,7 @@ export default {
 		{
 			src: '/api/.*',
 			dest: (req, res) => {
-				return proxy.web(req, res, {
-					hostname: 'localhost',
-					port: 4000,
-				})
+				return proxy.web(req, res, DEV_SERVER)
 			},
 		},
 		/* Enable an SPA Fallback in development: */

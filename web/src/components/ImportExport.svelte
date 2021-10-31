@@ -15,14 +15,12 @@
 			let reader = new FileReader()
 			reader.readAsText(file, 'UTF-8')
 
-			reader.onloadend = () => {
+			reader.onloadend = async () => {
 				if (reader.result) {
-					;(async () => {
-						let result = await UploadTasks(String(reader.result))
-						if (result) {
-							LoadTasks()
-						}
-					})()
+					let result = await UploadTasks(String(reader.result))
+					if (result) {
+						LoadTasks()
+					}
 				}
 			}
 		}

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "snowpack build",
-    "start": "snowpack dev",
+    "dev": "snowpack dev",
     "format": "prettier --write --plugin-search-dir=. snowpack.config.mjs ./**/*.js ./**/*.svelte"
   },
   "devDependencies": {
