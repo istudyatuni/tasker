@@ -13,6 +13,6 @@ export function edit(state, task_id = '') {
 	settings.set('editor', {
 		state,
 		task: state === 'edit'
-			? get(tasks).find((t) => t.task_id === task_id) : {},
+			? {...get(tasks).find((t) => t.task_id === task_id)} : {},
 	})
 }

@@ -10,7 +10,7 @@ function tasksStore() {
 		update: (id, task) => update(tasks => {
 			const i = tasks.findIndex(e => e.task_id === id)
 			if (i !== -1) {
-				tasks[i] = task
+				tasks[i] = {...task}
 				return tasks
 			}
 
@@ -25,7 +25,8 @@ function tasksStore() {
 
 			console.error('Not found task with id ', id)
 		}),
-		push: (task) => update(tasks => [task, ...tasks])
+		push: (task) => update(tasks => [task, ...tasks]),
+		delete: (id) => update(tasks => tasks.filter(task => task.task_id !== id))
 	}
 }
 

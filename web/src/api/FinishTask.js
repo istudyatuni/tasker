@@ -8,7 +8,7 @@ import { writeFile } from 'src/utils/fs.js'
 
 export async function FinishTaskLocal(id, status) {
 	tasks.finish(id, status)
-	writeFile(get(tasks))
+	await writeFile(get(tasks))
 }
 
 export async function FinishTask(id, status) {

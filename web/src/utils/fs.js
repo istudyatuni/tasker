@@ -1,5 +1,6 @@
 import { LoadTasksLocal } from 'src/api/LoadTasks'
 
+import { notify } from 'src/utils/notify.js'
 import { offlineReady } from 'src/utils/offline'
 
 const opts = {
@@ -36,12 +37,22 @@ function object2blob(obj) {
 
 export async function openLocalFile() {
 	[fileHandle] = await window.showOpenFilePicker(pickerOpts);
+
+	if (!fileHandle) {
+		return notify('Couldn\'t open file', 'warning')
+	}
+
 	offlineReady()
 	LoadTasksLocal()
 }
 
 export async function createLocalFile() {
 	fileHandle = await window.showSaveFilePicker(saveOpts)
+
+	if (!fileHandle) {
+		return notify('Couldn\'t create file', 'warning')
+	}
+
 	await writeFile([])
 	offlineReady()
 }
@@ -65,7 +76,7 @@ export async function writeFile(data) {
  */
 export async function readFile() {
 	if (!fileHandle) {
-		throw 'File handle is not defined'
+		return
 	}
 
 	const file = await fileHandle.getFile()

@@ -23,7 +23,7 @@ async function SendNewTaskLocal(task) {
 	}
 
 	tasks.push(newTask)
-	writeFile(get(tasks))
+	await writeFile(get(tasks))
 	notify('Task added', 'success')
 
 	return true

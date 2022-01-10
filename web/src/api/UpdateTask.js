@@ -9,9 +9,15 @@ import { isOffline } from 'src/utils/offline.js'
 import { writeFile } from 'src/utils/fs.js'
 
 export async function UpdateTaskLocal(task) {
+	if (!task.name) {
+		notify('Error: name is required', 'error')
+		return false
+	}
+
 	tasks.update(task.task_id, task)
-	writeFile(get(tasks))
+	await writeFile(get(tasks))
 	notify('Task updated', 'success')
+
 	return true
 }
 
