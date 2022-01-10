@@ -1,9 +1,25 @@
+import { get } from 'svelte/store'
+
 import { LoadTaskById } from './LoadTasks.js'
 
 import { tasks } from 'src/stores/tasks.js'
 import { notify } from 'src/utils/notify.js'
 
+import { isOffline } from 'src/utils/offline.js'
+import { writeFile } from 'src/utils/fs.js'
+
+export async function UpdateTaskLocal(task) {
+	tasks.update(task.task_id, task)
+	writeFile(get(tasks))
+	notify('Task updated', 'success')
+	return true
+}
+
 export async function UpdateTask(data) {
+	if (isOffline()) {
+		return UpdateTaskLocal(data)
+	}
+
 	let response = await fetch('/api/update', {
 		method: 'PUT',
 		body: JSON.stringify(data)

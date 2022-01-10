@@ -1,7 +1,21 @@
+import { get } from 'svelte/store'
+
 import { tasks } from 'src/stores/tasks.js'
 import { notify } from 'src/utils/notify.js'
 
-export const FinishTask = async (id, status) => {
+import { isOffline } from 'src/utils/offline.js'
+import { writeFile } from 'src/utils/fs.js'
+
+export async function FinishTaskLocal(id, status) {
+	tasks.finish(id, status)
+	writeFile(get(tasks))
+}
+
+export async function FinishTask(id, status) {
+	if (isOffline()) {
+		return FinishTaskLocal(id, status)
+	}
+
 	let response = await fetch('/api/finish', {
 		method: 'PATCH',
 		body: JSON.stringify({

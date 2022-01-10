@@ -1,3 +1,5 @@
+import { LoadTasksLocal } from 'src/api/LoadTasks'
+
 import { offlineReady } from 'src/utils/offline'
 
 const opts = {
@@ -35,11 +37,12 @@ function object2blob(obj) {
 export async function openLocalFile() {
 	[fileHandle] = await window.showOpenFilePicker(pickerOpts);
 	offlineReady()
+	LoadTasksLocal()
 }
 
 export async function createLocalFile() {
 	fileHandle = await window.showSaveFilePicker(saveOpts)
-	await writeFile({})
+	await writeFile([])
 	offlineReady()
 }
 
@@ -55,10 +58,16 @@ export async function writeFile(data) {
 	await writableStream.close()
 }
 
+/**
+ * Read file with tasks
+ *
+ * @return {Promise<Array>} tasks
+ */
 export async function readFile() {
 	if (!fileHandle) {
-		return
+		throw 'File handle is not defined'
 	}
 
-	return await fileHandle.getFile()
+	const file = await fileHandle.getFile()
+	return JSON.parse(await file.text())
 }

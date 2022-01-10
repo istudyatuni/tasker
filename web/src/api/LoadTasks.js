@@ -2,6 +2,12 @@ import { initOffline } from 'src/utils/offline'
 
 import { tasks } from 'src/stores/tasks.js'
 
+import { readFile } from 'src/utils/fs.js'
+
+export async function LoadTasksLocal() {
+	tasks.set(await readFile())
+}
+
 export async function LoadTasks() {
 	try {
 		const response = await fetch('/api/tasks', {
@@ -17,8 +23,8 @@ export async function LoadTasks() {
 			}
 			return true
 		}
-	} catch (err) {
-		console.error('Server unavailable:', err)
+	} catch {
+		console.error('Server unavailable')
 
 		// we can't connect to server, so work in offline mode
 		initOffline()
