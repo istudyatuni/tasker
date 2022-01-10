@@ -2,7 +2,7 @@
 	import { openLocalFile, createLocalFile, isFsSupported } from 'src/utils/fs.js'
 </script>
 
-{#if !isFsSupported()}
+{#if isFsSupported()}
 	<div class="mt-2 notification is-success">
 		<p class="block">
 			Couldn't connect to server, work offline, saving data to a file.
