@@ -21,7 +21,7 @@ defmodule Tasker.Routers.Static do
   end
 
   match _ do
-    if @is_dev and conn.path_info |> hd == "openapi.yaml" do
+    if @is_dev and hd(conn.path_info) == "openapi.yaml" do
       # send openapi docs
       send_file(conn, 200, "#{@openapi_folder}/../openapi.yaml")
     else

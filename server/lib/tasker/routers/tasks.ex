@@ -14,7 +14,7 @@ defmodule Tasker.Routers.Tasks do
   plug(:dispatch)
 
   defp put_json_header(conn) do
-    conn |> put_resp_header("content-type", "application/json; charset=utf-8")
+    put_resp_header(conn, "content-type", "application/json; charset=utf-8")
   end
 
   # Send JSON with `{ "status", "message" }` keys
@@ -41,7 +41,7 @@ defmodule Tasker.Routers.Tasks do
     {status, data} = result
 
     if status == :error do
-      error = data.errors |> Enum.at(0)
+      error = Enum.at(data.errors, 0)
       {key, {info, _}} = error
       send_status_message(conn, 400, false, "#{key} #{info}")
     else
