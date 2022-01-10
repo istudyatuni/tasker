@@ -61,17 +61,19 @@
 {#if opened}
 	<div class="is-flex is-justify-content-space-between">
 		<div>
-			<SettingCheckbox
-				text="Reverse list"
-				name="reverse_list"
-				bind:checked={$settings.reverse_list}
-			/>
+			{#if !$settings.show_trash}
+				<SettingCheckbox
+					text="Reverse list"
+					name="reverse_list"
+					bind:checked={$settings.reverse_list}
+				/>
 
-			<SettingCheckbox
-				text="Show finished"
-				name="show_finished"
-				bind:checked={$settings.show_finished}
-			/>
+				<SettingCheckbox
+					text="Show finished"
+					name="show_finished"
+					bind:checked={$settings.show_finished}
+				/>
+			{/if}
 
 			<SettingCheckbox
 				text="Strict line breaks"
