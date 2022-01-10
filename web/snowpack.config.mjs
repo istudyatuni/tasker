@@ -38,6 +38,7 @@ export default {
 	},
 	buildOptions: {
 		htmlFragments: true,
-		baseUrl: '/',
+		baseUrl: '/tasker',
+		metaUrlPath: 'snowpack',
 	},
 }
