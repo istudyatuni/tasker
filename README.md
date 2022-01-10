@@ -7,6 +7,10 @@
 	<img src="docs/images/edit-page_screenshot.png" alt="edit-page" width="70%">
 </div>
 
+## Try
+
+You can use this in your browser at https://istudyatuni.github.io/tasker. But since GitHub pages is hosting static files, there is no backend, and all data is saved to a local file.
+
 ## Running
 
 **In docker container**
