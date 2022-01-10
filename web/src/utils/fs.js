@@ -33,6 +33,10 @@ function object2blob(obj) {
 	return new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'})
 }
 
+export function isFsSupported() {
+	return 'showOpenFilePicker' in window && 'showSaveFilePicker' in window
+}
+
 // opening
 
 export async function openLocalFile() {

@@ -40,11 +40,9 @@
 		{/if}
 	</button>
 
-	{#if $settings.offline !== 'wait'}
-		<button class="button is-primary block" on:click={() => edit('create')}>
-			Add a task
-		</button>
-	{/if}
+	<button class="button is-primary block" on:click={() => edit('create')}>
+		Add a task
+	</button>
 </div>
 
 {#if opened}
