@@ -1,5 +1,9 @@
 <script context="module">
-	import { openLocalFile, createLocalFile, isFsSupported } from 'src/utils/fs.js'
+	import {
+		openLocalFile,
+		createLocalFile,
+		isFsSupported,
+	} from 'src/utils/fs.js'
 </script>
 
 {#if isFsSupported()}
@@ -13,8 +17,9 @@
 {:else}
 	<div class="mt-2 notification is-danger has-text-white is-size-5">
 		<p class="block">
-			Unfortunately, your browser does not support the <code>File System Access API</code>
-			for working with local files. You can check which browsers support it on
+			Unfortunately, your browser does not support the
+			<code>File System Access API</code> for working with local files. You can
+			check which browsers support it on
 			<a href="https://caniuse.com/native-filesystem-api">this page</a>
 		</p>
 	</div>
