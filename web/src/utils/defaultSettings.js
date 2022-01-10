@@ -3,6 +3,7 @@ import { settings } from 'src/stores/settings.js'
 
 const initialSettings = {
 	show_finished: true,
+	show_trash: false,
 	// ignore single line breaks as in markdown specs
 	strict_line_breaks: true,
 	editor: {

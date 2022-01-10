@@ -1,12 +1,14 @@
 <script context="module">
 	import marked from 'marked'
 
-	import { DeleteTask } from 'src/api/DeleteTask.js'
 	import { FinishTask } from 'src/api/FinishTask.js'
+
+	import DeleteItem from "src/components/DeleteItem.svelte"
 
 	import { settings } from 'src/stores/settings.js'
 
 	import { edit } from 'src/utils/editor.js'
+	import { isOffline } from 'src/utils/offline.js'
 	import { scriptSanitize } from 'src/utils/sanitize.js'
 </script>
 
@@ -48,16 +50,9 @@
 		</div>
 	</div>
 
-	<!-- trash icon
-		https://icones.js.org/collection/mdi?s=trash -->
-	<svg class="has-text-danger" width="30" height="30" viewBox="0 0 24 24"
-		style="color:black"
-		on:click|stopPropagation={() => {
-			DeleteTask(task.task_id)
-		}}
-		title="Delete to trash">
-		<path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8z" fill="currentColor"></path>
-	</svg>
+	{#if isOffline()}
+		<DeleteItem {task} />
+	{/if}
 </div>
 
 <!-- details -->

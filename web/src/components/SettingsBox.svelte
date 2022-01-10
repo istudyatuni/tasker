@@ -14,31 +14,42 @@
 	function toggleReload() {
 		show_reload = !show_reload
 	}
+	function toggleTrash() {
+		$settings.show_trash = !$settings.show_trash
+	}
 </script>
 
 <div class="is-flex is-justify-content-space-between">
-	<button
-		class="button is-primary is-inverted block"
-		on:click={() => {
-			opened = !opened
-		}}
-	>
-		<span class="icon is-not-focused">
-			<img src="icons/settings-gear.svg" alt="" />
-		</span>
-		<span>Settings</span>
-		{#if show_reload}
-			<span
-				class="icon is-clickable"
-				title="Reload page to apply"
-				on:click={() => {
-					window.location.reload()
-				}}
-			>
-				<img src="icons/reload-circle.svg" alt="" />
+	<div>
+		<button
+			class="button is-primary is-inverted block"
+			on:click={() => {
+				opened = !opened
+			}}
+		>
+			<span class="icon is-not-focused">
+				<img src="icons/settings-gear.svg" alt="" />
 			</span>
-		{/if}
-	</button>
+			<span>Settings</span>
+			{#if show_reload}
+				<span
+					class="icon is-clickable"
+					title="Reload page to apply"
+					on:click={() => {
+						window.location.reload()
+					}}
+				>
+					<img src="icons/reload-circle.svg" alt="" />
+				</span>
+			{/if}
+		</button>
+
+		<button class="ml-5 button is-danger block" class:is-inverted={!$settings.show_trash}
+			on:click={toggleTrash}
+		>
+			Trash
+		</button>
+	</div>
 
 	<button class="button is-primary block" on:click={() => edit('create')}>
 		Add a task
