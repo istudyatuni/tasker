@@ -5,7 +5,7 @@
 	import TaskItem from 'src/components/TaskItem.svelte'
 </script>
 
-{#if $tasks.length === 0}
+{#if $tasks.length === 0 || $tasks.every((task) => task.deleted)}
 	<p class="notification is-success">The task list is empty</p>
 {:else if !$settings.show_finished && $tasks.every((task) => task.finished)}
 	<p class="notification is-success">All tasks are finished!</p>
@@ -13,7 +13,7 @@
 	{#each $settings.reverse_list ? $tasks
 				.slice()
 				.reverse() : $tasks as task (task.task_id)}
-		{#if !task.finished || $settings.show_finished}
+		{#if !task.deleted && (!task.finished || $settings.show_finished)}
 			<div class="box">
 				<TaskItem {task} />
 			</div>

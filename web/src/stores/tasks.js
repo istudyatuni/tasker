@@ -26,7 +26,15 @@ function tasksStore() {
 			console.error('Not found task with id ', id)
 		}),
 		push: (task) => update(tasks => [task, ...tasks]),
-		delete: (id) => update(tasks => tasks.filter(task => task.task_id !== id))
+		delete: (id, status) => update(tasks => {
+			const i = tasks.findIndex(e => e.task_id === id)
+			if (i !== -1) {
+				tasks[i].deleted = status
+				return tasks
+			}
+
+			console.error('Not found task with id ', id)
+		})
 	}
 }
 

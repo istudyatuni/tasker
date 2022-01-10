@@ -18,6 +18,7 @@ async function SendNewTaskLocal(task) {
 	let newTask = {
 		...fillEmptyFields(task),
 		finished: false,
+		deleted: false,
 		// 'yyyy-mm-ddThh:mm:ss.sssZ' -> 'yyyymmddhhmmsssss'
 		task_id: (new Date()).toISOString().replace(/[:\-T\.Z]/g, ''),
 	}

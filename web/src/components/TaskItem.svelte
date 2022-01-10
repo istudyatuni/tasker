@@ -1,6 +1,7 @@
 <script context="module">
 	import marked from 'marked'
 
+	import { DeleteTask } from 'src/api/DeleteTask.js'
 	import { FinishTask } from 'src/api/FinishTask.js'
 
 	import { settings } from 'src/stores/settings.js'
@@ -28,22 +29,35 @@
 </script>
 
 <!-- header -->
-<div class="is-flex is-clickable" on:click={toggleDetails}>
-	<img
-		src={`icons/${task.finished ? '' : 'in'}completed-task.svg`}
-		on:click|stopPropagation={() => {
-			FinishTask(task.task_id, !task.finished)
-		}}
-		class="icon mr-4 pt-1 is-clickable"
-		width="50"
-		height="50"
-		alt=""
-		title="Finish task"
-	/>
-	<div title="Open details">
-		<p class="title is-5" class:completed-title={task.finished}>{task.name}</p>
-		<p class="subtitle">{task.description}</p>
+<div class="level is-clickable" on:click={toggleDetails}>
+	<div class="level-left">
+		<img
+			src={`icons/${task.finished ? '' : 'in'}completed-task.svg`}
+			on:click|stopPropagation={() => {
+				FinishTask(task.task_id, !task.finished)
+			}}
+			class="icon mr-4 pt-1 is-clickable"
+			width="50"
+			height="50"
+			alt=""
+			title="Finish task"
+		/>
+		<div title="Open details">
+			<p class="title is-5" class:completed-title={task.finished}>{task.name}</p>
+			<p class="subtitle">{task.description}</p>
+		</div>
 	</div>
+
+	<!-- trash icon
+		https://icones.js.org/collection/mdi?s=trash -->
+	<svg class="has-text-danger" width="30" height="30" viewBox="0 0 24 24"
+		style="color:black"
+		on:click|stopPropagation={() => {
+			DeleteTask(task.task_id)
+		}}
+		title="Delete to trash">
+		<path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8z" fill="currentColor"></path>
+	</svg>
 </div>
 
 <!-- details -->
