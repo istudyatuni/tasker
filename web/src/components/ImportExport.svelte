@@ -51,7 +51,7 @@
 	</button>
 </div>
 
-<style type="text/css">
+<style>
 	.is-180-rotate {
 		transform: rotate(180deg);
 	}

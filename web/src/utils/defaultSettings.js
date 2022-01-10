@@ -6,10 +6,12 @@ const initialSettings = {
 	// ignore single line breaks as in markdown specs
 	strict_line_breaks: true,
 	editor: {
-		// close edit create
+		// close, edit, create
 		state: 'close',
 		task: {}
-	}
+	},
+	// none, wait (for file), ready
+	offline: 'none',
 }
 
 export async function initSettings() {

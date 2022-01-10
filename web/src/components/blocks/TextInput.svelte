@@ -21,7 +21,7 @@
 	</label>
 </div>
 
-<style type="text/css">
+<style>
 	.required:after {
 		content: ' *';
 		color: red;

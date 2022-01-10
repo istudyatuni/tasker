@@ -1,3 +1,5 @@
+import { initOffline } from 'src/utils/offline'
+
 import { tasks } from 'src/stores/tasks.js'
 
 export async function LoadTasks() {
@@ -17,6 +19,10 @@ export async function LoadTasks() {
 		}
 	} catch (err) {
 		console.error('Server unavailable:', err)
+
+		// we can't connect to server, so work in offline mode
+		initOffline()
+
 		return false
 	}
 }

@@ -5,6 +5,7 @@
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
 	import Notification from 'src/components/Notification.svelte'
+	import OfflineNotification from 'src/components/OfflineNotification.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
@@ -28,10 +29,14 @@
 	{:then status}
 		{#if status}
 			<TasksList />
-		{:else}
-			<p class="notification is-danger">Failed to load tasks</p>
 		{/if}
 	{/await}
+
+	{#if $settings.offline === 'wait'}
+		<OfflineNotification />
+	{:else if $settings.offline === 'ready'}
+		<TasksList />
+	{/if}
 
 	<Notification />
 

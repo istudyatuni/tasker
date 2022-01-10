@@ -40,9 +40,11 @@
 		{/if}
 	</button>
 
-	<button class="button is-primary block" on:click={() => edit('create')}
-		>Add a task</button
-	>
+	{#if $settings.offline !== 'wait'}
+		<button class="button is-primary block" on:click={() => edit('create')}>
+			Add a task
+		</button>
+	{/if}
 </div>
 
 {#if opened}
@@ -69,6 +71,8 @@
 			/>
 		</div>
 
-		<ImportExport />
+		{#if $settings.offline === 'none'}
+			<ImportExport />
+		{/if}
 	</div>
 {/if}

@@ -2,10 +2,15 @@ import { writable } from 'svelte/store'
 
 /**
  * Writable store based on localStorage
+ *
  * Example usage:
- * 	const store = localKeyValueStore('dates')
- * 	set: dates.set('key', value)
- * 	get: dates.key
+ *
+ * ```js
+ * const store = localKeyValueStore('dates')
+ * set: dates.set('key', value)
+ * get: dates.key
+ * ```
+ *
  * @param  {String} name    Name for storing in localStorage
  * @param  {Object} initial Initial object
  * @return {[type]}         [description]

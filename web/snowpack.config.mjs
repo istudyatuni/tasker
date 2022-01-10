@@ -16,12 +16,12 @@ export default {
 	},
 	plugins: ['@snowpack/plugin-svelte'],
 	routes: [
-		{
-			src: '/api/.*',
-			dest: (req, res) => {
-				return proxy.web(req, res, DEV_SERVER)
-			},
-		},
+		// {
+		// 	src: '/api/.*',
+		// 	dest: (req, res) => {
+		// 		return proxy.web(req, res, DEV_SERVER)
+		// 	},
+		// },
 		/* Enable an SPA Fallback in development: */
 		{ match: 'routes', src: '.*', dest: '/index.html' },
 	],
