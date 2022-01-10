@@ -30,7 +30,7 @@ let fileHandle = null
 // helpers
 
 function object2blob(obj) {
-	return new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'})
+	return new Blob([JSON.stringify(obj, null, 2) + '\n'], {type: 'application/json'})
 }
 
 export function isFsSupported() {
