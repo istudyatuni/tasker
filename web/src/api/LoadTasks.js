@@ -22,6 +22,8 @@ export async function LoadTasks() {
 				tasks.set([])
 			}
 			return true
+		} else {
+			throw 'Go to catch'
 		}
 	} catch {
 		console.error('Server unavailable')
