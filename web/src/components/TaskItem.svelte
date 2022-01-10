@@ -3,8 +3,6 @@
 
 	import { FinishTask } from 'src/api/FinishTask.js'
 
-	import TaskInputModal from 'src/components/TaskInputModal.svelte'
-
 	import { settings } from 'src/stores/settings.js'
 
 	import { edit } from 'src/utils/editor.js'

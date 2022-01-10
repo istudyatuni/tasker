@@ -1,13 +1,3 @@
-export const defaultTask = {
-	task_id: '',
-	name: '',
-	full_name: '',
-	subject: '',
-	description: '',
-	finished: false,
-	other_text: ''
-}
-
 export const placeholders = {
 	name: 'JS and CSS',
 	full_name: 'Самостоятельная работа №1',

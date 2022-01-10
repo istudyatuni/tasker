@@ -34,7 +34,7 @@ function object2blob(obj) {
 }
 
 export function isFsSupported() {
-	return 'showOpenFilePicker' in window && 'showSaveFilePicker' in window
+	return window.showOpenFilePicker && window.showSaveFilePicker
 }
 
 // opening

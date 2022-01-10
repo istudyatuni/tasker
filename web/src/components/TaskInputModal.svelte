@@ -9,7 +9,7 @@
 	import { tasks } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
-	import { defaultTask, placeholders } from 'src/utils/objects.js'
+	import { placeholders } from 'src/utils/objects.js'
 	import { getSubjects } from 'src/utils/tasks.js'
 
 	// should return true to close modal
