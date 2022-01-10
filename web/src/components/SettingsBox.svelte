@@ -44,7 +44,9 @@
 			{/if}
 		</button>
 
-		<button class="ml-5 button is-danger block" class:is-inverted={!$settings.show_trash}
+		<button
+			class="ml-5 button is-danger block"
+			class:is-inverted={!$settings.show_trash}
 			on:click={toggleTrash}
 		>
 			Trash

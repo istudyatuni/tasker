@@ -3,7 +3,7 @@
 
 	import { FinishTask } from 'src/api/FinishTask.js'
 
-	import DeleteItem from "src/components/DeleteItem.svelte"
+	import DeleteItem from 'src/components/DeleteItem.svelte'
 
 	import { settings } from 'src/stores/settings.js'
 
@@ -45,7 +45,9 @@
 			title="Finish task"
 		/>
 		<div title="Open details">
-			<p class="title is-5" class:completed-title={task.finished}>{task.name}</p>
+			<p class="title is-5" class:completed-title={task.finished}>
+				{task.name}
+			</p>
 			<p class="subtitle">{task.description}</p>
 		</div>
 	</div>
