@@ -9,14 +9,15 @@
   },
   "devDependencies": {
     "@snowpack/plugin-svelte": "^3.7.0",
+    "@types/marked": "^4.0.1",
     "http2-proxy": "^5.0.53",
-    "prettier": "^2.4.1",
-    "prettier-plugin-svelte": "^2.4.0",
+    "prettier": "^2.5.1",
+    "prettier-plugin-svelte": "^2.5.1",
     "snowpack": "^3.3.7",
-    "svelte": "^3.42.6"
+    "svelte": "^3.46.1"
   },
   "dependencies": {
     "bulma": "^0.9.3",
-    "marked": "^3.0.4"
+    "marked": "^4.0.9"
   }
 }

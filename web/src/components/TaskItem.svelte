@@ -1,5 +1,5 @@
 <script context="module">
-	import marked from 'marked'
+	import { marked } from 'marked'
 
 	import { FinishTask } from 'src/api/FinishTask.js'
 
@@ -73,7 +73,7 @@
 	</div>
 	<hr class:is-hidden={task.other_text === ''} />
 	<div class="content">
-		{@html scriptSanitize(marked(task.other_text, markedOptions))}
+		{@html scriptSanitize(marked.parse(task.other_text, markedOptions))}
 	</div>
 {/if}
 
