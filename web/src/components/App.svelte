@@ -8,6 +8,7 @@
 	import OfflineNotification from 'src/components/OfflineNotification.svelte'
 
 	import { settings } from 'src/stores/settings.js'
+	import { tasks } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
 	import { initSettings } from 'src/utils/defaultSettings.js'
@@ -24,6 +25,10 @@
 	<h1 class="title">Tasks</h1>
 	{#if $settings.offline !== 'wait'}
 		<SettingsBox />
+
+		{#if !$settings.show_trash}
+			<p class="block">Finished {$tasks.filter(t => t.finished).length}/{$tasks.length}</p>
+		{/if}
 	{/if}
 
 	{#await promise}
