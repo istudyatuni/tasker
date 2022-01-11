@@ -5,11 +5,20 @@
 	import TaskItem from 'src/components/TaskItem.svelte'
 </script>
 
-{#if $tasks.length === 0 || (!$settings.show_trash && $tasks.every((task) => task.deleted))}
-	<!-- array is empty or all tasks deleted (and trash hidden) -->
+<script>
+	// array is empty or all tasks deleted (and trash hidden)
+	$: no_tasks =
+		$tasks.length === 0 ||
+		(!$settings.show_trash && $tasks.every((task) => task.deleted))
+
+	// all tasks finished and finished tasks hidden
+	$: all_finished =
+		!$settings.show_finished && $tasks.every((task) => task.finished)
+</script>
+
+{#if no_tasks}
 	<p class="notification is-success">The task list is empty</p>
-{:else if !$settings.show_finished && $tasks.every((task) => task.finished)}
-	<!-- all tasks finished and finished tasks hidden -->
+{:else if all_finished}
 	<p class="notification is-success">All tasks are finished!</p>
 {:else if $settings.show_trash}
 	<!-- show deleted -->

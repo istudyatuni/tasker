@@ -23,6 +23,7 @@
 	// except deleted
 	$: finished = $tasks.filter((t) => t.finished && !t.deleted).length
 	$: total = $tasks.filter((t) => !t.deleted).length
+	$: finished_percent = (finished * 100) / total
 
 	$: deleted = $tasks.filter((t) => t.deleted).length
 </script>
@@ -34,7 +35,7 @@
 
 		{#if !$settings.show_trash}
 			<p class="block">
-				Finished {finished}/{total} ({(100 * finished) / total}%)
+				Finished {finished}/{total} ({finished_percent}%)
 			</p>
 		{:else}
 			<p class="block">Deleted {deleted}</p>

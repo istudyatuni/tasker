@@ -5,6 +5,10 @@
 	import { settings } from 'src/stores/settings.js'
 
 	import { edit } from 'src/utils/editor.js'
+
+	function editCreate() {
+		edit('create')
+	}
 </script>
 
 <script>
@@ -17,16 +21,14 @@
 	function toggleTrash() {
 		$settings.show_trash = !$settings.show_trash
 	}
+	function toggleOpen() {
+		opened = !opened
+	}
 </script>
 
 <div class="is-flex is-justify-content-space-between">
 	<div>
-		<button
-			class="button is-primary is-inverted block"
-			on:click={() => {
-				opened = !opened
-			}}
-		>
+		<button class="button is-primary is-inverted block" on:click={toggleOpen}>
 			<span class="icon is-not-focused">
 				<img src="icons/settings-gear.svg" alt="" />
 			</span>
@@ -35,11 +37,9 @@
 				<span
 					class="icon is-clickable"
 					title="Reload page to apply"
-					on:click={() => {
-						window.location.reload()
-					}}
+					on:click={window.location.reload}
 				>
-					<img src="icons/reload-circle.svg" alt="" />
+					<img src="icons/reload-circle.svg" alt="reload" />
 				</span>
 			{/if}
 		</button>
@@ -53,7 +53,7 @@
 		</button>
 	</div>
 
-	<button class="button is-primary block" on:click={() => edit('create')}>
+	<button class="button is-primary block" on:click={editCreate}>
 		Add a task
 	</button>
 </div>

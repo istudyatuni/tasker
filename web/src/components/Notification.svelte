@@ -5,7 +5,7 @@
 <div class="wrapper">
 	{#each $notifications as note}
 		<div class="notification is-{note.level}">
-			<button class="delete" on:click={() => notifications.pop()} />
+			<button class="delete" on:click={notifications.pop} />
 			{note.message}
 		</div>
 	{/each}

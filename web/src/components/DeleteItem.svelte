@@ -3,7 +3,17 @@
 </script>
 
 <script>
-	export let task
+	export let task = {}
+
+	let trashActionColor = task.deleted ? 'success' : 'danger'
+	let trashActionText = task.deleted ? 'Restore' : 'Delete to trash'
+
+	function onTrash() {
+		DeleteTask(task.task_id, !task.deleted, true)
+	}
+	function onForever() {
+		DeleteTask(task.task_id, true, false)
+	}
 </script>
 
 <div class="dropdown is-right is-hoverable">
@@ -25,19 +35,17 @@
 		<div class="dropdown-content">
 			<div class="dropdown-item">
 				<button
-					class="button is-{task.deleted ? 'success' : 'danger'} is-light"
-					on:click|stopPropagation={() => {
-						DeleteTask(task.task_id, !task.deleted, true)
-					}}>{task.deleted ? 'Restore' : 'Delete to trash'}</button
+					class="button is-{trashActionColor} is-light"
+					on:click|stopPropagation={onTrash}
 				>
+					{trashActionText}
+				</button>
 			</div>
 
 			<div class="dropdown-item">
-				<button
-					class="button is-danger"
-					on:click|stopPropagation={() => DeleteTask(task.task_id, true, false)}
-					>Delete forever</button
-				>
+				<button class="button is-danger" on:click|stopPropagation={onForever}>
+					Delete forever
+				</button>
 			</div>
 		</div>
 	</div>

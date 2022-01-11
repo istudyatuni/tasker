@@ -25,6 +25,8 @@
 </script>
 
 <script>
+	$: is_active = $settings.editor.state !== 'close'
+
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $settings.editor.task
 	$: subjects = getSubjects($tasks)
@@ -37,7 +39,7 @@
 	}
 </script>
 
-<div class="modal" class:is-active={$settings.editor.state !== 'close'}>
+<div class="modal" class:is-active={is_active}>
 	<div class="modal-background" />
 	<div class="modal-card">
 		<header class="modal-card-head">

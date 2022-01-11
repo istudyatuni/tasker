@@ -15,18 +15,24 @@
 <script>
 	export let task
 
-	let markedOptions = {
-		breaks: !$settings.strict_line_breaks,
-	}
+	$: complete_icon = `icons/${task.finished ? '' : 'in'}completed-task.svg`
 
 	let opened = false
 
+	function toggleFinished() {
+		FinishTask(task.task_id, !task.finished)
+	}
 	function toggleDetails() {
 		opened = !opened
 	}
-
 	function onEdit() {
 		edit('edit', task.task_id)
+	}
+
+	// marked
+
+	let markedOptions = {
+		breaks: !$settings.strict_line_breaks,
 	}
 </script>
 
@@ -34,10 +40,8 @@
 <div class="level is-clickable" on:click={toggleDetails}>
 	<div class="level-left">
 		<img
-			src={`icons/${task.finished ? '' : 'in'}completed-task.svg`}
-			on:click|stopPropagation={() => {
-				FinishTask(task.task_id, !task.finished)
-			}}
+			src={complete_icon}
+			on:click|stopPropagation={toggleFinished}
 			class="icon mr-4 pt-1 is-clickable"
 			width="50"
 			height="50"
