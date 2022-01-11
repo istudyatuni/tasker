@@ -19,6 +19,12 @@
 
 <script>
 	let promise = LoadTasks()
+
+	// except deleted
+	$: finished = $tasks.filter((t) => t.finished && !t.deleted).length
+	$: total = $tasks.filter((t) => !t.deleted).length
+
+	$: deleted = $tasks.filter((t) => t.deleted).length
 </script>
 
 <main class="container is-max-desktop pt-5 pb-5 pl-3 pr-3">
@@ -28,11 +34,10 @@
 
 		{#if !$settings.show_trash}
 			<p class="block">
-				Finished {$tasks.filter((t) => t.finished && !t.deleted)
-					.length}/{$tasks.filter((t) => !t.deleted).length}
+				Finished {finished}/{total} ({(100 * finished) / total}%)
 			</p>
 		{:else}
-			<p class="block">Deleted {$tasks.filter((t) => t.deleted).length}</p>
+			<p class="block">Deleted {deleted}</p>
 		{/if}
 	{/if}
 
