@@ -37,6 +37,10 @@ export function isFsSupported() {
 	return window.showOpenFilePicker && window.showSaveFilePicker
 }
 
+function filename2title(filename) {
+	document.title += ' - ' + filename
+}
+
 // opening
 
 export async function openLocalFile() {
@@ -45,6 +49,8 @@ export async function openLocalFile() {
 	if (!fileHandle) {
 		return notify('Couldn\'t open file', 'warning')
 	}
+
+	filename2title(fileHandle.name)
 
 	offlineReady()
 	LoadTasksLocal()
@@ -58,6 +64,9 @@ export async function createLocalFile() {
 	}
 
 	await writeFile([])
+
+	filename2title(fileHandle.name)
+
 	offlineReady()
 }
 
