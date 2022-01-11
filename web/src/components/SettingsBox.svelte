@@ -15,9 +15,6 @@
 	let opened = false,
 		show_reload = false
 
-	function toggleReload() {
-		show_reload = !show_reload
-	}
 	function toggleTrash() {
 		$settings.show_trash = !$settings.show_trash
 	}
@@ -33,15 +30,6 @@
 				<img src="icons/settings-gear.svg" alt="" />
 			</span>
 			<span>Settings</span>
-			{#if show_reload}
-				<span
-					class="icon is-clickable"
-					title="Reload page to apply"
-					on:click={window.location.reload}
-				>
-					<img src="icons/reload-circle.svg" alt="reload" />
-				</span>
-			{/if}
 		</button>
 
 		<button
@@ -80,7 +68,6 @@
 				name="strict_line_breaks"
 				help="Ignore single line breaks in detailed description according to the markdown specs"
 				bind:checked={$settings.strict_line_breaks}
-				on:change={toggleReload}
 			/>
 		</div>
 

@@ -31,7 +31,7 @@
 
 	// marked
 
-	let markedOptions = {
+	$: markedOptions = {
 		breaks: !$settings.strict_line_breaks,
 	}
 </script>
