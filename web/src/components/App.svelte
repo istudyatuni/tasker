@@ -27,7 +27,12 @@
 		<SettingsBox />
 
 		{#if !$settings.show_trash}
-			<p class="block">Finished {$tasks.filter(t => t.finished).length}/{$tasks.length}</p>
+			<p class="block">
+				Finished {$tasks.filter((t) => t.finished && !t.deleted)
+					.length}/{$tasks.filter((t) => !t.deleted).length}
+			</p>
+		{:else}
+			<p class="block">Deleted {$tasks.filter((t) => t.deleted).length}</p>
 		{/if}
 	{/if}
 

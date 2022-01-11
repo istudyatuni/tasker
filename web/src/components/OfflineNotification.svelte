@@ -22,9 +22,9 @@
 {:else}
 	<div class="mt-2 notification is-danger has-text-white is-size-5">
 		<p class="block">
-			Couldn't connect to server, tried to work offline, but unfortunately
-			your browser does not support the <code>{@html apiName}</code> for
-			working with local files. You can check which browsers support it on
+			Couldn't connect to server, tried to work offline, but unfortunately your
+			browser does not support the <code>{@html apiName}</code> for working with
+			local files. You can check which browsers support it on
 			<a href="https://caniuse.com/native-filesystem-api">this page</a>
 		</p>
 	</div>
