@@ -7,7 +7,7 @@
 </script>
 
 <div class="dropdown is-right is-hoverable">
-	<div class="dropdown-trigger">
+	<div class="dropdown-trigger" on:click|stopPropagation>
 		<!-- https://icones.js.org/collection/mdi?s=trash -->
 		<svg class="has-text-danger" width="30" height="30" viewBox="0 0 24 24">
 			<path
