@@ -46,8 +46,7 @@
 			type="file"
 			accept=".json"
 			name="data"
-			class="is-hidden"
-		/>
+			class="is-hidden" />
 	</button>
 </div>
 

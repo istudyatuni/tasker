@@ -2,7 +2,7 @@
 	import { LoadTasks } from 'src/api/LoadTasks.js'
 
 	import SettingsBox from 'src/components/SettingsBox.svelte'
-	import Statistics from 'src/components/Statistics.svelte';
+	import Statistics from 'src/components/Statistics.svelte'
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
 	import Notification from 'src/components/Notification.svelte'

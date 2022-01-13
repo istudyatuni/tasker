@@ -33,10 +33,12 @@
 				</span>
 			{/if}
 
-			<span on:click={open} class="icon is-small is-right is-clickable">
+			<span
+				on:click={open}
+				class="icon is-small is-right is-clickable"
+				style:transform={opened ? 'rotate(180deg)' : 'none'}>
 				<img
 					src="icons/arrow-down.svg"
-					style:transform={opened ? 'rotate(180deg)' : 'none'}
 					width="10px"
 					height="10px"
 					alt=""

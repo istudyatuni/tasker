@@ -47,8 +47,7 @@
 			height="50"
 			alt=""
 			title="Finish task"
-			role="button"
-		/>
+			role="button" />
 		<div title="Open details">
 			<p class="title is-5" class:completed-title={task.finished}>
 				{task.name}

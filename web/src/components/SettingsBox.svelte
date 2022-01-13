@@ -36,8 +36,7 @@
 		<button
 			class="ml-5 button is-danger block"
 			class:is-inverted={!$settings.show_trash}
-			on:click={toggleTrash}
-		>
+			on:click={toggleTrash}>
 			Trash
 		</button>
 	</div>
@@ -54,22 +53,19 @@
 				<SettingCheckbox
 					text="Reverse list"
 					name="reverse_list"
-					bind:checked={$settings.reverse_list}
-				/>
+					bind:checked={$settings.reverse_list} />
 
 				<SettingCheckbox
 					text="Show finished"
 					name="show_finished"
-					bind:checked={$settings.show_finished}
-				/>
+					bind:checked={$settings.show_finished} />
 			{/if}
 
 			<SettingCheckbox
 				text="Strict line breaks"
 				name="strict_line_breaks"
 				help="Ignore single line breaks in detailed description according to the markdown specs"
-				bind:checked={$settings.strict_line_breaks}
-			/>
+				bind:checked={$settings.strict_line_breaks} />
 
 			{#if !$settings.show_trash}
 				<DropdownTextInput
@@ -77,8 +73,7 @@
 					placeholder="Subject"
 					bind:value={$settings.filterSubject}
 					dropdown={$subjects}
-					show_clear
-				/>
+					show_clear />
 			{/if}
 		</div>
 
