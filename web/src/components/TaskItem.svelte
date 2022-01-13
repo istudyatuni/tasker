@@ -37,7 +37,7 @@
 </script>
 
 <!-- header -->
-<div class="level is-clickable" on:click={toggleDetails}>
+<div class="level is-clickable" on:click={toggleDetails} role="button">
 	<div class="level-left">
 		<img
 			src={complete_icon}
@@ -47,6 +47,7 @@
 			height="50"
 			alt=""
 			title="Finish task"
+			role="button"
 		/>
 		<div title="Open details">
 			<p class="title is-5" class:completed-title={task.finished}>

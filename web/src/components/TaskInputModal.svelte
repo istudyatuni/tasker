@@ -6,15 +6,14 @@
 	import DropdownTextInput from 'src/components/blocks/DropdownTextInput.svelte'
 
 	import { settings } from 'src/stores/settings.js'
-	import { tasks } from 'src/stores/tasks.js'
+	import { subjects } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
 	import { placeholders } from 'src/utils/objects.js'
-	import { getSubjects } from 'src/utils/tasks.js'
 
 	// should return true to close modal
 	const submitters = {
-		close: (task) => true,
+		close: () => true,
 		create: SendNewTask,
 		edit: UpdateTask,
 	}
@@ -29,7 +28,6 @@
 
 	$: submitter = submitters[$settings.editor.state]
 	$: task = $settings.editor.task
-	$: subjects = getSubjects($tasks)
 
 	async function submit() {
 		const result = await submitter(task)
@@ -61,7 +59,7 @@
 				label="Subject"
 				placeholder={placeholders.subject}
 				bind:value={task.subject}
-				dropdown={subjects}
+				dropdown={$subjects}
 			/>
 			<TextInput
 				label="Description"

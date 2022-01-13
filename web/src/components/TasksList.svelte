@@ -1,8 +1,17 @@
 <script context="module">
 	import { settings } from 'src/stores/settings.js'
-	import { tasks } from 'src/stores/tasks.js'
+	import { filtered as tasks } from 'src/stores/tasks.js'
 
 	import TaskItem from 'src/components/TaskItem.svelte'
+
+	/**
+	 * Immutable reverse
+	 * @param  {any[]} list
+	 * @return {any[]}
+	 */
+	function reverse(list) {
+		return list.slice().reverse()
+	}
 </script>
 
 <script>
@@ -29,9 +38,7 @@
 	{/each}
 {:else}
 	<!-- show tasks -->
-	{#each $settings.reverse_list ? $tasks
-				.slice()
-				.reverse() : $tasks as task (task.task_id)}
+	{#each $settings.reverse_list ? reverse($tasks) : $tasks as task (task.task_id)}
 		{#if !task.deleted && (!task.finished || $settings.show_finished)}
 			<!-- filter out deleted and finished (if finished tasks hidden) -->
 			<div class="box">

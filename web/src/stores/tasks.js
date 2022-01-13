@@ -1,4 +1,6 @@
-import { writable } from 'svelte/store'
+import { derived, writable } from 'svelte/store'
+
+import { settings } from 'src/stores/settings.js'
 
 // https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Svelte_stores#how_to_implement_a_store_contract_the_theory
 function tasksStore() {
@@ -45,3 +47,26 @@ function tasksStore() {
 }
 
 export const tasks = tasksStore()
+
+export const subjects = derived(tasks,
+	$tasks => [...new Set(
+		$tasks
+			.map(e => e.subject)
+			.filter(e => e)
+		)
+	]
+)
+
+// filtered by subject
+export const filtered = derived([tasks, settings],
+	([$tasks, $settings]) => {
+		const sub = $settings.filterSubject
+
+		// if sub === '', skip
+		if (sub) {
+			return $tasks.filter(t => t.subject === sub)
+		} else {
+			return $tasks
+		}
+	}
+)

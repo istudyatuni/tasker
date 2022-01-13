@@ -9,6 +9,9 @@
 	function open() {
 		opened = !opened
 	}
+	function clear() {
+		value = ''
+	}
 </script>
 
 <div class="field">
@@ -21,10 +24,18 @@
 
 		<div class="control has-icons-right">
 			<input bind:value {placeholder} class="input control" type="text" />
+
+			{#if value}
+				<!-- clear -->
+				<span on:click={clear} class="icon is-small is-left is-clickable">
+					<img src="icons/clear.svg" width="15px" height="15px" alt="" />
+				</span>
+			{/if}
+
 			<span on:click={open} class="icon is-small is-right is-clickable">
 				<img
 					src="icons/arrow-down.svg"
-					class:is-180-rotate={opened}
+					style:transform={opened ? 'rotate(180deg)' : 'none'}
 					width="10px"
 					height="10px"
 					alt=""
@@ -60,8 +71,5 @@
 	.required:after {
 		content: ' *';
 		color: red;
-	}
-	.is-180-rotate {
-		transform: rotate(180deg);
 	}
 </style>

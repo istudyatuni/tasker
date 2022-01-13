@@ -13,6 +13,8 @@ const initialSettings = {
 	},
 	// none, wait (for file), ready
 	offline: 'none',
+	// subject for filter tasks
+	filterSubject: '',
 }
 
 export async function initSettings() {

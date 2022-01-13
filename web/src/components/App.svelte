@@ -36,6 +36,10 @@
 		{#if !$settings.show_trash}
 			<p class="block">
 				Finished {finished}/{total} ({finished_percent}%)
+
+				{#if $settings.filterSubject}
+					, filtered by "{$settings.filterSubject}"
+				{/if}
 			</p>
 		{:else}
 			<p class="block">Deleted {deleted}</p>

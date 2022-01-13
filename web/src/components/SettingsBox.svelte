@@ -1,8 +1,10 @@
 <script context="module">
+	import DropdownTextInput from 'src/components/blocks/DropdownTextInput.svelte'
 	import SettingCheckbox from 'src/components/blocks/SettingCheckbox.svelte'
 	import ImportExport from 'src/components/ImportExport.svelte'
 
 	import { settings } from 'src/stores/settings.js'
+	import { subjects } from 'src/stores/tasks.js'
 
 	import { edit } from 'src/utils/editor.js'
 
@@ -12,8 +14,7 @@
 </script>
 
 <script>
-	let opened = false,
-		show_reload = false
+	let opened = false
 
 	function toggleTrash() {
 		$settings.show_trash = !$settings.show_trash
@@ -69,6 +70,15 @@
 				help="Ignore single line breaks in detailed description according to the markdown specs"
 				bind:checked={$settings.strict_line_breaks}
 			/>
+
+			{#if !$settings.show_trash}
+				<DropdownTextInput
+					label="Filter by subjects"
+					placeholder="Subject"
+					bind:value={$settings.filterSubject}
+					dropdown={$subjects}
+				/>
+			{/if}
 		</div>
 
 		{#if $settings.offline === 'none'}

@@ -1,10 +1,3 @@
-export function getSubjects(tasks) {
-	let subjects = tasks.map(e => e.subject).filter(e => e)
-
-	// Set for unique
-	return [...new Set(subjects)]
-}
-
 // fields 'task_id' and 'finished' are ommited
 const defaultTask = {
 	description: '',
