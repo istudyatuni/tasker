@@ -5,7 +5,8 @@
   "scripts": {
     "build": "snowpack build",
     "dev": "snowpack dev",
-    "format": "prettier --write --plugin-search-dir=. snowpack.config.mjs ./**/*.js ./**/*.svelte"
+    "format": "prettier --write --plugin-search-dir=. snowpack.config.mjs ./**/*.js ./**/*.svelte",
+    "format:check": "prettier --plugin-search-dir=. snowpack.config.mjs ./**/*.js ./**/*.svelte"
   },
   "devDependencies": {
     "@snowpack/plugin-svelte": "^3.7.0",

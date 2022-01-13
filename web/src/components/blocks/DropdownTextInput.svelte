@@ -37,12 +37,7 @@
 				on:click={open}
 				class="icon is-small is-right is-clickable"
 				style:transform={opened ? 'rotate(180deg)' : 'none'}>
-				<img
-					src="icons/arrow-down.svg"
-					width="10px"
-					height="10px"
-					alt=""
-				/>
+				<img src="icons/arrow-down.svg" width="10px" height="10px" alt="" />
 			</span>
 		</div>
 
@@ -57,8 +52,7 @@
 								opened = false
 							}}
 							class:is-active={item === value}
-							class="dropdown-item"
-						>
+							class="dropdown-item">
 							{item}
 						</a>
 					{:else}
