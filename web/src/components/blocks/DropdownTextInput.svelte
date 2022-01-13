@@ -28,7 +28,7 @@
 
 			{#if value && show_clear}
 				<!-- clear -->
-				<span on:click={clear} class="icon is-small is-left is-clickable">
+				<span on:click={clear} class="icon is-small is-left is-clickable" role="button">
 					<img src="icons/clear.svg" width="15px" height="15px" alt="" />
 				</span>
 			{/if}
@@ -36,7 +36,8 @@
 			<span
 				on:click={open}
 				class="icon is-small is-right is-clickable"
-				style:transform={opened ? 'rotate(180deg)' : 'none'}>
+				style:transform={opened ? 'rotate(180deg)' : 'none'}
+				role="button">
 				<img src="icons/arrow-down.svg" width="10px" height="10px" alt="" />
 			</span>
 		</div>
