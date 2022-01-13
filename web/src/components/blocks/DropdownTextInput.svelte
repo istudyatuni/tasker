@@ -28,7 +28,10 @@
 
 			{#if value && show_clear}
 				<!-- clear -->
-				<span on:click={clear} class="icon is-small is-left is-clickable" role="button">
+				<span
+					on:click={clear}
+					class="icon is-small is-left is-clickable"
+					role="button">
 					<img src="icons/clear.svg" width="15px" height="15px" alt="" />
 				</span>
 			{/if}
