@@ -21,6 +21,7 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
           touch build/.nojekyll
+          echo $GITHUB_SHA > build/version.txt
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.2

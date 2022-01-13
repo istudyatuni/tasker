@@ -5,6 +5,7 @@
 	import Statistics from 'src/components/Statistics.svelte'
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
+	import Title from 'src/components/Title.svelte';
 	import Notification from 'src/components/Notification.svelte'
 	import OfflineNotification from 'src/components/OfflineNotification.svelte'
 
@@ -22,7 +23,7 @@
 </script>
 
 <main class="container is-max-desktop pt-5 pl-3 pr-3">
-	<h1 class="title">Tasks</h1>
+	<Title />
 	{#if $settings.offline !== 'wait'}
 		<SettingsBox />
 		<Statistics />
