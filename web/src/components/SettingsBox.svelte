@@ -77,6 +77,7 @@
 					placeholder="Subject"
 					bind:value={$settings.filterSubject}
 					dropdown={$subjects}
+					show_clear
 				/>
 			{/if}
 		</div>

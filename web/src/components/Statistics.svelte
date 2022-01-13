@@ -14,7 +14,12 @@
 
 {#if !$settings.show_trash}
 	<p class="block">
-		Finished {finished}/{total} ({finished_percent}%)
+		Finished
+		{#if total !== 0}
+			{finished}/{total} ({finished_percent}%)
+		{:else}
+			0
+		{/if}
 
 		{#if $settings.filterSubject}
 			, filtered by "{$settings.filterSubject}"

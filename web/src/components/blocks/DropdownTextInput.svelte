@@ -3,7 +3,8 @@
 		value,
 		placeholder,
 		dropdown = [],
-		required = false
+		required = false,
+		show_clear = false
 
 	let opened = false
 	function open() {
@@ -25,7 +26,7 @@
 		<div class="control has-icons-right">
 			<input bind:value {placeholder} class="input control" type="text" />
 
-			{#if value}
+			{#if value && show_clear}
 				<!-- clear -->
 				<span on:click={clear} class="icon is-small is-left is-clickable">
 					<img src="icons/clear.svg" width="15px" height="15px" alt="" />
