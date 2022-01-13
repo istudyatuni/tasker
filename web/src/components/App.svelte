@@ -23,7 +23,7 @@
 	// except deleted
 	$: finished = $tasks.filter((t) => t.finished && !t.deleted).length
 	$: total = $tasks.filter((t) => !t.deleted).length
-	$: finished_percent = (finished * 100) / total
+	$: finished_percent = Math.round((finished * 100) / total)
 
 	$: deleted = $tasks.filter((t) => t.deleted).length
 </script>
