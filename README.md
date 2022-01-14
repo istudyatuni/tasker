@@ -11,7 +11,9 @@
 
 You can use this in your browser at https://istudyatuni.github.io/tasker. But since GitHub pages is hosting static files, there is no backend, and all data is saved to a local file.
 
-## Running
+## Running locally
+
+*With database*
 
 **In docker container**
 
@@ -55,12 +57,12 @@ The adminer interface will be opened on http://localhost:8080
 
 System - `PostgreSQL`, server - `db`, username and password: `postgres`, database - `tasker_repo`
 
-**In development mode**
+## Development
 
 1. PostgreSQL in docker:
 
 ```bash
-docker-compose up adminer
+docker-compose up -d db
 ```
 
 2. Elixir server:
@@ -80,16 +82,20 @@ iex -S mix
 ```bash
 cd web
 yarn install
-yarn start
+
+# for first run, install git hooks
+yarn prepare
+
+yarn dev
 ```
 
-Or, run script for running commands in `tmux`:
+Or, execute script for running in `tmux`:
 
 ```bash
 ./scripts/dev.sh
 ```
 
-Then open http://localhost:8000
+Then open http://localhost:8080
 
 *See also [`server/README.md`](server/README.md)*
 
