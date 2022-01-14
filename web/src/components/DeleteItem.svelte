@@ -19,13 +19,27 @@
 		opened = false
 	}
 
+	// confirm delete forever
+
+	let confirm = false
+	$: foreverText = confirm ? 'Confirm?' : 'Delete forever'
+	$: {
+		// reset if modal was closed
+		if (!opened) confirm = false
+	}
+
 	// handlers
 
 	function onTrash() {
 		DeleteTask(task.task_id, !task.deleted, true)
 	}
 	function onForever() {
-		DeleteTask(task.task_id, true, false)
+		if (confirm) {
+			DeleteTask(task.task_id, true, false)
+		} else {
+			confirm = true
+			setTimeout(() => (confirm = false), 2000)
+		}
 	}
 </script>
 
@@ -63,7 +77,7 @@
 
 			<div class="dropdown-item">
 				<button class="button is-danger" on:click|stopPropagation={onForever}>
-					Delete forever
+					{foreverText}
 				</button>
 			</div>
 		</div>
