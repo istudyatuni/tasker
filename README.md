@@ -1,12 +1,5 @@
 # Tasker
 
-**How it looks**
-
-<div align="center">
-	<img src="docs/images/main-page_screenshot.png" alt="main-page" width="70%">
-	<img src="docs/images/edit-page_screenshot.png" alt="edit-page" width="70%">
-</div>
-
 ## Try
 
 You can use this in your browser at https://istudyatuni.github.io/tasker. But since GitHub pages is hosting static files, there is no backend, and all data is saved to a local file.
