@@ -1,15 +1,12 @@
 <script context="module">
 	import { settings } from 'src/stores/settings.js'
-	import { filtered as tasks } from 'src/stores/tasks.js'
+	import { filtered as tasks, deleted } from 'src/stores/tasks.js'
 </script>
 
 <script>
-	// except deleted
-	$: finished = $tasks.filter((t) => t.finished && !t.deleted).length
-	$: total = $tasks.filter((t) => !t.deleted).length
+	$: finished = $tasks.filter((t) => t.finished).length
+	$: total = $tasks.length
 	$: finished_percent = Math.round((finished * 100) / total)
-
-	$: deleted = $tasks.filter((t) => t.deleted).length
 </script>
 
 {#if !$settings.show_trash}
@@ -26,5 +23,5 @@
 		{/if}
 	</p>
 {:else}
-	<p class="block">Deleted {deleted}</p>
+	<p class="block">Deleted {$deleted.length}</p>
 {/if}

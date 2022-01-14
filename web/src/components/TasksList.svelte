@@ -16,31 +16,29 @@
 
 <script>
 	// array is empty or all tasks deleted (and trash hidden)
-	$: no_tasks =
-		$tasks.length === 0 ||
-		(!$settings.show_trash && $tasks.every((task) => task.deleted))
+	$: no_tasks = $tasks.length === 0
 
 	// all tasks finished and finished tasks hidden
 	$: all_finished =
 		!$settings.show_finished && $tasks.every((task) => task.finished)
 </script>
 
-{#if no_tasks}
-	<p class="notification is-success">The task list is empty</p>
-{:else if all_finished}
-	<p class="notification is-success">All tasks are finished!</p>
-{:else if $settings.show_trash}
-	<!-- show deleted -->
+{#if $settings.show_trash}
+	<!-- deleted tasks -->
 	{#each $deleted as task (task.task_id)}
 		<div class="box">
 			<TaskItem {task} />
 		</div>
 	{/each}
+{:else if no_tasks}
+	<p class="notification is-success">The task list is empty</p>
+{:else if all_finished}
+	<p class="notification is-success">All tasks are finished!</p>
 {:else}
-	<!-- show tasks -->
+	<!-- not deleted tasks -->
 	{#each $settings.reverse_list ? reverse($tasks) : $tasks as task (task.task_id)}
 		{#if !task.finished || $settings.show_finished}
-			<!-- filter out deleted and finished (if finished tasks hidden) -->
+			<!-- filter out finished (if finished tasks hidden) -->
 			<div class="box">
 				<TaskItem {task} />
 			</div>
