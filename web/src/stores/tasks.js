@@ -57,17 +57,15 @@ export const subjects = derived(tasks,
 	]
 )
 
-// filtered by subject
 export const filtered = derived([tasks, settings],
 	([$tasks, $settings]) => {
 		const sub = $settings.filterSubject
 
-		// if sub === '', skip
-		if (sub) {
-			return $tasks.filter(t => t.subject === sub)
-		} else {
-			return $tasks
-		}
+		// not deleted
+		const $t = $tasks.filter(t => !t.deleted)
+
+		// if sub !== '', filter by subject
+		return sub ? $t.filter(t => t.subject === sub) : $t
 	}
 )
 

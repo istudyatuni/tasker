@@ -39,7 +39,7 @@
 {:else}
 	<!-- show tasks -->
 	{#each $settings.reverse_list ? reverse($tasks) : $tasks as task (task.task_id)}
-		{#if !task.deleted && (!task.finished || $settings.show_finished)}
+		{#if !task.finished || $settings.show_finished}
 			<!-- filter out deleted and finished (if finished tasks hidden) -->
 			<div class="box">
 				<TaskItem {task} />
