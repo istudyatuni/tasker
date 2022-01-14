@@ -17,12 +17,14 @@ jobs:
           node-version: '16'
       - name: Build
         run: |
-          cp docs/tasker-data-example.json web/public
           cd web
           yarn install --frozen-lockfile
           yarn build
-          touch build/.nojekyll
-          echo $GITHUB_SHA > build/version.txt
+
+          cd build
+          cp ../../docs/tasker-data-example.json .
+          touch .nojekyll
+          sed -i "s/local/$GITHUB_SHA/" index.html
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.2
