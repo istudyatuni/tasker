@@ -19,11 +19,11 @@
 <h1 class="title">
 	Tasks
 	{#await promise then version}
-		{#if version !== ''}
+		{#if version}
 			<a
 				href="https://github.com/istudyatuni/tasker"
-				class="link tag is-{tagColor()} is-light is-normal"
-				title={tagTitle()}
+				class="link tag is-{tagColor(version)} is-light is-normal"
+				title={tagTitle(version)}
 				tabindex="0">
 				{sha}
 			</a>
