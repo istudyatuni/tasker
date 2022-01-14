@@ -70,5 +70,5 @@ export const filtered = derived([tasks, settings],
 )
 
 export const deleted = derived(tasks,
-	$tasks =>  $tasks.filter(t => t.deleted)
+	$tasks => $tasks.filter(t => t.deleted)
 )

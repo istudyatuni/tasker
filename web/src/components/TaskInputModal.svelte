@@ -74,7 +74,8 @@
 		</section>
 		<footer class="modal-card-foot is-flex is-justify-content-flex-end">
 			<button class="button" on:click={close}>Cancel</button>
-			<button class="button is-success" on:click={submit}>Save changes</button>
+			<button class="button is-success" disabled={!task.name} on:click={submit}
+				>Save changes</button>
 		</footer>
 	</div>
 </div>
