@@ -17,6 +17,7 @@ jobs:
           node-version: '16'
       - name: Build
         run: |
+          cp docs/tasker-data-example.json web/public
           cd web
           yarn install --frozen-lockfile
           yarn build

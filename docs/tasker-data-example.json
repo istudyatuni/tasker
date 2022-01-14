@@ -1,0 +1,20 @@
+[
+  {
+    "task_id": "20210319081842064780",
+    "subject": "Web development",
+    "other_text": "",
+    "name": "HTML and CSS, intro",
+    "full_name": "Laboratory work 1",
+    "finished": true,
+    "description": "Practice 04 March"
+  },
+  {
+    "task_id": "20210319075440287031",
+    "subject": "Databases",
+    "other_text": "- Part 1. Starting\n- Part 2. Create database",
+    "name": "PostgreSQL",
+    "full_name": "Laboratory work 1",
+    "finished": false,
+    "description": "Lecture 03 March 2021"
+  }
+]

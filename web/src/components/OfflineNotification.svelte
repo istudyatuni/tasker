@@ -16,8 +16,17 @@
 		<p class="block">
 			Couldn't connect to server, work offline, saving data to a file.
 		</p>
-		<button class="button" on:click={openLocalFile}>Open existing file</button>
-		<button class="button" on:click={createLocalFile}>Create a new file</button>
+
+		<div class="is-flex is-justify-content-space-between">
+			<div>
+				<button class="button" on:click={openLocalFile}
+					>Open existing file</button>
+				<button class="button" on:click={createLocalFile}
+					>Create a new file</button>
+			</div>
+			<a href="tasker-data-example.json" class="button" download
+				>Download an example file</a>
+		</div>
 	</div>
 {:else}
 	<div class="mt-2 notification is-danger has-text-white is-size-5">
