@@ -1,5 +1,7 @@
 # Tasker
 
+Super simple web-application for tracking tasks.
+
 ## Try
 
 You can use this in your browser at https://istudyatuni.github.io/tasker. But since GitHub pages is hosting static files, there is no backend, and all data is saved to a local file.
