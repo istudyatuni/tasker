@@ -10,7 +10,7 @@
 			"folder_exclude_patterns": ["_build", "deps"],
 		},
 		{
-			"path": "web/src",
+			"path": "web",
 			"name": "client",
 		},
 	],

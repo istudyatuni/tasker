@@ -5,7 +5,7 @@
 	import Statistics from 'src/components/Statistics.svelte'
 	import TaskInputModal from 'src/components/TaskInputModal.svelte'
 	import TasksList from 'src/components/TasksList.svelte'
-	import Title from 'src/components/Title.svelte';
+	import Title from 'src/components/Title.svelte'
 	import Notification from 'src/components/Notification.svelte'
 	import OfflineNotification from 'src/components/OfflineNotification.svelte'
 
