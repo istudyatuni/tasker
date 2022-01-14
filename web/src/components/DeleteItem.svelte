@@ -93,6 +93,7 @@
 	}
 	.dropdown-trigger {
 		cursor: pointer;
+		fill: gray;
 	}
 	.red,
 	.dropdown-trigger:hover {
