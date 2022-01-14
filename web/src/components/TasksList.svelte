@@ -1,6 +1,6 @@
 <script context="module">
 	import { settings } from 'src/stores/settings.js'
-	import { filtered as tasks } from 'src/stores/tasks.js'
+	import { filtered as tasks, deleted } from 'src/stores/tasks.js'
 
 	import TaskItem from 'src/components/TaskItem.svelte'
 
@@ -31,7 +31,7 @@
 	<p class="notification is-success">All tasks are finished!</p>
 {:else if $settings.show_trash}
 	<!-- show deleted -->
-	{#each $tasks.filter((t) => t.deleted) as task (task.task_id)}
+	{#each $deleted as task (task.task_id)}
 		<div class="box">
 			<TaskItem {task} />
 		</div>
