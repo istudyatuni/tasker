@@ -1,0 +1,1 @@
+import{get as i}from"../../snowpack/pkg/svelte/store.js";import{notifications as o}from"../stores/notifications.js";function s(){o.pop()}const r={info:"info",success:"success",warning:"warning",error:"danger"};export function notify(e,n,t=5e3){i(o).length>0&&s(),o.push({message:e,level:r[n]}),setTimeout(s,t)}

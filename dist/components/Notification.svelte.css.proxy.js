@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t=".notification.svelte-3u9fnk{position:fixed;bottom:1em;right:1em;z-index:41}",e=document.createElement("style"),n=document.createTextNode(t);e.type="text/css",e.appendChild(n),document.head.appendChild(e)}

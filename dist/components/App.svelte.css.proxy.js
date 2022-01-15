@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t="main.svelte-1tkr1ap{padding-bottom:5em}",e=document.createElement("style"),d=document.createTextNode(t);e.type="text/css",e.appendChild(d),document.head.appendChild(e)}

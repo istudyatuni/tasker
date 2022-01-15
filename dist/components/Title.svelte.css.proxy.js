@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t="div.hover.svelte-1nvb9p0.svelte-1nvb9p0{display:inline}div.hover.svelte-1nvb9p0>div.svelte-1nvb9p0{display:none}.hover.svelte-1nvb9p0:hover>div.svelte-1nvb9p0{display:initial;position:relative;bottom:0.25em}",e=document.createElement("style"),n=document.createTextNode(t);e.type="text/css",e.appendChild(n),document.head.appendChild(e)}

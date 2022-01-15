@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "bulma/css/bulma.css": "./bulma/css/bulma.css",
+    "marked": "./marked.js",
+    "svelte-storages": "./svelte-storages.js",
+    "svelte/internal": "./svelte/internal.js",
+    "svelte/store": "./svelte/store.js",
+    "turndown": "./turndown.js"
+  }
+}

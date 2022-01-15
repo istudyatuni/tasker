@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t="button.svelte-agdoev{width:100%}.dropdown.svelte-agdoev{cursor:auto}.dropdown-trigger.svelte-agdoev{cursor:pointer;fill:gray}.red.svelte-agdoev,.dropdown-trigger.svelte-agdoev:hover{fill:red}",e=document.createElement("style"),d=document.createTextNode(t);e.type="text/css",e.appendChild(d),document.head.appendChild(e)}

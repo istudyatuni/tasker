@@ -1,0 +1,1 @@
+function s(t){const e=t.match(/tasker@(\w+)/);return e.length>1?e[1]:""}export async function getVersion(){const t=await fetch("https://api.github.com/repos/istudyatuni/tasker/commits?per_page=1&sha=gh-pages");return t.ok?s((await t.json())[0].commit.message):""}

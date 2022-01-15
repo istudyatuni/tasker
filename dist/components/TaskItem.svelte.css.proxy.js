@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t=".completed-title.svelte-c4fbiz{color:hsl(0, 0%, 60%)}",e=document.createElement("style"),c=document.createTextNode(t);e.type="text/css",e.appendChild(c),document.head.appendChild(e)}

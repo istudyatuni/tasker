@@ -1,0 +1,1 @@
+if(typeof document!="undefined"){const t="code.svelte-hgkj6w{border-radius:2px}",e=document.createElement("style"),d=document.createTextNode(t);e.type="text/css",e.appendChild(d),document.head.appendChild(e)}

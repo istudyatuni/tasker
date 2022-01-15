@@ -1,0 +1,1 @@
+import{get as n}from"../../snowpack/pkg/svelte/store.js";import{settings as e}from"../stores/settings.js";const s={show_finished:!0,show_trash:!1,strict_line_breaks:!0,editor:{state:"close",task:{}},offline:"none",filterSubject:""};export async function initSettings(){const i=n(e);for(let t of Object.keys(s))i[t]===void 0&&e.set(t,s[t])}

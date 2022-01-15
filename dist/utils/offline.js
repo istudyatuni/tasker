@@ -1,0 +1,1 @@
+import{get as t}from"../../snowpack/pkg/svelte/store.js";import{settings as e}from"../stores/settings.js";export function initOffline(){e.set("offline","wait")}export function offlineReady(){e.set("offline","ready")}export function isOffline(){return t(e).offline!=="none"}

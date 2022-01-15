@@ -1,0 +1,1 @@
+import{writable as r}from"../../snowpack/pkg/svelte/store.js";function n(){const{subscribe:s,set:e,update:o}=r([]);return{subscribe:s,set:e,push:t=>o(i=>[...i,t]),pop:()=>o(t=>(t.shift(),t))}}export const notifications=n();
