@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.3",
-    "marked": "^4.0.9"
+    "marked": "^4.0.9",
+    "turndown": "^7.1.1"
   }
 }
