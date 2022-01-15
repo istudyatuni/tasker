@@ -1,3 +1,3 @@
-import { localKeyValueStore } from 'src/stores/localKeyValueStore.js'
+import { localStore } from 'svelte-storages'
 
-export const settings = localKeyValueStore('settings')
+export const settings = localStore('settings')
