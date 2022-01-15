@@ -20,8 +20,6 @@ Links
 mix docs
 ```
 
-See at https://istudyatuni.github.io/tasker
-
 ## OpenAPI documentation
 
 Specification file placed in `docs/openapi.yaml`. For setup swagger-ui, run:
