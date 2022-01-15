@@ -1,3 +1,12 @@
 import TurndownService from 'turndown'
 
-export const turndown = (new TurndownService()).turndown
+const turndownService = new TurndownService({
+	codeBlockStyle: 'fenced',
+	emDelimiter: '*',
+	headingStyle: 'atx',
+	hr: '---',
+})
+
+export function turndown(str) {
+	return turndownService.turndown(str)
+}

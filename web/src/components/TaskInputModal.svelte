@@ -68,7 +68,8 @@
 				label="Detailed description"
 				placeholder={placeholders.other_text}
 				bind:value={task.other_text}
-				big_text>
+				big_text
+				markdown>
 				<span class="icon" slot="after-label">
 					<img src="icons/markdown.svg" title="Markdown is supported" alt="" />
 				</span>
