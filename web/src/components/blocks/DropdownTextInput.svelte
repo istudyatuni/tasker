@@ -28,8 +28,10 @@
 
 			{#if value && show_clear}
 				<!-- clear -->
+				<!-- by default, when you click on block with input, this input
+					is focused, so we prevent it -->
 				<span
-					on:click={clear}
+					on:click|preventDefault={clear}
 					class="icon is-small is-left is-clickable"
 					role="button">
 					<img src="icons/clear.svg" width="15px" height="15px" alt="" />

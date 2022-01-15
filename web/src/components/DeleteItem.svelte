@@ -6,7 +6,7 @@
 	export let task = {}
 
 	let trashActionColor = task.deleted ? 'success' : 'danger'
-	let trashActionText = task.deleted ? 'Restore' : 'Delete to trash'
+	let trashActionText = task.deleted ? 'Restore' : 'Move to trash'
 
 	// toggle modal
 
@@ -51,6 +51,7 @@
 		class="dropdown-trigger"
 		class:red={opened}
 		on:click|stopPropagation={toggleOpen}
+		title="Show delete options"
 		role="button"
 		tabindex="0"
 		aria-haspopup="true"

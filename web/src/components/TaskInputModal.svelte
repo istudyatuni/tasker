@@ -30,6 +30,8 @@
 	$: task = $settings.editor.task
 
 	async function submit() {
+		if (!task.name) return
+
 		const result = await submitter(task)
 		if (result === true) {
 			close()
