@@ -12,7 +12,7 @@
 		required = false,
 		markdown = false
 
-	let convert_html = true
+	let convert_html = false
 
 	function onPaste(e) {
 		if (!convert_html || !markdown || !e.clipboardData) {
@@ -45,7 +45,7 @@
 				bind:value
 				on:paste={onPaste} />
 
-			{#if markdown}
+			{#if false}
 				<SettingCheckbox text="Convert HTML" bind:checked={convert_html} />
 			{/if}
 		{:else}
