@@ -78,9 +78,6 @@ iex -S mix
 cd web
 yarn install
 
-# for first run, install git hooks
-yarn prepare
-
 yarn dev
 ```
 
